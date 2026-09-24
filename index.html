@@ -1,1114 +1,611 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WiseMind · Body First, Words Second · Cape Town Somatic and DBT Recovery Companion</title>
-  <meta name="description" content="A practical space for grounding, recovery, and human connection. Grounded in DBT and Cape Town fellowship support. Zero accounts, offline first.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              ocean: '#0F4D3F',
-              'ocean-light': '#0F766E',
-              'ocean-soft': '#E8F4F1',
-              terracotta: '#CB553D',
-              'terracotta-soft': '#FDEEE9',
-              amber: '#F59E0B',
-              'amber-soft': '#FEF3C7',
-            },
-            bg: {
-              sand: '#FBF9F5',
-              'sand-warm': '#E8E5D9',
-              stone: '#EFECE3',
-              surface: '#FFFFFF',
-              'surface-subtle': '#F6F3EC',
-            },
-            border: {
-              subtle: '#E8E3D7',
-              strong: '#D5CEBD',
-            },
-            text: {
-              ink: '#0B0F14',
-              body: '#334155',
-              muted: '#64748B',
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            serif: ['Source Serif 4', 'Georgia', 'serif'],
-            mono: ['Geist Mono', 'monospace'],
-          }
-        }
-      }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WiseMind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F4;
+    --ink: #141413;
+    --body: #4A4944;
+    --muted: #7A776F;
+    --line: #E7E3D9;
+    --accent: #0F4D3F;
+    --bezel: #0E0E0F;
+    --bezel-edge: #3A3A3C;
+    --app-bg: #F8F6F1;
+    --src-w: 780; /* source screenshot width in px */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  [id] { scroll-margin-top: 76px; }
+  .ch[id], .band[id] { scroll-margin-top: 0; } /* full-bleed sections sit under the translucent nav */
+  body { background: var(--bg); color: var(--body); font: 400 17px/1.6 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; height: auto; } /* width/height attributes reserve space; CSS keeps the aspect ratio */
+
+  body { timeline-scope: --intro; }
+
+  /* Nav: always visible. White over the intro image,
+     ink on the light page. --fg/--inv are registered so they can animate. */
+  @property --fg  { syntax: '<color>'; inherits: true; initial-value: #141413; }
+  @property --inv { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+  @property --nav-bg { syntax: '<color>'; inherits: false; initial-value: transparent; }
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; --fg: var(--ink); --inv: #fff; --nav-bg: color-mix(in srgb, var(--bg) 90%, transparent);
+         backdrop-filter: blur(12px);
+         color: var(--fg); background: var(--nav-bg); }
+  .nav .btn-dark { background: var(--fg); color: var(--inv); }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; align-items: center; gap: 32px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+  .links { display: flex; gap: 28px; font-size: 15px; margin-right: auto; }
+  .links a:hover { opacity: .7; }
+  .btn { display: inline-flex; align-items: center; font-size: 14px; font-weight: 500; padding: 9px 16px; border-radius: 999px; }
+  .nav-help { font-size: 15px; padding: 9px 2px; }
+  .nav-help:hover { opacity: .7; }
+  .btn, .nav-help, .links a { white-space: nowrap; }
+  @media (max-width: 820px) { .links { display: none; } .brand { margin-right: auto; } .nav-inner { gap: 14px; padding: 14px 16px; } .nav-help { font-size: 14px; } .btn { padding: 8px 14px; } }
+
+  /* Intro: triptych that opens into the dawn horizon, then hands over to the light page.
+     Base styles are the settled title card; the motion only exists inside @supports below. */
+  .intro { position: relative; height: 100vh; height: 100svh; view-timeline: --intro block; background: #0d0f10; }
+  .intro-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .intro-sticky::after { content: ''; position: absolute; inset: 0 0 auto; height: 140px; pointer-events: none;
+                         background: linear-gradient(180deg, rgba(8,12,14,.45), transparent); } /* keeps the white nav legible over bright sky */
+  .panel { position: absolute; inset: 0; overflow: hidden; }
+  .panel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .panel-center { clip-path: inset(0 0 0 0); }
+  .panel-center img { object-position: 50% 70%; transform: scale(1.04); }
+  .panel-left  { right: 73%; transform: translateX(-100%); }
+  .panel-left img { object-position: 50% 50%; }
+  .panel-right { left: 69%; transform: translateX(100%); }
+  .panel-right img { object-position: 38% 50%; }
+  .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,12,14,.35) 0%, rgba(8,12,14,.15) 40%, rgba(8,12,14,.55) 100%); }
+  .grain { position: absolute; inset: -50%; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
+           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .opener { position: absolute; left: 0; right: 0; text-align: center; color: #fff; opacity: 0; }
+  .opener { top: 50%; transform: translateY(-50%); font: 400 clamp(26px, 3vw, 40px)/1 'Source Serif 4', Georgia, serif; letter-spacing: -0.01em; text-shadow: 0 1px 20px rgba(0,0,0,.25); }
+  .card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; color: #fff; text-align: center; }
+  .card .kicker { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .85; margin-bottom: 20px; }
+  h1 { padding-bottom: .08em; font: 400 clamp(44px, 7vw, 96px)/1.08 'Source Serif 4', Georgia, serif; letter-spacing: -0.025em; max-width: 12ch; text-shadow: 0 2px 30px rgba(0,0,0,.25); }
+  h1 em { font-style: italic; }
+  .toc { list-style: none; margin-top: clamp(32px, 6vh, 56px); width: min(360px, 100%); font-size: 14px; }
+  .toc a { display: flex; align-items: baseline; gap: 12px; padding: 5px 0; }
+  .toc a::after { content: ''; order: 1; flex: 1; border-bottom: 1px solid rgba(255,255,255,.35); transform: translateY(-4px); }
+  .toc span:last-child { order: 2; }
+  .toc a:hover span:last-child { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Light reading page that follows */
+  .read { max-width: 760px; margin: 0 auto; padding: clamp(80px, 14vh, 140px) 24px 0; }
+  .lede { font: 400 clamp(24px, 2.6vw, 34px)/1.3 'Source Serif 4', Georgia, serif; color: var(--ink); letter-spacing: -0.01em; }
+
+  /* Stage */
+  .stage { position: relative; margin-top: clamp(40px, 7vh, 80px); padding-bottom: 150px; view-timeline: --stage block; }
+  .phones { position: relative; height: calc(var(--w) * 2.36); perspective: 1600px; perspective-origin: 50% 0%;
+            --w: clamp(150px, 24vw, 300px); }
+
+  /* Device: Android flagship proportions (thin even bezel, punch-hole camera), drawn in CSS */
+  .phone {
+    --pad: calc(var(--w) * 0.022);
+    --sw: calc(var(--w) - var(--pad) * 2);       /* screen width */
+    --status: calc(var(--sw) * 0.11);            /* status bar height */
+    position: absolute; top: 0; left: 50%; width: var(--w);
+    transform-style: preserve-3d;
+  }
+  .phone.left  { transform: translateX(calc(-100% - var(--w) * 0.07)); z-index: 2; }
+  .phone.right { transform: translateX(calc(var(--w) * 0.07)); z-index: 1; }
+
+  .frame {
+    position: relative; background: var(--bezel); padding: var(--pad);
+    border-radius: calc(var(--w) * 0.12);
+    box-shadow:
+      inset 0 0 0 1.5px var(--bezel-edge),
+      0 1px 2px rgba(20,20,19,.12),
+      0 12px 24px -10px rgba(20,20,19,.18),
+      0 50px 90px -40px rgba(20,20,19,.38);
+  }
+  /* volume rocker and power key, both on the right edge */
+  .frame::before, .frame::after { content: ''; position: absolute; right: -2px; width: 3px; background: var(--bezel-edge); border-radius: 0 2px 2px 0; }
+  .frame::before { top: 19%; height: 13%; }
+  .frame::after  { top: 36%; height: 7%; }
+  .screen { position: relative; border-radius: calc(var(--w) * 0.1); overflow: hidden; background: var(--app-bg); }
+  .cam { position: absolute; top: calc(var(--sw) * 0.032); left: 50%; transform: translateX(-50%); width: calc(var(--sw) * 0.046); aspect-ratio: 1; background: #050505; border-radius: 50%; z-index: 1;
+         box-shadow: inset 0 0 0 1.5px #1c1c1e; }
+  .status { height: var(--status); display: flex; align-items: center; justify-content: space-between; padding: 0 calc(var(--sw) * 0.065); font: 600 calc(var(--sw) * 0.043)/1 'Inter', sans-serif; color: var(--ink); }
+  .batt { width: calc(var(--sw) * 0.06); height: calc(var(--sw) * 0.03); border: 1.5px solid var(--ink); border-radius: 2px; padding: 1px; }
+  .batt::after { content: ''; display: block; height: 100%; width: 78%; background: var(--ink); border-radius: 1px; }
+  .screen img { display: block; width: 100%; height: auto; }
+  .home-ind { position: absolute; bottom: calc(var(--sw) * 0.016); left: 50%; transform: translateX(-50%); width: 28%; height: 3px; border-radius: 3px; background: var(--ink); opacity: .7; } /* Android gesture bar */
+
+  /* Pulled-out UI: a crop of the same screenshot, lifted in front of the glass */
+  .pull {
+    --x: 0; --y: 0; --cw: 0; --ch: 0; --r: 36;   /* crop box, in source px */
+    position: absolute;
+    left: calc(var(--pad) + var(--sw) * var(--x) / var(--src-w));
+    top:  calc(var(--pad) + var(--status) + var(--sw) * var(--y) / var(--src-w));
+    width:  calc(var(--sw) * var(--cw) / var(--src-w));
+    height: calc(var(--sw) * var(--ch) / var(--src-w));
+    z-index: 3;
+  }
+  .pull-card {
+    width: 100%; height: 100%;
+    border-radius: calc(var(--sw) * var(--r) / var(--src-w));
+    background-image: var(--img);
+    background-size: var(--sw) auto;
+    background-position:
+      calc(var(--sw) * var(--x) / var(--src-w) * -1)
+      calc(var(--sw) * var(--y) / var(--src-w) * -1);
+    transform: translate3d(var(--dx), -6%, 60px) scale(1.12);
+    box-shadow: 0 2px 4px rgba(20,20,19,.06), 0 18px 40px -12px rgba(20,20,19,.28), 0 40px 80px -30px rgba(15,77,63,.22);
+  }
+  .left  .pull { --x: 40; --y: 514; --cw: 700; --ch: 244; --img: url(assets/screens/01-home.webp); --dx: -14%; }
+  .right .pull { --x: 40; --y: 558; --cw: 700; --ch: 156; --img: url(assets/screens/13-meetings-today.webp); --dx: 12%; }
+
+  .store { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 56px; }
+  .badge { display: inline-flex; align-items: center; gap: 10px; background: #111; color: #fff; border-radius: 10px; padding: 8px 22px; box-shadow: inset 0 0 0 1px #a6a6a6; }
+  .badge.soon { cursor: default; }
+  .badge small { display: block; font-size: 10px; line-height: 1.1; letter-spacing: .06em; opacity: .9; }
+  .badge strong { display: block; font-size: 20px; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
+  .store p { font-size: 13px; color: var(--muted); }
+
+  /* Scroll-driven motion: native, off the main thread. Base styles above ARE the settled state,
+     so unsupported browsers and reduced-motion users simply see the finished composition. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .phones .phone { animation: var(--rise) linear both; animation-timeline: --stage; animation-range: cover 8% cover 42%; }
+      .phone.left  { --rise: rise-left; }
+      .phone.right { --rise: rise-right; }
+      .pull-card { animation: lift linear both; animation-timeline: --stage; animation-range: cover 30% cover 46%; }
+      .pull { animation: drift linear both; animation-timeline: --stage; animation-range: cover 40% exit 100%; }
+      .store { animation: appear linear both; animation-timeline: --stage; animation-range: cover 32% cover 44%; }
     }
-  </script>
-  <link rel="stylesheet" href="styles.css">
+  }
+  @keyframes rise-left {
+    from { transform: translateX(-70%) translateY(30%) rotateX(34deg) rotateZ(-6deg) scale(.9); }
+    to   { transform: translateX(calc(-100% - var(--w) * 0.07)) translateY(0) rotateX(0) rotateZ(0) scale(1); }
+  }
+  @keyframes rise-right {
+    from { transform: translateX(-30%) translateY(40%) rotateX(34deg) rotateZ(6deg) scale(.9); }
+    to   { transform: translateX(calc(var(--w) * 0.07)) translateY(0) rotateX(0) rotateZ(0) scale(1); }
+  }
+  @keyframes lift {
+    from { transform: translate3d(0, 0, 0) scale(1); box-shadow: none; }
+  }
+  @keyframes drift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(calc(var(--w) * -0.18)); }
+  }
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(16px); }
+  }
+
+
+  /* Intro motion: 300vh of scroll, the image is pinned while it opens */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .intro { height: 300vh; }
+      .intro [class^="panel"], .opener, .scrim, .card { animation-timeline: --intro; animation-fill-mode: both; animation-timing-function: linear; }
+      .opener { animation-name: fade-out; animation-range: contain 0% contain 12%; }
+      .panel-center { animation-name: open-center; animation-range: contain 3% contain 50%; }
+      .panel-left   { animation-name: out-left;    animation-range: contain 3% contain 50%; }
+      .panel-right  { animation-name: out-right;   animation-range: contain 3% contain 50%; }
+      .scrim { animation-name: fade-in; animation-range: contain 30% contain 60%; }
+      .card  { animation-name: card-in; animation-range: contain 45% contain 72%; }
+      .nav { animation: nav-tone linear both; animation-timeline: --intro; animation-range: exit 88% exit 98%; }
+    }
+  }
+  @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes fade-in  { from { opacity: 0; } }
+  @keyframes open-center { from { clip-path: inset(0 31% 0 27%); } to { clip-path: inset(0 4.5% 0 4.5%); } }
+  @keyframes out-left  { from { transform: translateX(0); } to { transform: translateX(-83%); } }
+  @keyframes out-right { from { transform: translateX(0); } to { transform: translateX(85%); } }
+  @keyframes card-in { from { opacity: 0; transform: translateY(28px); } }
+  @keyframes nav-tone {
+    from { --fg: #fff; --inv: #141413; --nav-bg: transparent; backdrop-filter: blur(0); }
+  }
+
+  /* Editorial sections */
+  .sec { max-width: 1200px; margin: 0 auto; padding: clamp(96px, 14vh, 160px) 24px; border-top: 1px solid var(--line); }
+  h2 { font: 400 clamp(40px, 5.2vw, 72px)/1.04 'Source Serif 4', Georgia, serif; color: var(--ink); letter-spacing: -0.02em; }
+  h3 { font: 400 clamp(28px, 2.6vw, 38px)/1.1 'Source Serif 4', Georgia, serif; color: var(--ink); letter-spacing: -0.015em; }
+  .meta { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .meta li { font-size: 13px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; }
+  .phone.solo { --w: clamp(220px, 22vw, 290px); position: relative; left: auto; top: auto; transform: none; }
+
+  .band { position: relative; isolation: isolate; height: clamp(360px, 70vh, 720px); overflow: hidden; display: flex; align-items: flex-end; }
+  .band img { position: absolute; inset: -10% 0; width: 100%; height: 120%; object-fit: cover; }
+  .band .grain { inset: 0; }
+  .band::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(8,12,14,.6)); }
+  .band p { position: relative; z-index: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 24px 56px; color: #fff;
+            font: 400 clamp(36px, 5vw, 68px)/1.05 'Source Serif 4', Georgia, serif; letter-spacing: -0.02em; }
+  .band p em { font-style: italic; }
+  .principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .principles div { border-top: 1px solid var(--ink); padding-top: 20px; }
+  .principles-intro { max-width: 36em; font: 400 clamp(22px, 2.2vw, 30px)/1.35 'Source Serif 4', Georgia, serif; color: var(--ink); margin-bottom: clamp(48px, 8vh, 88px); }
+  .principles h4 { font: 400 24px/1.15 'Source Serif 4', Georgia, serif; color: var(--ink); margin-bottom: 12px; }
+  .principles p { font-size: 15px; }
+  a.inline { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
+  a.inline:hover { color: var(--accent); text-decoration-color: currentColor; }
+
+  .support { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+  .support .sub { margin-top: 20px; max-width: 26em; font-size: clamp(17px, 1.4vw, 19px); }
+  .numbers { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 48px); }
+  .numbers li { display: flex; flex-direction: column; gap: 6px; }
+  .numbers span { font-size: 14px; color: var(--muted); }
+  .numbers a { font: 400 clamp(30px, 3vw, 44px)/1.05 'Source Serif 4', Georgia, serif; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap;
+               text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; transition: color .2s, text-decoration-color .2s; }
+  .numbers a:hover { color: var(--accent); text-decoration-color: currentColor; }
+  .numbers small { font-size: 13px; color: var(--muted); }
+  .faq-title { margin-bottom: clamp(32px, 5vh, 56px); }
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 24px; padding: 24px 0;
+                 font: 400 clamp(20px, 1.8vw, 24px)/1.3 'Source Serif 4', Georgia, serif; color: var(--ink); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; font-family: 'Inter'; color: var(--muted); transition: transform .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding: 0 0 28px; max-width: 42em; }
+
+  .get { text-align: center; }
+  .get h2 { max-width: 12ch; margin: 0 auto; }
+  .get h2 em { font-style: italic; }
+  .get .sub { margin: 24px auto 0; max-width: 30em; }
+  .get img { display: block; width: min(720px, 100%); height: auto; margin: 48px auto 0; }
+  .get .store { margin-top: 24px; }
+
+  footer { background: #ECE8DF; }
+  .foot { max-width: 1200px; margin: 0 auto; padding: 72px 24px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1.2fr; gap: 48px; font-size: 14px; }
+  .foot h5 { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .foot ul { list-style: none; } .foot li { padding: 4px 0; }
+  .foot .brand { color: var(--ink); margin-bottom: 14px; }
+  .foot .motto { font: italic 400 20px/1.3 'Source Serif 4', Georgia, serif; color: var(--ink); margin-top: 24px; }
+  .foot a:hover { color: var(--ink); }
+  .foot-lines li { display: flex; justify-content: space-between; gap: 16px; }
+  .foot-lines a { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .legal { max-width: 1200px; margin: 0 auto; padding: 20px 24px 32px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 820px) {
+    .support, .foot { grid-template-columns: 1fr; }
+      .principles { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) { .principles, .numbers { grid-template-columns: 1fr; } }
+
+  /* Full-bleed chapters: each app shot gets its own composition */
+  /* Full-bleed chapters sit as inset panels: a gap between photos instead of hard seams, and a clean edge for the phones to bleed off */
+  .ch, .band { --gutter: clamp(8px, 1.1vw, 16px); margin: var(--gutter) var(--gutter) 0; border-radius: clamp(20px, 2.2vw, 32px); }
+  .ch + .sec, .band + .sec { margin-top: 0; }
+  .ch { position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh; color: var(--ch-fg, #fff); background: var(--ch-bg, #0d0f10);
+        view-timeline: --ch block; isolation: isolate; }
+  .ch-photo { position: absolute; inset: 0; z-index: -2; }
+  .ch-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ch-photo::after { content: ''; position: absolute; inset: 0; background: var(--ch-scrim, linear-gradient(180deg, rgba(8,12,14,.55), rgba(8,12,14,.15) 45%, rgba(8,12,14,.35))); }
+  .ch > .grain { z-index: -1; inset: 0; }
+  .ch-inner { position: relative; max-width: 1280px; min-height: inherit; margin: 0 auto; padding: clamp(96px, 16vh, 160px) 24px 0;
+              display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(24px, 5vw, 80px); }
+  .ch-copy { align-self: start; max-width: 32em; position: relative; z-index: 4; }
+  .ch-copy h3 { font: 400 clamp(48px, 7vw, 108px)/.98 'Source Serif 4', Georgia, serif; letter-spacing: -0.03em; color: inherit; }
+  .ch-copy h3 em { font-style: italic; }
+  .ch-copy strong { font-weight: 600; }
+  .ch-copy p { margin-top: 22px; font-size: clamp(17px, 1.4vw, 19px); max-width: 28em; opacity: .9; }
+  .ch .meta li { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); color: inherit; backdrop-filter: blur(8px); }
+  .ch-device { --w: clamp(240px, 27vw, 380px); align-self: end; position: relative; z-index: 3; margin-bottom: calc(var(--w) * -0.9); }
+  .ch-device .phone.solo { --w: inherit; }
+  .ch-device .frame { box-shadow: inset 0 0 0 1.5px var(--bezel-edge), 0 60px 120px -40px rgba(0,0,0,.55), 0 20px 40px -20px rgba(0,0,0,.4); }
+
+  /* Lifted UI: a crop of the screenshot floated off the phone */
+  .lift { --k: 1; position: absolute; z-index: 5;
+          left: calc(var(--pad) + var(--sw) * var(--x) / var(--src-w));
+          top:  calc(var(--pad) + var(--status) + var(--sw) * var(--y) / var(--src-w));
+          width: calc(var(--sw) * var(--cw) / var(--src-w)); height: calc(var(--sw) * var(--ch) / var(--src-w));
+          translate: calc(var(--tx, 0%) * var(--k)) calc(var(--ty, 0%) * var(--k)); }
+  .lift-card { width: 100%; height: 100%; scale: var(--s, 1.15);
+               border-radius: var(--round, calc(var(--sw) * 36 / var(--src-w)));
+               background: var(--img) no-repeat; background-size: var(--sw) auto;
+               background-position: calc(var(--sw) * var(--x) / var(--src-w) * -1) calc(var(--sw) * var(--y) / var(--src-w) * -1);
+               box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 30px 60px -20px rgba(0,0,0,.45); }
+
+  /* the gap left behind on the screen, so the lifted piece reads as removed rather than copied */
+  .hole { position: absolute; z-index: 2;
+          left: calc(var(--sw) * var(--x) / var(--src-w)); top: calc(var(--status) + var(--sw) * var(--y) / var(--src-w));
+          width: calc(var(--sw) * var(--cw) / var(--src-w)); height: calc(var(--sw) * var(--ch) / var(--src-w));
+          border-radius: var(--round, calc(var(--sw) * 36 / var(--src-w)));
+          background: #EFECE5; box-shadow: inset 0 3px 10px rgba(20,20,19,.08); }
+  /* 1 · Breathing: colour field, the circle breathes 4-4-6 */
+  .ch-breath { --ch-bg: #DCE7E2; --ch-fg: var(--ink); }
+  .ch-breath .meta li { background: rgba(255,255,255,.6); border-color: rgba(15,77,63,.15); }
+  .ch-breath :is(.lift, .hole) { --x: 126; --y: 198; --cw: 526; --ch: 527; --round: 50%; --img: url(assets/screens/20-breathing-running.webp); --tx: -118%; --ty: 18%; --s: 1.3; }
+  .ch-breath .glow { position: absolute; z-index: -1; width: 60vw; aspect-ratio: 1; right: -10vw; bottom: -20vw; border-radius: 50%;
+                     background: radial-gradient(closest-side, rgba(255,255,255,.75), transparent); }
+
+  /* 2 · Urge surfing: the wave photo, centred */
+  .ch-urge { --ch-scrim: linear-gradient(180deg, rgba(6,14,16,.7), rgba(6,14,16,.35) 50%, rgba(6,14,16,.6)); }
+  .ch-urge .ch-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .ch-urge .ch-copy p { margin-left: auto; margin-right: auto; }
+  .ch-urge .meta { justify-content: center; }
+  .ch-urge :is(.lift, .hole) { --x: 150; --y: 212; --cw: 483; --ch: 488; --round: 50%; --img: url(assets/screens/24-urge-running.webp); --tx: 88%; --ty: 34%; --s: 1.15; }
+
+  /* 3 · Cold reset: mirrored */
+  .ch-cold { --ch-scrim: linear-gradient(90deg, rgba(10,16,20,.15), rgba(10,16,20,.55) 70%); }
+  .ch-cold .ch-inner { grid-template-columns: auto minmax(0, 1fr); }
+  .ch-cold .ch-device { order: -1; }
+  .ch-cold .ch-copy { justify-self: end; }
+  .ch-cold :is(.lift, .hole) { --x: 169; --y: 657; --cw: 442; --ch: 442; --round: 50%; --img: url(assets/screens/28-cold-countdown.webp); --tx: 78%; --ty: -46%; --s: 1.2; }
+
+  /* 4 · Skills: sand field, a strip of screens that slides with scroll */
+  .ch-skills { --ch-bg: #EFE7D8; --ch-fg: var(--ink); min-height: 0; padding-bottom: 0; }
+  .ch-skills .ch-inner { grid-template-columns: 1fr; min-height: 0; padding-bottom: clamp(48px, 8vh, 80px); }
+  .ch-skills .meta li { background: rgba(255,255,255,.6); border-color: var(--line); }
+  .strip { display: flex; gap: clamp(20px, 3vw, 44px); width: max-content; padding: 0 6vw; margin-bottom: calc(clamp(200px, 20vw, 280px) * -0.55); }
+  .strip .phone.solo { --w: clamp(200px, 20vw, 280px); }
+  .strip .phone:nth-child(even) { margin-top: clamp(40px, 6vw, 96px); }
+
+  /* 5 · Meetings: Table Mountain, floating details */
+  .ch-meet { --ch-scrim: linear-gradient(180deg, rgba(8,12,14,.5), rgba(8,12,14,.05) 45%, rgba(8,12,14,.3)); }
+  /* phone sits in a middle column so the lit hall stays visible on the right */
+  .ch-meet .ch-inner { grid-template-columns: minmax(0, 1fr) auto clamp(0px, 17vw, 300px); }
+  .ch-meet .ch-copy h3 { font-size: clamp(48px, 5.6vw, 88px); }
+  .ch-meet .ch-copy p { max-width: 19em; }
+  .ch-meet :is(.lift, .hole).card-a { --x: 43; --y: 654; --cw: 694; --ch: 418; --img: url(assets/screens/15-meeting-detail-sheet.webp); --tx: -4%; --ty: -40%; --s: 1.06; }
+  .ch-meet :is(.lift, .hole).card-b { --x: 43; --y: 1099; --cw: 694; --ch: 111; --round: calc(var(--sw) * 28 / var(--src-w)); --img: url(assets/screens/15-meeting-detail-sheet.webp); --tx: -24%; --ty: 60%; --s: 1.06; }
+
+  .sec-slim { max-width: 1280px; margin: 0 auto; padding: clamp(96px, 14vh, 150px) 24px clamp(56px, 8vh, 88px); border-top: 1px solid var(--line); }
+  .sec-slim .sub { margin-top: 24px; max-width: 40em; font-size: clamp(17px, 1.4vw, 19px); }
+
+  @media (max-width: 820px) {
+    .ch-inner, .ch-cold .ch-inner, .ch-meet .ch-inner { grid-template-columns: 1fr; justify-items: center; }
+    .ch-cold .ch-device { order: 0; }
+    .ch-cold .ch-copy { justify-self: start; }
+    .ch-device { margin-top: 48px; }
+    .ch, .ch-inner { min-height: 0; }            /* phone follows the copy instead of floating at the bottom of a tall panel */
+    .ch-inner { padding-top: 72px; }
+    .lift { --k: .32; }
+    .ch-breath .lift { --k: .12; }
+    .sec-slim { grid-template-columns: 1fr; }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .ch-photo img { animation: settle linear both; animation-timeline: --ch; animation-range: cover 0% cover 100%; }
+      .ch-device > .phone { animation: rise-in linear both; animation-timeline: --ch; animation-range: entry 10% cover 50%; }
+      .lift { animation: drift-y linear both; animation-timeline: --ch; animation-range: cover 0% cover 100%; }
+      .strip { animation: slide linear both; animation-timeline: --ch; animation-range: cover 0% cover 100%; }
+        }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ch-breath .lift-card { animation: breathe 14s ease-in-out infinite; }
+    }
+  @keyframes settle  { from { transform: scale(1.14); } to { transform: scale(1); } }
+  @keyframes rise-in { from { transform: translateY(18%); } }
+  @keyframes drift-y { from { transform: translateY(60px); } to { transform: translateY(-60px); } }
+  @keyframes slide   { from { transform: translateX(8vw); } to { transform: translateX(calc(-100% + 80vw)); } }
+  @keyframes breathe { 0% { transform: scale(1); } 28.6% { transform: scale(1.14); } 57.2% { transform: scale(1.14); } 100% { transform: scale(1); } }
+
+  /* Section reveals and band parallax, scroll-driven like the hero */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { animation: appear linear both; animation-timeline: view(); animation-range: entry 5% entry 45%; }
+      .band img { animation: parallax linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    }
+  }
+  @keyframes parallax { from { transform: translateY(-8%); } to { transform: translateY(8%); } }
+</style>
 </head>
-<body class="bg-bg-sand text-text-body antialiased selection:bg-brand-ocean selection:text-white relative min-h-screen">
-
-  <!-- Top Emergency Ribbon -->
-  <aside class="bg-[#142621] text-white text-xs py-2 px-4 border-b border-brand-ocean/30 relative z-50" aria-label="Crisis Helplines">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
-        <span class="font-medium text-emerald-100">South Africa Immediate Support:</span>
-        <span class="text-stone-300">Dial <strong class="text-white">112</strong> or WhatsApp <strong class="text-white">+27 87 654 3210</strong></span>
-      </div>
-      <div class="flex items-center gap-4 text-stone-300">
-        <span class="hidden md:inline">Cipla 24hr Line: <strong class="text-white">0800 456 789</strong></span>
-        <button id="open-crisis-top" class="text-amber-300 hover:text-amber-200 font-semibold underline underline-offset-2 transition-colors">
-          View all helplines
-        </button>
-      </div>
-    </div>
-  </aside>
-
-  <main id="top" class="overflow-hidden">
-    <!-- HERO SECTION: FULL-BLEED CAPE TOWN COASTAL PANORAMA -->
-    <section class="hero-coastal-wrapper relative min-h-[95dvh] flex flex-col justify-between pt-3 pb-24 px-4 sm:px-6 lg:px-8 text-white">
-      <!-- High-res Cape Town Coastal Landscape Photo -->
-      <img src="assets/capetown-coastal.jpg" alt="Cape Town coastal ocean landscape" class="hero-coastal-bg" loading="eager">
-      <!-- Dark Ocean Vignette Gradient Mask -->
-      <div class="hero-coastal-gradient"></div>
-      <!-- Soft Bottom Blend into Warm Sand Surface -->
-      <div class="hero-bottom-blend"></div>
-
-      <!-- Navigation Bar inside Coastal Header -->
-      <header class="relative z-30 max-w-7xl mx-auto w-full pt-3 pb-2">
-        <nav class="flex items-center justify-between gap-4 py-2 text-white" aria-label="Main Navigation">
-          <!-- Brand Logo & Dialectical Mark -->
-          <a href="#top" class="flex items-center gap-3 group focus-visible:outline-none" aria-label="WiseMind Home">
-            <div class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center font-bold text-sm shadow-sm group-hover:bg-white/30 transition-all">
-              W
-            </div>
-            <div class="flex flex-col">
-              <span class="font-bold text-lg tracking-tight text-white leading-tight">WiseMind</span>
-              <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-200/80">Cape Town</span>
-            </div>
-          </a>
-
-          <!-- Desktop Navigation Links -->
-          <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-emerald-100/90">
-            <a href="#tools" class="hover:text-white transition-colors">Somatic Tools</a>
-            <a href="#idea" class="hover:text-white transition-colors">Biological Rationale</a>
-            <a href="#skills" class="hover:text-white transition-colors">DBT Skills</a>
-            <a href="#human-side" class="hover:text-white transition-colors">Cape Town Fellowship</a>
-            <a href="#principles" class="hover:text-white transition-colors">Principles</a>
-            <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="flex items-center gap-3">
-            <a href="#tools" class="hidden md:inline-flex text-xs font-semibold text-white/90 hover:text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-all">
-              Explore the app
-            </a>
-            <button id="open-breathing-pill" class="btn-tactile hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-emerald-950 bg-emerald-100/95 hover:bg-white px-3.5 py-2 rounded-full border border-white/40 shadow-sm transition-all">
-              <span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping" aria-hidden="true"></span>
-              Try 4 4 6 Breath
-            </button>
-            <button id="open-crisis-nav" class="btn-tactile inline-flex items-center gap-2 text-xs font-bold text-white bg-brand-terracotta hover:bg-[#B74630] px-4 py-2 rounded-full shadow-md transition-all">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              Need Help Now
-            </button>
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="lg:hidden p-2 text-white hover:text-emerald-200 rounded-lg" aria-label="Toggle navigation menu" aria-expanded="false">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-        </nav>
-
-        <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden mt-2 p-5 bg-[#13382F]/95 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl space-y-4 text-white">
-          <div class="flex flex-col space-y-3 text-sm font-medium">
-            <a href="#tools" class="mobile-nav-link py-1 hover:text-emerald-200">Somatic Tools</a>
-            <a href="#idea" class="mobile-nav-link py-1 hover:text-emerald-200">Biological Rationale</a>
-            <a href="#skills" class="mobile-nav-link py-1 hover:text-emerald-200">DBT Skills</a>
-            <a href="#human-side" class="mobile-nav-link py-1 hover:text-emerald-200">Cape Town Fellowship</a>
-            <a href="#principles" class="mobile-nav-link py-1 hover:text-emerald-200">Principles</a>
-            <a href="#faq" class="mobile-nav-link py-1 hover:text-emerald-200">FAQ</a>
-          </div>
-          <div class="pt-3 border-t border-white/15 flex flex-col gap-2">
-            <button id="open-breathing-mobile" class="w-full text-center py-2.5 text-xs font-semibold text-emerald-950 bg-emerald-100 rounded-full">
-              Practice 4 4 6 Paced Breathing
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <div class="max-w-7xl mx-auto w-full relative z-20 my-auto py-8 lg:py-14">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          <!-- Left Column: Display Headline, Eyebrow, Subtitle, Dual CTAs -->
-          <div class="lg:col-span-6 space-y-6">
-            <div class="inline-block text-xs font-mono font-bold tracking-widest text-emerald-200/90 uppercase">
-              BODY FIRST, WORDS SECOND.
-            </div>
-
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.04]">
-              Real tools <br>
-              for hard <br>
-              moments.
-            </h1>
-
-            <p class="text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-lg">
-              A safe, practical space for grounding, recovery and connection.
-            </p>
-
-            <!-- Dual Pill Buttons (Matching reference mockup) -->
-            <div class="flex flex-wrap items-center gap-4 pt-2">
-              <a href="#tools" class="btn-tactile inline-flex items-center gap-2 bg-white text-text-ink font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-stone-100 shadow-xl transition-all">
-                <span>Explore WiseMind</span>
-                <span class="text-base font-bold">↓</span>
-              </a>
-              <a href="#idea" class="btn-tactile inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white font-semibold text-sm px-6 py-3.5 rounded-full border border-white/30 backdrop-blur-md transition-all">
-                <span>See how it works</span>
-              </a>
-            </div>
-
-            <!-- Trust Badges -->
-            <div class="pt-4 flex flex-wrap items-center gap-6 text-xs text-emerald-200/80 font-mono">
-              <span class="flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Zero Accounts Required
-              </span>
-              <span class="flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                Offline First Architecture
-              </span>
-              <span class="flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Cape Town Sourced Data
-              </span>
-            </div>
-          </div>
-
-          <!-- Right Column: Creative 3-Screen Device Cascade -->
-          <div class="lg:col-span-6 relative flex flex-col items-center justify-center">
-            
-            <!-- Deck Quick Tabs for Tap-to-Focus -->
-            <div class="flex items-center justify-center gap-2 mb-6 z-30">
-              <button id="tab-deck-sanctuary" class="deck-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-brand-ocean shadow-md transition-all">
-                1. Daily Sanctuary
-              </button>
-              <button id="tab-deck-breathing" class="deck-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all">
-                2. Paced Breathing
-              </button>
-              <button id="tab-deck-meetings" class="deck-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all">
-                3. Cape Town Meetings
-              </button>
-            </div>
-
-            <!-- The Cascaded Phones Stage -->
-            <div class="relative w-full max-w-[500px] h-[550px] sm:h-[620px] flex items-center justify-center">
-              
-              <!-- Card 2: Paced Breathing (Upper Right / Behind) -->
-              <div id="deck-card-breathing" class="hero-clean-phone absolute w-[240px] sm:w-[280px] cursor-pointer transition-spring"
-                   style="transform: translate(24%, -4%) rotate(7deg); z-index: 10; opacity: 0.94;">
-                <img src="light/20-breathing-running.png" alt="Paced Breathing 4 4 6 Tool" loading="lazy">
-                <!-- Pinned 'In The Moment' Callout Badge (Matching reference image) -->
-                <div class="hero-moment-badge absolute -bottom-3 right-1 p-3 text-text-ink max-w-[190px] z-30">
-                  <div class="text-[9px] font-mono font-bold uppercase tracking-wider text-brand-terracotta">IN THE MOMENT</div>
-                  <div class="text-[11px] font-bold leading-tight mt-0.5">Practical support, without the noise.</div>
-                </div>
-              </div>
-
-              <!-- Card 3: Cape Town Meetings (Foreground Left / Offset) -->
-              <div id="deck-card-meetings" class="hero-clean-phone absolute w-[230px] sm:w-[270px] cursor-pointer transition-spring"
-                   style="transform: translate(-30%, 14%) rotate(-6deg); z-index: 15; opacity: 0.94;">
-                <img src="light/13-meetings-today.png" alt="Cape Town Local Meetings Directory" loading="lazy">
-                <!-- Pinned 'Fellowship' Callout Badge -->
-                <div class="hero-moment-badge absolute -bottom-3 left-1 p-3 text-text-ink max-w-[190px] z-30">
-                  <div class="text-[9px] font-mono font-bold uppercase tracking-wider text-brand-ocean">CAPE TOWN FELLOWSHIP</div>
-                  <div class="text-[11px] font-bold leading-tight mt-0.5">Verified in person & online.</div>
-                </div>
-              </div>
-
-              <!-- Card 1: Daily Sanctuary (Center Anchor / Spotlight) -->
-              <div id="deck-card-sanctuary" class="hero-clean-phone absolute w-[260px] sm:w-[300px] cursor-pointer transition-spring"
-                   style="transform: translate(0%, 0%) rotate(1deg); z-index: 25; opacity: 1;">
-                <img src="light/01-home.png" alt="Daily Sanctuary Home Screen with tools and check in" loading="eager">
-              </div>
-
-            </div>
-
-            <p class="text-xs text-emerald-200/70 text-center mt-6 font-mono">
-              Click any device to spotlight it into full focus.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 2: IN THE MOMENT (SOMATIC PROTOCOLS) -->
-    <section id="tools" class="py-24 bg-white border-y border-border-subtle relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Section Header -->
-        <div class="max-w-3xl mb-16 reveal-on-scroll">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-ocean-soft text-brand-ocean text-xs font-semibold mb-4">
-            <span>Stage 1: Physiological Interventions</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
-            In the moment. <br>
-            <span class="font-serif italic font-normal text-brand-ocean">Practical support, without the noise.</span>
-          </h2>
-          <p class="text-lg text-text-body leading-relaxed">
-            Distress lives in the heart rate, the diaphragm, and the autonomic nervous system. You cannot talk yourself out of an adrenaline flood. These three somatic practices intervene at the physical level first.
-          </p>
-        </div>
-
-        <!-- Interactive Switcher & Device Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <!-- Left Column: Tool Selectors -->
-          <div class="lg:col-span-6 space-y-4">
-            <!-- Tool 1: Paced Breathing -->
-            <button class="tool-switcher-card w-full text-left p-6 rounded-3xl border-2 border-brand-ocean bg-brand-ocean-soft/40 transition-all cursor-pointer relative" data-tool="breathing" data-img="light/20-breathing-running.png">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-brand-ocean text-white">01</span>
-                    <h3 class="text-xl font-bold text-text-ink">Paced Breathing (4 4 6)</h3>
-                  </div>
-                  <p class="text-sm text-text-body leading-relaxed mb-3">
-                    Prolongs exhalation to physically stimulate the vagus nerve. Forces heart rate deceleration and de escalates acute fight or flight arousal within minutes.
-                  </p>
-                  <div class="flex items-center gap-4 text-xs font-mono text-brand-ocean font-semibold">
-                    <span>Inhale 4s</span>
-                    <span>·</span>
-                    <span>Hold 4s</span>
-                    <span>·</span>
-                    <span>Exhale 6s</span>
-                  </div>
-                </div>
-                <div class="w-10 h-10 rounded-full bg-brand-ocean text-white flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 3v18M3 12h18"/>
-                  </svg>
-                </div>
-              </div>
-            </button>
-
-            <!-- Tool 2: Urge Surfing -->
-            <button class="tool-switcher-card w-full text-left p-6 rounded-3xl border border-border-subtle bg-white hover:border-brand-ocean/40 transition-all cursor-pointer relative" data-tool="urge" data-img="light/24-urge-running.png">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-border-strong text-text-ink">02</span>
-                    <h3 class="text-xl font-bold text-text-ink">Urge Surfing</h3>
-                  </div>
-                  <p class="text-sm text-text-body leading-relaxed mb-3">
-                    Craving impulses peak like ocean waves, crested at ten minutes before decaying. Visualizes bodily sensation without giving in to compulsive reaction.
-                  </p>
-                  <div class="flex items-center gap-4 text-xs font-mono text-text-muted">
-                    <span>Wave Progression</span>
-                    <span>·</span>
-                    <span>Somatic Tracking</span>
-                    <span>·</span>
-                    <span>No Action</span>
-                  </div>
-                </div>
-                <div class="w-10 h-10 rounded-full bg-bg-surface-subtle text-text-muted flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M2 12c3-3 6-3 9 0s6 3 9 0"/>
-                  </svg>
-                </div>
-              </div>
-            </button>
-
-            <!-- Tool 3: Cold Water Immersion -->
-            <button class="tool-switcher-card w-full text-left p-6 rounded-3xl border border-border-subtle bg-white hover:border-brand-ocean/40 transition-all cursor-pointer relative" data-tool="cold" data-img="light/28-cold-countdown.png">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-border-strong text-text-ink">03</span>
-                    <h3 class="text-xl font-bold text-text-ink">Cold Water Immersion (TIPP)</h3>
-                  </div>
-                  <p class="text-sm text-text-body leading-relaxed mb-3">
-                    Cold water applied to the facial temples activates the mammalian dive reflex, dropping the pulse 10 to 25 beats per minute automatically.
-                  </p>
-                  <div class="flex items-center gap-4 text-xs font-mono text-text-muted">
-                    <span>30s Immersion</span>
-                    <span>·</span>
-                    <span>Dive Reflex</span>
-                    <span>·</span>
-                    <span>Immediate Drop</span>
-                  </div>
-                </div>
-                <div class="w-10 h-10 rounded-full bg-bg-surface-subtle text-text-muted flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                  </svg>
-                </div>
-              </div>
-            </button>
-
-            <!-- Interactive Breath Trigger Banner -->
-            <div class="p-5 rounded-2xl bg-[#F4F9F7] border border-brand-ocean/20 flex items-center justify-between gap-4">
-              <div>
-                <p class="text-sm font-bold text-brand-ocean">Want to test the rhythm right now?</p>
-                <p class="text-xs text-text-body">Experience an interactive 4 4 6 breath cycle directly in your browser.</p>
-              </div>
-              <button id="open-breathing-interactive" class="btn-tactile shrink-0 px-4 py-2.5 rounded-full bg-brand-ocean text-white text-xs font-semibold shadow-sm hover:bg-brand-ocean-light transition-all">
-                Start Breath
-              </button>
-            </div>
-          </div>
-
-          <!-- Right Column: Interactive Phone Preview -->
-          <div class="lg:col-span-6 flex justify-center">
-            <div class="relative w-[300px] sm:w-[340px] reveal-on-scroll">
-              <div class="phone-mockup">
-                <img id="tool-display-img" src="light/20-breathing-running.png" alt="Interactive display of somatic tool screenshot" class="transition-opacity duration-300" loading="lazy">
-              </div>
-              <!-- Floating Pill Indicator -->
-              <div id="tool-indicator-badge" class="floating-chip absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full text-xs font-semibold text-brand-ocean whitespace-nowrap shadow-md">
-                Paced Breathing Active · 4 4 6 Cycle
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 3: THE IDEA & BIOLOGICAL RATIONALE -->
-    <section id="idea" class="py-24 bg-bg-sand relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Scroll-Triggered Animated Tagline -->
-        <div class="max-w-4xl mx-auto text-center py-12 mb-16">
-          <div class="text-xs font-mono uppercase tracking-widest text-brand-terracotta mb-4">The Operating Thesis</div>
-          <div id="tagline-container" class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-snug">
-            <span class="tagline-word">When</span>
-            <span class="tagline-word">distress</span>
-            <span class="tagline-word">strikes,</span>
-            <span class="tagline-word">the</span>
-            <span class="tagline-word">rational</span>
-            <span class="tagline-word">brain</span>
-            <span class="tagline-word">disconnects.</span>
-            <br class="hidden sm:inline">
-            <span class="tagline-word text-brand-ocean font-serif italic">Body</span>
-            <span class="tagline-word text-brand-ocean font-serif italic">first.</span>
-            <span class="tagline-word text-brand-terracotta font-serif italic">Words</span>
-            <span class="tagline-word text-brand-terracotta font-serif italic">second.</span>
-          </div>
-        </div>
-
-        <!-- Bento Biological Progression -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Card 1: The Amygdala Hijack -->
-          <div class="glass-card surface-warm-terracotta p-8 rounded-3xl reveal-on-scroll">
-            <div class="w-12 h-12 rounded-2xl bg-brand-terracotta-soft text-brand-terracotta flex items-center justify-center mb-6 font-mono font-bold text-lg">
-              01
-            </div>
-            <h3 class="text-2xl font-bold text-text-ink mb-3">Prefrontal Deactivation</h3>
-            <p class="text-sm text-text-body leading-relaxed mb-6">
-              When emotional arousal exceeds biological threshold, perfusion drops in the prefrontal cortex. Asking someone in panic or acute craving to think rationally is asking the impossible.
-            </p>
-            <div class="p-4 rounded-xl bg-white/80 border border-brand-terracotta-border text-xs text-text-body space-y-1 font-mono">
-              <div class="flex justify-between"><span>Heart Rate:</span><span class="text-brand-terracotta font-bold">>115 BPM</span></div>
-              <div class="flex justify-between"><span>Cognitive Reasoning:</span><span class="text-text-muted">Impaired</span></div>
-              <div class="flex justify-between"><span>Action Required:</span><span class="text-brand-terracotta font-bold">Physical Reset</span></div>
-            </div>
-          </div>
-
-          <!-- Card 2: Somatic Downregulation -->
-          <div class="glass-card surface-soft-ocean p-8 rounded-3xl reveal-on-scroll" style="transition-delay: 150ms;">
-            <div class="w-12 h-12 rounded-2xl bg-brand-ocean-soft text-brand-ocean flex items-center justify-center mb-6 font-mono font-bold text-lg">
-              02
-            </div>
-            <h3 class="text-2xl font-bold text-text-ink mb-3">Vagal Brake Engagement</h3>
-            <p class="text-sm text-text-body leading-relaxed mb-6">
-              Extended exhalations and cold water stimulation send acetylcholine across the vagus nerve directly to the heart sinoatrial node, commanding an involuntary reduction in cardiac speed.
-            </p>
-            <div class="p-4 rounded-xl bg-white/80 border border-brand-ocean-border text-xs text-text-body space-y-1 font-mono">
-              <div class="flex justify-between"><span>Nerve Pathway:</span><span class="text-brand-ocean font-bold">Vagus / Cranial X</span></div>
-              <div class="flex justify-between"><span>Heart Rate:</span><span class="text-brand-ocean font-bold">Minus 18 BPM</span></div>
-              <div class="flex justify-between"><span>Duration to Calm:</span><span class="text-brand-ocean font-bold">90 Seconds</span></div>
-            </div>
-          </div>
-
-          <!-- Card 3: Dialectical Recovery -->
-          <div class="glass-card surface-warm-sand p-8 rounded-3xl reveal-on-scroll" style="transition-delay: 300ms;">
-            <div class="w-12 h-12 rounded-2xl bg-bg-sand-warm text-brand-ocean flex items-center justify-center mb-6 font-mono font-bold text-lg">
-              03
-            </div>
-            <h3 class="text-2xl font-bold text-text-ink mb-3">Receptive Grounding</h3>
-            <p class="text-sm text-text-body leading-relaxed mb-6">
-              Once the body is physically tranquilized, the executive cortex comes back online. Now, and only now, can the user apply the STOP skill, make a recovery call, or attend a meeting.
-            </p>
-            <div class="p-4 rounded-xl bg-white/80 border border-border-strong text-xs text-text-body space-y-1 font-mono">
-              <div class="flex justify-between"><span>Wise Mind Balance:</span><span class="text-text-ink font-bold">Restored</span></div>
-              <div class="flex justify-between"><span>Community Link:</span><span class="text-brand-ocean font-bold">Accessible</span></div>
-              <div class="flex justify-between"><span>Next Step:</span><span class="text-text-ink font-bold">DBT Skills</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 4: GROUNDED SUPPORT (DBT SKILLS) -->
-    <section id="skills" class="py-24 bg-white border-y border-border-subtle relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mb-16 reveal-on-scroll">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-terracotta-soft text-brand-terracotta text-xs font-semibold mb-4">
-            <span>Stage 2: Clinical DBT Foundations</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
-            Dialectical Behavior Therapy. <br>
-            <span class="font-serif italic font-normal text-brand-terracotta">Skills designed for acute survival.</span>
-          </h2>
-          <p class="text-lg text-text-body leading-relaxed">
-            DBT was developed specifically for individuals experiencing intolerable emotional turmoil. WiseMind simplifies these clinical protocols into tap friendly, offline flows you can follow when your brain is tired.
-          </p>
-        </div>
-
-        <!-- Skills Navigation Tabs -->
-        <div class="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-border-subtle" role="tablist">
-          <button class="skill-tab-btn active px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-brand-ocean text-white" data-skill="stop" role="tab">
-            STOP Protocol
-          </button>
-          <button class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-bg-surface-subtle text-text-muted hover:text-text-ink" data-skill="tipp" role="tab">
-            TIPP Distress Tolerance
-          </button>
-          <button class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-bg-surface-subtle text-text-muted hover:text-text-ink" data-skill="wisemind" role="tab">
-            Wise Mind Balance
-          </button>
-          <button class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-bg-surface-subtle text-text-muted hover:text-text-ink" data-skill="crisis" role="tab">
-            Surviving a Crisis
-          </button>
-        </div>
-
-        <!-- Skill Detail Panels -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <!-- Text and Breakdown Column -->
-          <div id="skill-content-panel" class="lg:col-span-7 space-y-6 reveal-on-scroll">
-            <!-- Dynamic Content Injected via Script -->
-            <div class="space-y-4">
-              <span class="text-xs font-mono uppercase tracking-widest text-brand-ocean font-bold">The Golden Standard Protocol</span>
-              <h3 class="text-3xl font-bold text-text-ink">The STOP Skill</h3>
-              <p class="text-base text-text-body leading-relaxed">
-                When an emotional reaction feels sudden and overwhelming, STOP puts space between impulse and action. Do not react. Do not speak. Stand perfectly still.
-              </p>
-            </div>
-
-            <!-- Connected Step Track -->
-            <div class="timeline-track space-y-4 pt-2">
-              <div class="flex items-start gap-4 relative z-10">
-                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">S</div>
-                <div>
-                  <h4 class="font-bold text-text-ink text-sm">Stop immediately</h4>
-                  <p class="text-xs text-text-muted">Freeze your body. Do not move a muscle. Do not let your feelings push you into speech or behavior.</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4 relative z-10">
-                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">T</div>
-                <div>
-                  <h4 class="font-bold text-text-ink text-sm">Take a step back</h4>
-                  <p class="text-xs text-text-muted">Physically step backward or uncross your hands. Take a deep, measured breath to break the impulse cycle.</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4 relative z-10">
-                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">O</div>
-                <div>
-                  <h4 class="font-bold text-text-ink text-sm">Observe without judgment</h4>
-                  <p class="text-xs text-text-muted">Notice what is happening inside your physical body and in the room around you without judging it good or bad.</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4 relative z-10">
-                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">P</div>
-                <div>
-                  <h4 class="font-bold text-text-ink text-sm">Proceed with intention</h4>
-                  <p class="text-xs text-text-muted">Ask what choice will make the situation better rather than worse. Act from clarity.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-4 flex items-center gap-4">
-              <a href="#human-side" class="text-xs font-bold text-brand-ocean underline underline-offset-4 hover:text-brand-ocean-light">
-                Find a local DBT practice group in Cape Town →
-              </a>
-            </div>
-          </div>
-
-          <!-- Phone Mockup Display Column -->
-          <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-[290px] sm:w-[320px]">
-              <div class="phone-mockup">
-                <img id="skill-display-img" src="light/08-skill-stop.png" alt="STOP DBT Skill Walkthrough on mobile" loading="lazy">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 5: CAPE TOWN FELLOWSHIP & GROUNDING GALLERY (#human-side) -->
-    <section id="human-side" class="py-24 bg-bg-sand relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Cape Town Coastal Hero Banner Card -->
-        <div class="relative rounded-3xl overflow-hidden shadow-xl mb-16 border border-border-strong">
-          <div class="h-80 sm:h-96 w-full relative">
-            <img src="assets/capetown-coastal.jpg" alt="Cape Town Atlantic Ocean granite shoreline at dawn" class="w-full h-full object-cover object-center" loading="lazy">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B1512] via-[#0B1512]/40 to-transparent"></div>
-          </div>
-          <div class="absolute bottom-0 left-0 right-0 p-8 sm:p-12 text-white">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-emerald-200 text-xs font-mono font-medium mb-3">
-              <span>33.9249° S, 18.4241° E · Atlantic Seaboard</span>
-            </div>
-            <h3 class="text-2xl sm:text-4xl font-bold tracking-tight mb-2">
-              Grounding in the Cape Peninsula.
-            </h3>
-            <p class="text-sm sm:text-base text-stone-200 max-w-2xl leading-relaxed">
-              Granite boulders, freezing sea currents, and living rooms where people tell the truth without pretense. Recovery is rooted in real geography.
-            </p>
-          </div>
-        </div>
-
-        <!-- Section Header -->
-        <div class="max-w-3xl mb-12 reveal-on-scroll">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-ocean-soft text-brand-ocean text-xs font-semibold mb-4">
-            <span>Stage 3: Community & Fellowship</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
-            Verified recovery meetings. <br>
-            <span class="font-serif italic font-normal text-brand-ocean">Cape Town and online rooms.</span>
-          </h2>
-          <p class="text-base sm:text-lg text-text-body leading-relaxed">
-            Isolation fuels relapse. When the crisis settles, connecting with people who have walked the same path provides lasting ballast. Filter verified AA and NA meetings below.
-          </p>
-        </div>
-
-        <!-- Filter Controls -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <div class="flex items-center gap-2" role="group" aria-label="Meeting location filter">
-            <button class="meeting-filter-btn active px-4 py-2 rounded-full text-xs font-bold bg-brand-ocean text-white shadow-sm transition-all" data-filter="all">
-              All Meetings
-            </button>
-            <button class="meeting-filter-btn px-4 py-2 rounded-full text-xs font-bold bg-white text-text-muted hover:text-text-ink border border-border-subtle transition-all" data-filter="in-person">
-              In Person Cape Town
-            </button>
-            <button class="meeting-filter-btn px-4 py-2 rounded-full text-xs font-bold bg-white text-text-muted hover:text-text-ink border border-border-subtle transition-all" data-filter="online">
-              Online Rooms
-            </button>
-          </div>
-          <div class="text-xs font-mono text-text-muted">
-            Audited weekly · All meetings are free and open
-          </div>
-        </div>
-
-        <!-- Meeting Directory Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16" id="meetings-grid">
-          
-          <!-- Meeting 1 -->
-          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="in-person">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-emerald-100 text-brand-ocean mb-2">
-                  Alcoholics Anonymous · In Person
-                </span>
-                <h4 class="text-xl font-bold text-text-ink">Steps to Freedom</h4>
-              </div>
-              <div class="text-right">
-                <div class="text-lg font-bold font-mono text-brand-ocean">19:30</div>
-                <div class="text-xs text-text-muted font-mono">Every Thursday</div>
-              </div>
-            </div>
-            <p class="text-sm text-text-body mb-4">
-              St Johns Parish Hall, Kloof Street, Gardens, Cape Town. Safe, quiet courtyard entrance with street parking available.
-            </p>
-            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
-              <span class="text-text-muted font-mono">Open Meeting · Wheelchair Access</span>
-              <a href="https://maps.google.com/?q=St+Johns+Parish+Kloof+Street+Cape+Town" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-ocean hover:underline">
-                Directions →
-              </a>
-            </div>
-          </div>
-
-          <!-- Meeting 2 -->
-          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="in-person">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-amber-100 text-amber-800 mb-2">
-                  Narcotics Anonymous · In Person
-                </span>
-                <h4 class="text-xl font-bold text-text-ink">Freaky Fridays</h4>
-              </div>
-              <div class="text-right">
-                <div class="text-lg font-bold font-mono text-brand-terracotta">12:15</div>
-                <div class="text-xs text-text-muted font-mono">Every Friday</div>
-              </div>
-            </div>
-            <p class="text-sm text-text-body mb-4">
-              Kenilworth Community Centre, 14 Kenilworth Road, Southern Suburbs, Cape Town. Midday solidarity format.
-            </p>
-            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
-              <span class="text-text-muted font-mono">Discussion Format · Free Attendance</span>
-              <a href="https://maps.google.com/?q=Kenilworth+Road+Cape+Town" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-ocean hover:underline">
-                Directions →
-              </a>
-            </div>
-          </div>
-
-          <!-- Meeting 3 -->
-          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="online">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-blue-100 text-blue-800 mb-2">
-                  Narcotics Anonymous · Online Zoom
-                </span>
-                <h4 class="text-xl font-bold text-text-ink">Morning Hope Daily</h4>
-              </div>
-              <div class="text-right">
-                <div class="text-lg font-bold font-mono text-brand-ocean">07:00</div>
-                <div class="text-xs text-text-muted font-mono">Monday to Sunday</div>
-              </div>
-            </div>
-            <p class="text-sm text-text-body mb-4">
-              Daily morning grounding room. Camera optional for newcomers. Join safely from any private space before your workday begins.
-            </p>
-            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
-              <span class="text-text-muted font-mono">Zoom ID verified in app</span>
-              <span class="font-bold text-brand-ocean">Zero Registration Needed</span>
-            </div>
-          </div>
-
-          <!-- Meeting 4 -->
-          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="online">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-purple-100 text-purple-800 mb-2">
-                  Dialectical Group · Online
-                </span>
-                <h4 class="text-xl font-bold text-text-ink">New Beginnings Evening</h4>
-              </div>
-              <div class="text-right">
-                <div class="text-lg font-bold font-mono text-brand-ocean">20:00</div>
-                <div class="text-xs text-text-muted font-mono">Tuesdays & Thursdays</div>
-              </div>
-            </div>
-            <p class="text-sm text-text-body mb-4">
-              Evening peer group focusing on DBT distress tolerance practice, urge sharing, and weekly accountability check ins.
-            </p>
-            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
-              <span class="text-text-muted font-mono">Peer Led · Confidential</span>
-              <span class="font-bold text-brand-ocean">Open to All</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 4 Mood Pillars: Calm, Grounded, Focused, Hopeful -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
-            <div class="text-2xl font-serif italic text-brand-ocean mb-1">Calm</div>
-            <div class="text-xs text-text-muted">Physiological equilibrium restored through vagal breath.</div>
-          </div>
-          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
-            <div class="text-2xl font-serif italic text-brand-terracotta mb-1">Grounded</div>
-            <div class="text-xs text-text-muted">Feet planted on earth, present in physical reality.</div>
-          </div>
-          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
-            <div class="text-2xl font-serif italic text-brand-ocean mb-1">Focused</div>
-            <div class="text-xs text-text-muted">Attentive to the single next right decision.</div>
-          </div>
-          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
-            <div class="text-2xl font-serif italic text-amber-700 mb-1">Hopeful</div>
-            <div class="text-xs text-text-muted">Supported by living fellowship and daily practice.</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 6: PRODUCT ARCHITECTURE & PRIVACY INVARIANTS -->
-    <section id="principles" class="py-24 bg-white border-y border-border-subtle">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mb-16 reveal-on-scroll">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-ocean-soft text-brand-ocean text-xs font-semibold mb-4">
-            <span>Unshakeable Standards</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
-            Built for crisis conditions. <br>
-            <span class="font-serif italic font-normal text-brand-ocean">Zero tracking. Zero obstacles.</span>
-          </h2>
-          <p class="text-lg text-text-body leading-relaxed">
-            When a user opens an app in the middle of a panic attack or relapse urge, every unnecessary dialog is an act of hostility. We built WiseMind on four non negotiable invariants.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Invariant 1 -->
-          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-brand-ocean text-white flex items-center justify-center font-bold text-sm">
-              01
-            </div>
-            <h3 class="text-lg font-bold text-text-ink">No Account Walls</h3>
-            <p class="text-xs text-text-body leading-relaxed">
-              No registration forms, no email verifications, and no passwords standing between a person in crisis and immediate relief tools.
-            </p>
-          </div>
-
-          <!-- Invariant 2 -->
-          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-brand-ocean text-white flex items-center justify-center font-bold text-sm">
-              02
-            </div>
-            <h3 class="text-lg font-bold text-text-ink">Zero Cloud Telemetry</h3>
-            <p class="text-xs text-text-body leading-relaxed">
-              Your check in notes, urge records, and meeting searches are written only to local device storage. Nothing leaves your phone.
-            </p>
-          </div>
-
-          <!-- Invariant 3 -->
-          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-brand-ocean text-white flex items-center justify-center font-bold text-sm">
-              03
-            </div>
-            <h3 class="text-lg font-bold text-text-ink">Offline Invariant</h3>
-            <p class="text-xs text-text-body leading-relaxed">
-              Every somatic timer, audio vibration cue, and meeting address is pre bundled. The app functions flawlessly in airplane mode.
-            </p>
-          </div>
-
-          <!-- Invariant 4 -->
-          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-brand-terracotta text-white flex items-center justify-center font-bold text-sm">
-              04
-            </div>
-            <h3 class="text-lg font-bold text-text-ink">Direct Emergency Rail</h3>
-            <p class="text-xs text-text-body leading-relaxed">
-              One tap access to national 112 services, WhatsApp crisis chats, and South African helplines without third party mediation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 7: EDITORIAL FAQ STREAM WITH STICKY CRISIS RAIL -->
-    <section id="faq" class="py-24 bg-bg-sand relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
-          <!-- Sticky Left Rail: Immediate Crisis Card -->
-          <div class="lg:col-span-4 sticky-rail">
-            <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-brand-terracotta/30 bg-white shadow-xl">
-              <div class="flex items-center gap-2 mb-4">
-                <span class="w-2.5 h-2.5 rounded-full bg-brand-terracotta animate-pulse" aria-hidden="true"></span>
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-terracotta">Emergency Contacts</span>
-              </div>
-              <h3 class="text-2xl font-bold text-text-ink mb-2">In acute danger?</h3>
-              <p class="text-xs text-text-body mb-6 leading-relaxed">
-                If you or someone around you is in immediate physical danger or contemplating self harm, please connect right now.
-              </p>
-
-              <!-- Direct Dial Buttons -->
-              <div class="space-y-3">
-                <a href="tel:112" class="btn-tactile w-full flex items-center justify-between p-3.5 rounded-2xl bg-brand-terracotta text-white font-bold text-sm shadow hover:bg-[#B74630] transition-colors">
-                  <span class="flex items-center gap-2">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Call 112 (Emergency)
-                  </span>
-                  <span class="font-mono text-xs opacity-90">Free from Mobile</span>
-                </a>
-
-                <a href="https://wa.me/27876543210" target="_blank" rel="noopener noreferrer" class="btn-tactile w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-600 text-white font-bold text-sm shadow hover:bg-emerald-700 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                    WhatsApp Crisis Chat
-                  </span>
-                  <span class="font-mono text-xs opacity-90">+27 87 654 3210</span>
-                </a>
-              </div>
-
-              <div class="mt-6 pt-5 border-t border-border-subtle text-xs space-y-2 text-text-muted">
-                <div>Cipla Mental Health: <strong class="text-text-ink">0800 456 789</strong></div>
-                <div>Suicide Crisis Helpline: <strong class="text-text-ink">0800 567 567</strong></div>
-                <div>Substance Abuse Helpline: <strong class="text-text-ink">0800 12 13 14</strong></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column: Accordion Stream -->
-          <div class="lg:col-span-8 space-y-4">
-            <div class="mb-8 reveal-on-scroll">
-              <span class="text-xs font-mono uppercase tracking-widest text-brand-ocean font-bold">Frequently Asked Questions</span>
-              <h2 class="text-3xl font-bold text-text-ink mt-2">Everything you need to know.</h2>
-            </div>
-
-            <!-- FAQ Item 1 -->
-            <div class="faq-item glass-card rounded-2xl overflow-hidden">
-              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
-                <span>Why does WiseMind emphasize the body before rational words?</span>
-                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
-              </button>
-              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
-                In acute distress, fight or flight arousal shunts blood away from the frontal lobes toward survival muscles. Trying to talk yourself down during an intense panic state or compulsive urge rarely succeeds because the neurological hardware for logic is temporarily deactivated. Somatic interventions like cold immersion and prolonged exhalation physically brake the heartbeat via the vagus nerve. Once biological safety is re established, words and skills can actually take hold.
-              </div>
-            </div>
-
-            <!-- FAQ Item 2 -->
-            <div class="faq-item glass-card rounded-2xl overflow-hidden">
-              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
-                <span>Is WiseMind a replacement for professional therapy or medical care?</span>
-                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
-              </button>
-              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
-                No. WiseMind is a practical in the moment companion tool for emotional regulation and recovery maintenance. It is designed to complement clinical therapy, psychiatry, and twelve step fellowships, not replace them. In acute clinical emergencies, use our emergency rail to dial 112 or contact the Suicide Crisis Helpline immediately.
-              </div>
-            </div>
-
-            <!-- FAQ Item 3 -->
-            <div class="faq-item glass-card rounded-2xl overflow-hidden">
-              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
-                <span>How are the Cape Town recovery meetings verified?</span>
-                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
-              </button>
-              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
-                Our team audits local AA and NA intergroup meeting schedules weekly across the Cape Peninsula. We verify physical venue accessibility, start times, and open versus closed attendance parameters directly with local group secretaries.
-              </div>
-            </div>
-
-            <!-- FAQ Item 4 -->
-            <div class="faq-item glass-card rounded-2xl overflow-hidden">
-              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
-                <span>Do I need an internet connection to use the tools?</span>
-                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
-              </button>
-              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
-                No. WiseMind is designed with an offline first architecture. Every breathing timer, somatic protocol, DBT skill card, and saved meeting is stored directly on your phone. You can use it in remote mountain areas, during loadshedding, or on airplane mode without losing access to any core functionality.
-              </div>
-            </div>
-
-            <!-- FAQ Item 5 -->
-            <div class="faq-item glass-card rounded-2xl overflow-hidden">
-              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
-                <span>What data does the app collect about me?</span>
-                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
-              </button>
-              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
-                Zero. We require no username, no password, no email address, and no phone number to use the app. All check ins and preferences remain strictly encrypted in your phone local database. We operate zero cloud analytics trackers.
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 8: FINAL CALL TO ACTION -->
-    <section class="py-24 bg-white relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative rounded-3xl overflow-hidden bg-[#0F4D3F] text-white p-10 sm:p-16 shadow-2xl">
-          <!-- Dialectical Mountain Wave Background Watermark -->
-          <div class="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 opacity-10 pointer-events-none" aria-hidden="true">
-            <svg class="w-[600px] h-[600px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 17l4.5-8.5L12 15l4.5-9.5L21 17"/>
-              <path d="M3 20c3-1 6 1 9 0s6-1 9 0"/>
-            </svg>
-          </div>
-
-          <div class="max-w-2xl relative z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-200 text-xs font-mono mb-6">
-              <span>Ready whenever you are</span>
-            </div>
-            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-6 leading-tight">
-              A quiet sanctuary in your pocket.
-            </h2>
-            <p class="text-base sm:text-lg text-emerald-100 leading-relaxed mb-8">
-              No subscription paywalls. No personal profiles. Just real somatic tools, dialectical behavioral clarity, and the courage to meet the next breath.
-            </p>
-
-            <div class="flex flex-wrap items-center gap-4">
-              <button id="final-breathing-trigger" class="btn-tactile inline-flex items-center justify-center gap-2 bg-white text-brand-ocean font-bold text-sm px-7 py-3.5 rounded-full hover:bg-emerald-50 shadow-lg transition-all">
-                <span>Practice 4 4 6 Breathing</span>
-              </button>
-              <a href="#human-side" class="btn-tactile inline-flex items-center justify-center gap-2 bg-transparent text-white border border-white/30 font-semibold text-sm px-6 py-3.5 rounded-full hover:bg-white/10 transition-all">
-                <span>View Meeting Schedule</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-bg-sand border-t border-border-strong py-16 px-4 sm:px-6 lg:px-8 text-text-body">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-        <!-- Brand Column -->
-        <div class="space-y-4 md:col-span-2">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-brand-ocean text-white flex items-center justify-center">
-              <svg class="w-4 h-4 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 17l4.5-8.5L12 15l4.5-9.5L21 17"/>
-                <path d="M3 20c3-1 6 1 9 0s6-1 9 0" opacity="0.75"/>
-              </svg>
-            </div>
-            <span class="font-bold text-lg text-text-ink">WiseMind</span>
-          </div>
-          <p class="text-xs text-text-muted leading-relaxed max-w-sm">
-            A practical, dialectical companion for acute grounding, somatic regulation, and recovery fellowship in Cape Town and across the world.
-          </p>
-          <div class="text-[11px] font-mono text-text-muted">
-            Designed with clinical care · Authentic screenshots from production client
-          </div>
-        </div>
-
-        <!-- Navigation Links -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-text-ink">Explore</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="#tools" class="hover:text-brand-ocean transition-colors">Somatic Interventions</a></li>
-            <li><a href="#idea" class="hover:text-brand-ocean transition-colors">Biological Rationale</a></li>
-            <li><a href="#skills" class="hover:text-brand-ocean transition-colors">DBT Skill Modules</a></li>
-            <li><a href="#human-side" class="hover:text-brand-ocean transition-colors">Cape Town Meetings</a></li>
-            <li><a href="#principles" class="hover:text-brand-ocean transition-colors">Product Invariants</a></li>
-            <li><a href="#faq" class="hover:text-brand-ocean transition-colors">Emergency Helplines</a></li>
-          </ul>
-        </div>
-
-        <!-- South Africa Emergency Dialers -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-brand-terracotta">Crisis Helplines</h4>
-          <ul class="space-y-2 text-xs font-mono">
-            <li>Emergency Services: <a href="tel:112" class="font-bold text-text-ink hover:underline">112</a></li>
-            <li>Cipla Mental Health: <a href="tel:0800456789" class="font-bold text-text-ink hover:underline">0800 456 789</a></li>
-            <li>Suicide Crisis Helpline: <a href="tel:0800567567" class="font-bold text-text-ink hover:underline">0800 567 567</a></li>
-            <li>Substance Abuse Line: <a href="tel:0800121314" class="font-bold text-text-ink hover:underline">0800 12 13 14</a></li>
-            <li>WhatsApp Chat: <a href="https://wa.me/27876543210" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-700 hover:underline">+27 87 654 3210</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="pt-8 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted font-mono">
-        <div>
-          WiseMind Companion · Offline First · Zero Cloud Tracking
-        </div>
-        <div>
-          Body first. Words second. And the in between.
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- MODAL 1: LIVE INTERACTIVE 4 4 6 BREATHING SIMULATOR -->
-  <div id="breathing-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="breath-modal-title">
-    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative text-center border border-border-subtle">
-      <!-- Close Button -->
-      <button id="close-breathing-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-bg-surface-subtle hover:bg-border-subtle text-text-ink flex items-center justify-center transition-colors" aria-label="Close breathing modal">
-        ✕
-      </button>
-
-      <span class="text-xs font-mono uppercase tracking-widest text-brand-ocean font-bold">Vagal Tone Stimulator</span>
-      <h3 id="breath-modal-title" class="text-2xl font-bold text-text-ink mt-1 mb-2">4 4 6 Paced Breathing</h3>
-      <p class="text-xs text-text-body mb-8 max-w-xs mx-auto">
-        Follow the circle. Inhale through the nose for 4 seconds, hold gently for 4, and release through slightly parted lips for 6.
-      </p>
-
-      <!-- Breathing Circle Graphic -->
-      <div class="relative w-56 h-56 mx-auto flex items-center justify-center mb-8">
-        <!-- Outer Track -->
-        <div class="absolute inset-0 rounded-full border-2 border-brand-ocean/15"></div>
-        <!-- Animated Pulsing Circle -->
-        <div id="breath-circle" class="w-32 h-32 rounded-full bg-gradient-to-tr from-brand-ocean to-brand-ocean-light shadow-xl flex items-center justify-center text-white transition-all duration-1000 ease-in-out transform scale-100">
-          <span id="breath-phase-text" class="font-bold text-base tracking-wide">Ready</span>
-        </div>
-        <!-- Seconds Counter -->
-        <div id="breath-second-counter" class="absolute bottom-2 font-mono text-xs text-text-muted">
-          Click start below
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div class="flex items-center justify-center gap-3">
-        <button id="start-breath-btn" class="btn-tactile px-6 py-3 rounded-full bg-brand-ocean text-white font-bold text-xs shadow-md hover:bg-brand-ocean-light transition-all">
-          Begin Practice
-        </button>
-        <button id="stop-breath-btn" class="btn-tactile px-5 py-3 rounded-full bg-bg-surface-subtle text-text-ink font-semibold text-xs border border-border-subtle hover:bg-border-subtle transition-all hidden">
-          Reset
-        </button>
-      </div>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="10" cy="13" r="8" fill="none" stroke="#0F766E" stroke-width="1.6"/><circle cx="16" cy="13" r="8" fill="none" stroke="#4F46E5" stroke-width="1.6" opacity=".8"/></svg>
+      WiseMind
+    </a>
+    <div class="links"><a href="#tools">Tools</a><a href="#meetings">Meetings</a><a href="#principles">Principles</a><a href="#faq">FAQ</a></div>
+    <a class="nav-help" href="#support">Crisis lines</a>
+    <a class="btn btn-dark" href="#get">Coming soon</a>
+  </div>
+</nav>
+
+<header class="intro">
+  <div class="intro-sticky">
+    <div class="panel panel-left"><img src="assets/img/intro-left.webp" width="692" height="1080" fetchpriority="high" alt=""></div>
+    <div class="panel panel-right"><img src="assets/img/intro-right.webp" width="2000" height="1116" srcset="assets/img/intro-right-1080.webp 1080w, assets/img/intro-right.webp 2000w" sizes="100vw" fetchpriority="high" alt=""></div>
+    <div class="panel panel-center"><img src="assets/img/intro-center.webp" width="2000" height="1117" srcset="assets/img/intro-center-1080.webp 1080w, assets/img/intro-center.webp 2000w" sizes="100vw" fetchpriority="high" alt="Dusk over a calm sea, the sky fading from blue to amber at the horizon"><div class="scrim"></div></div>
+    <div class="grain" aria-hidden="true"></div>
+    <p class="opener" aria-hidden="true">Take a breath</p>
+    <div class="card">
+      <p class="kicker">WiseMind for Android</p>
+      <h1>With you, here or <em>anywhere.</em></h1>
+      <ol class="toc">
+        <li><a href="#read"><span>(1)</span><span>Why WiseMind</span></a></li>
+        <li><a href="#tools"><span>(2)</span><span>Grounding tools</span></a></li>
+        <li><a href="#meetings"><span>(3)</span><span>Meetings</span></a></li>
+        <li><a href="#get"><span>(4)</span><span>Coming soon</span></a></li>
+      </ol>
     </div>
   </div>
+</header>
 
-  <!-- MODAL 2: CRISIS SUPPORT MODAL -->
-  <div id="crisis-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-md hidden" role="dialog" aria-modal="true" aria-labelledby="crisis-modal-title">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border-2 border-brand-terracotta/40">
-      <!-- Close Button -->
-      <button id="close-crisis-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-bg-surface-subtle hover:bg-border-subtle text-text-ink flex items-center justify-center transition-colors" aria-label="Close crisis modal">
-        ✕
-      </button>
+<section class="read" id="read">
+  <p class="lede">Grounding skills, crisis support and fellowship meetings, on hand the moment you need them. No account, no tracking, and it works offline.</p>
+</section>
 
-      <div class="flex items-center gap-2.5 mb-2">
-        <span class="w-3 h-3 rounded-full bg-brand-terracotta animate-ping" aria-hidden="true"></span>
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-terracotta">Crisis Action Center</span>
-      </div>
-
-      <h3 id="crisis-modal-title" class="text-2xl sm:text-3xl font-bold text-text-ink mb-2">Immediate Support</h3>
-      <p class="text-sm text-text-body mb-6 leading-relaxed">
-        You do not have to endure this moment in silence. Connect immediately with emergency services or trained counselors in South Africa.
-      </p>
-
-      <!-- Primary Action: Call 112 -->
-      <div class="space-y-3 mb-6">
-        <a href="tel:112" class="btn-tactile flex items-center justify-between p-4 rounded-2xl bg-brand-terracotta text-white font-bold text-sm shadow hover:bg-[#B74630] transition-all">
-          <div class="flex items-center gap-3">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <div>
-              <div class="text-base font-bold">Dial 112 Emergency</div>
-              <div class="text-xs opacity-90 font-normal">South Africa National Emergency (Toll free)</div>
-            </div>
-          </div>
-          <span class="text-xs font-mono underline">Call Now →</span>
-        </a>
-
-        <!-- WhatsApp Crisis Line -->
-        <a href="https://wa.me/27876543210" target="_blank" rel="noopener noreferrer" class="btn-tactile flex items-center justify-between p-4 rounded-2xl bg-emerald-600 text-white font-bold text-sm shadow hover:bg-emerald-700 transition-all">
-          <div class="flex items-center gap-3">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-            <div>
-              <div class="text-base font-bold">WhatsApp Crisis Chat</div>
-              <div class="text-xs opacity-90 font-normal">Confidential Text Support (+27 87 654 3210)</div>
-            </div>
-          </div>
-          <span class="text-xs font-mono underline">Open Chat →</span>
-        </a>
-      </div>
-
-      <!-- Additional Verified Helplines -->
-      <div class="p-4 rounded-2xl bg-bg-surface-subtle border border-border-subtle text-xs space-y-2 font-mono">
-        <div class="flex justify-between items-center">
-          <span>Cipla Mental Health 24hr:</span>
-          <a href="tel:0800456789" class="font-bold text-text-ink hover:underline">0800 456 789</a>
-        </div>
-        <div class="flex justify-between items-center">
-          <span>Suicide Crisis Line:</span>
-          <a href="tel:0800567567" class="font-bold text-text-ink hover:underline">0800 567 567</a>
-        </div>
-        <div class="flex justify-between items-center">
-          <span>Substance Abuse Line:</span>
-          <a href="tel:0800121314" class="font-bold text-text-ink hover:underline">0800 12 13 14</a>
-        </div>
-      </div>
-
-      <p class="text-[11px] text-text-muted text-center mt-6">
-        All helplines are toll free from any South African mobile network or landline.
-      </p>
+<section class="stage" aria-label="App preview">
+  <div class="phones">
+    <div class="phone left">
+      <div class="frame"><div class="screen">
+        <div class="cam"></div>
+        <div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/01-home.webp" width="780" height="1688" alt="WiseMind home screen: what would bring you calm right now?">
+        <div class="home-ind"></div>
+      </div></div>
+      <div class="pull" aria-hidden="true"><div class="pull-card"></div></div>
+    </div>
+    <div class="phone right">
+      <div class="frame"><div class="screen">
+        <div class="cam"></div>
+        <div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/13-meetings-today.webp" width="780" height="1688" alt="WiseMind meetings screen listing today's meetings">
+        <div class="home-ind"></div>
+      </div></div>
+      <div class="pull" aria-hidden="true"><div class="pull-card"></div></div>
     </div>
   </div>
+  <div class="store">
+    <!-- TODO at launch: replace with Google's official "Get it on Google Play" badge linking to the listing -->
+    <span class="badge soon" role="img" aria-label="Coming soon to Google Play">
+      <span><small>COMING SOON TO</small><strong>Google Play</strong></span>
+    </span>
+    <p>Free on Android. Works offline.</p>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<section class="sec-slim" id="tools">
+  <div class="reveal"><h2>Grounding tools</h2>
+    <p class="sub">Distress lives in the body first: the heart rate, the breath, the nervous system. You can't talk yourself out of an adrenaline flood, so every tool starts with the body.</p></div>
+</section>
+
+<section class="ch ch-breath" aria-labelledby="t-breath">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="ch-inner">
+    <div class="ch-copy reveal"><h3 id="t-breath">Breathe <em>out</em> longer.</h3>
+      <p><strong>Paced breathing</strong> makes each out-breath longer than the in-breath. That engages the vagus nerve, slows the heart and eases fight-or-flight within minutes.</p>
+      <ul class="meta"><li>Inhale 4s</li><li>Hold 4s</li><li>Exhale 6s</li></ul></div>
+    <div class="ch-device"><div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/20-breathing-running.webp" width="780" height="1688" alt="Paced breathing timer mid-cycle" loading="lazy"><div class="home-ind"></div><div class="hole "></div>
+      </div></div><div class="lift " aria-hidden="true"><div class="lift-card"></div></div></div></div>
+  </div>
+</section>
+
+<section class="ch ch-urge" aria-labelledby="t-urge">
+  <div class="ch-photo"><img src="assets/img/intro-right.webp" width="2000" height="1116" srcset="assets/img/intro-right-1080.webp 1080w, assets/img/intro-right.webp 2000w" sizes="100vw" loading="lazy" alt=""></div><div class="grain" aria-hidden="true"></div>
+  <div class="ch-inner">
+    <div class="ch-copy reveal"><h3 id="t-urge">Ride the <em>wave.</em></h3>
+      <p><strong>Urge surfing</strong> treats a craving like a wave. It crests at around ten minutes, then fades. The timer keeps you with it without acting on it.</p>
+      <ul class="meta"><li>Wave progression</li><li>Body tracking</li><li>No action</li></ul></div>
+    <div class="ch-device"><div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/24-urge-running.webp" width="780" height="1688" alt="Urge surfing timer following a wave" loading="lazy"><div class="home-ind"></div><div class="hole "></div>
+      </div></div><div class="lift " aria-hidden="true"><div class="lift-card"></div></div></div></div>
+  </div>
+</section>
+
+<section class="ch ch-cold" aria-labelledby="t-cold">
+  <div class="ch-photo"><img src="assets/img/ch-cold.webp" width="2000" height="1116" srcset="assets/img/ch-cold-1080.webp 1080w, assets/img/ch-cold.webp 2000w" sizes="100vw" loading="lazy" alt=""></div><div class="grain" aria-hidden="true"></div>
+  <div class="ch-inner">
+    <div class="ch-copy reveal"><h3 id="t-cold">Thirty seconds of <em>cold.</em></h3>
+      <p><strong>Cold reset</strong> uses cold water on the face to trigger the dive reflex, which slows the pulse by 10 to 25 beats a minute. The app counts you through it.</p>
+      <ul class="meta"><li>30s immersion</li><li>Dive reflex</li><li>TIPP skill</li></ul></div>
+    <div class="ch-device"><div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/28-cold-countdown.webp" width="780" height="1688" alt="Cold reset countdown" loading="lazy"><div class="home-ind"></div><div class="hole "></div>
+      </div></div><div class="lift " aria-hidden="true"><div class="lift-card"></div></div></div></div>
+  </div>
+</section>
+
+<section class="ch ch-skills" aria-labelledby="t-skills">
+  <div class="ch-inner">
+    <div class="ch-copy reveal"><h3 id="t-skills">Skills for a <em>tired</em> mind.</h3>
+      <p><strong>The DBT skills library</strong> turns STOP, TIPP, Wise Mind and more into short tap-through steps you can follow when thinking is hard.</p>
+      <ul class="meta"><li>8 skills</li><li>Offline</li><li>Step by step</li></ul></div>
+  </div>
+  <div class="strip">
+    <div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/04-skills.webp" width="780" height="1688" alt="Skills library" loading="lazy"><div class="home-ind"></div>
+      </div></div></div>
+    <div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/08-skill-stop.webp" width="780" height="1688" alt="The STOP skill" loading="lazy"><div class="home-ind"></div>
+      </div></div></div>
+    <div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/10-skill-tipp-practice-cta.webp" width="780" height="1688" alt="TIPP skill with practice prompt" loading="lazy"><div class="home-ind"></div>
+      </div></div></div>
+    <div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/11-skill-wise-mind-checkin-destination.webp" width="780" height="1688" alt="Wise Mind check-in" loading="lazy"><div class="home-ind"></div>
+      </div></div></div>
+  </div>
+</section>
+
+<section class="ch ch-meet" id="meetings" aria-labelledby="t-meet">
+  <div class="ch-photo"><img src="assets/img/ch-meet.webp" width="2000" height="1116" srcset="assets/img/ch-meet-1080.webp 1080w, assets/img/ch-meet.webp 2000w" sizes="100vw" loading="lazy" alt=""></div><div class="grain" aria-hidden="true"></div>
+  <div class="ch-inner">
+    <div class="ch-copy reveal"><h3 id="t-meet">A room, <em>whenever</em> you need one.</h3>
+      <p>Isolation feeds relapse. <strong>Meetings</strong> lists AA and NA rooms across the Cape Peninsula and online, checked every week, with directions one tap away.</p>
+      <ul class="meta"><li>In person</li><li>Online</li><li>Free and open</li></ul></div>
+    <div class="ch-device"><div class="phone solo"><div class="frame"><div class="screen">
+        <div class="cam"></div><div class="status"><span>12:30</span><span class="batt"></span></div>
+        <img src="assets/screens/15-meeting-detail-sheet.webp" width="780" height="1688" alt="Meeting detail sheet with time, venue and directions" loading="lazy"><div class="home-ind"></div><div class="hole card-a"></div><div class="hole card-b"></div>
+      </div></div><div class="lift card-a" aria-hidden="true"><div class="lift-card"></div></div><div class="lift card-b" aria-hidden="true"><div class="lift-card"></div></div></div></div>
+  </div>
+</section>
+
+<section class="band" id="principles" aria-label="Principles">
+  <img src="assets/img/spare-lichen.webp" width="2000" height="1116" srcset="assets/img/spare-lichen-1080.webp 1080w, assets/img/spare-lichen.webp 2000w" sizes="100vw" loading="lazy" alt=""><div class="grain" aria-hidden="true"></div>
+  <p>Built for the <em>worst</em> moment.</p>
+</section>
+<section class="sec" style="border-top:0">
+  <p class="principles-intro reveal">When someone opens an app in the middle of a panic attack or an urge, every extra screen is an obstacle. WiseMind holds to four rules.</p>
+  <div class="principles reveal">
+    <div><h4>No account walls</h4><p>No sign-up, no email check, no password between a person in crisis and the tools.</p></div>
+    <div><h4>Nothing leaves your phone</h4><p>Check-ins, urge notes and meeting searches are stored on your device only. No cloud analytics.</p></div>
+    <div><h4>Works offline</h4><p>Every timer, cue and meeting address is bundled in the app. It works in airplane mode and during loadshedding.</p></div>
+    <div><h4>A direct line to help</h4><p>One tap to 112, WhatsApp chat and <a class="inline" href="#support">South African helplines</a>, with nothing in between.</p></div>
+  </div>
+</section>
+
+<section class="sec support" id="support" aria-labelledby="t-support">
+  <div class="reveal"><h2 id="t-support">When you need a person.</h2>
+    <p class="sub">WiseMind keeps these free South African lines one tap away inside the app. They are here too.</p></div>
+  <ul class="numbers reveal">
+    <li><span>Emergency services</span><a href="tel:112">112</a><small>From any mobile, 24 hours</small></li>
+    <li><span>Suicide Crisis Helpline</span><a href="tel:0800567567">0800 567 567</a><small>SADAG, 24 hours</small></li>
+    <li><span>Substance Abuse Helpline</span><a href="tel:0800121314">0800 12 13 14</a><small>24 hours, or SMS 32312</small></li>
+    <li><span>WhatsApp chat</span><a href="https://wa.me/27768822775">076 882 2775</a><small>Cipla Mental Health, 8am to 5pm</small></li>
+  </ul>
+</section>
+
+<section class="sec faq" id="faq">
+  <h2 class="reveal faq-title">Questions</h2>
+  <div class="reveal">
+    <details><summary>Why does WiseMind start with the body, not words?</summary><p>In acute distress, fight-or-flight pulls resources away from the parts of the brain that handle reasoning, so talking yourself down rarely works in the moment. Slow exhales and cold water brake the heart through the vagus nerve. Once the body feels safe, skills and words can take hold.</p></details>
+    <details><summary>Is WiseMind a replacement for therapy or medical care?</summary><p>No. WiseMind is an in-the-moment companion for regulation and recovery. It is designed to sit alongside therapy, psychiatry and twelve-step fellowship, not replace them. In an emergency, call 112 or the Suicide Crisis Helpline.</p></details>
+    <details><summary>How are the Cape Town meetings checked?</summary><p>We review local AA and NA intergroup schedules every week, confirming start times, venue access and whether a meeting is open or closed with group secretaries.</p></details>
+    <details><summary>Do I need an internet connection?</summary><p>No. Every timer, skill and saved meeting is stored on your phone, so the app works in the mountains, during loadshedding or in airplane mode.</p></details>
+    <details><summary>What data does the app collect?</summary><p>None. There is no username, password, email or phone number, and no analytics trackers. Check-ins and preferences stay on your phone.</p></details>
+  </div>
+</section>
+
+<section class="sec get" id="get">
+  <h2 class="reveal">Keep it <em>close.</em></h2>
+  <p class="sub reveal">Coming soon to Android, free. No account, and nothing to set up before it helps.</p>
+  <img class="reveal" src="assets/img/phones-pair.webp" width="1380" height="1077" alt="WiseMind home and meetings screens" loading="lazy">
+  <div class="store">
+    <!-- TODO at launch: replace with Google's official "Get it on Google Play" badge linking to the listing -->
+    <span class="badge soon" role="img" aria-label="Coming soon to Google Play">
+      <span><small>COMING SOON TO</small><strong>Google Play</strong></span>
+    </span>
+    <p>Free on Android. Works offline.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div><a class="brand" href="#">WiseMind</a><p>A companion for grounding, regulation and recovery fellowship, in Cape Town and anywhere.</p><p class="motto">Body first. Words second.</p></div>
+    <div><h5>Explore</h5><ul><li><a href="#tools">Grounding tools</a></li><li><a href="#meetings">Meetings</a></li><li><a href="#principles">Principles</a></li><li><a href="#faq">FAQ</a></li><li><a href="#get">Coming soon</a></li></ul></div>
+    <div><h5>Crisis lines</h5><ul class="foot-lines">
+      <li><span>Emergency</span><a href="tel:112">112</a></li>
+      <li><span>Suicide Crisis</span><a href="tel:0800567567">0800 567 567</a></li>
+      <li><span>Cipla Mental Health</span><a href="tel:0800456789">0800 456 789</a></li>
+      <li><span>Substance Abuse</span><a href="tel:0800121314">0800 12 13 14</a></li>
+      <li><span>WhatsApp chat</span><a href="https://wa.me/27768822775">076 882 2775</a></li></ul></div>
+  </div>
+  <p class="legal">WiseMind works offline and keeps no cloud records. It is not a medical service.</p>
+</footer>
+
 </body>
 </html>
