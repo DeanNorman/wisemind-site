@@ -1,0 +1,4 @@
+.DS_Store
+# local preview config and design scratch work
+.claude/launch.json
+mockups/

@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiseMind · Body First, Words Second · Cape Town Somatic and DBT Recovery Companion</title>
+  <meta name="description" content="A practical space for grounding, recovery, and human connection. Grounded in DBT and Cape Town fellowship support. Zero accounts, offline first.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              ocean: '#0F4D3F',
+              'ocean-light': '#0F766E',
+              'ocean-soft': '#E8F4F1',
+              terracotta: '#CB553D',
+              'terracotta-soft': '#FDEEE9',
+              amber: '#F59E0B',
+              'amber-soft': '#FEF3C7',
+            },
+            bg: {
+              sand: '#FBF9F5',
+              'sand-warm': '#E8E5D9',
+              stone: '#EFECE3',
+              surface: '#FFFFFF',
+              'surface-subtle': '#F6F3EC',
+            },
+            border: {
+              subtle: '#E8E3D7',
+              strong: '#D5CEBD',
+            },
+            text: {
+              ink: '#0B0F14',
+              body: '#334155',
+              muted: '#64748B',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            serif: ['Source Serif 4', 'Georgia', 'serif'],
+            mono: ['Geist Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-bg-sand text-text-body antialiased selection:bg-brand-ocean selection:text-white relative min-h-screen">
+
+  <!-- Top Emergency Ribbon -->
+  <aside class="bg-[#142621] text-white text-xs py-2 px-4 border-b border-brand-ocean/30 relative z-50" aria-label="Crisis Helplines">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+        <span class="font-medium text-emerald-100">South Africa Immediate Support:</span>
+        <span class="text-stone-300">Dial <strong class="text-white">112</strong> or WhatsApp <strong class="text-white">+27 87 654 3210</strong></span>
+      </div>
+      <div class="flex items-center gap-4 text-stone-300">
+        <span class="hidden md:inline">Cipla 24hr Line: <strong class="text-white">0800 456 789</strong></span>
+        <button id="open-crisis-top" class="text-amber-300 hover:text-amber-200 font-semibold underline underline-offset-2 transition-colors">
+          View all helplines
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main id="top" class="overflow-hidden">
+    <!-- HERO SECTION: FULL-BLEED CAPE TOWN COASTAL PANORAMA -->
+    <section class="hero-coastal-wrapper relative min-h-[95dvh] flex flex-col justify-between pt-3 pb-24 px-4 sm:px-6 lg:px-8 text-white">
+      <!-- High-res Cape Town Coastal Landscape Photo -->
+      <img src="assets/capetown-coastal.jpg" alt="Cape Town coastal ocean landscape" class="hero-coastal-bg" loading="eager">
+      <!-- Dark Ocean Vignette Gradient Mask -->
+      <div class="hero-coastal-gradient"></div>
+      <!-- Soft Bottom Blend into Warm Sand Surface -->
+      <div class="hero-bottom-blend"></div>
+
+      <!-- Navigation Bar inside Coastal Header -->
+      <header class="relative z-30 max-w-7xl mx-auto w-full pt-3 pb-2">
+        <nav class="flex items-center justify-between gap-4 py-2 text-white" aria-label="Main Navigation">
+          <!-- Brand Logo & Dialectical Mark -->
+          <a href="#top" class="flex items-center gap-3 group focus-visible:outline-none" aria-label="WiseMind Home">
+            <div class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center font-bold text-sm shadow-sm group-hover:bg-white/30 transition-all">
+              W
+            </div>
+            <div class="flex flex-col">
+              <span class="font-bold text-lg tracking-tight text-white leading-tight">WiseMind</span>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-200/80">Cape Town</span>
+            </div>
+          </a>
+
+          <!-- Desktop Navigation Links -->
+          <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-emerald-100/90">
+            <a href="#tools" class="hover:text-white transition-colors">Somatic Tools</a>
+            <a href="#idea" class="hover:text-white transition-colors">Biological Rationale</a>
+            <a href="#skills" class="hover:text-white transition-colors">DBT Skills</a>
+            <a href="#human-side" class="hover:text-white transition-colors">Cape Town Fellowship</a>
+            <a href="#principles" class="hover:text-white transition-colors">Principles</a>
+            <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-3">
+            <a href="#tools" class="hidden md:inline-flex text-xs font-semibold text-white/90 hover:text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-all">
+              Explore the app
+            </a>
+            <button id="open-breathing-pill" class="btn-tactile hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-emerald-950 bg-emerald-100/95 hover:bg-white px-3.5 py-2 rounded-full border border-white/40 shadow-sm transition-all">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping" aria-hidden="true"></span>
+              Try 4 4 6 Breath
+            </button>
+            <button id="open-crisis-nav" class="btn-tactile inline-flex items-center gap-2 text-xs font-bold text-white bg-brand-terracotta hover:bg-[#B74630] px-4 py-2 rounded-full shadow-md transition-all">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Need Help Now
+            </button>
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 text-white hover:text-emerald-200 rounded-lg" aria-label="Toggle navigation menu" aria-expanded="false">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-2 p-5 bg-[#13382F]/95 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl space-y-4 text-white">
+          <div class="flex flex-col space-y-3 text-sm font-medium">
+            <a href="#tools" class="mobile-nav-link py-1 hover:text-emerald-200">Somatic Tools</a>
+            <a href="#idea" class="mobile-nav-link py-1 hover:text-emerald-200">Biological Rationale</a>
+            <a href="#skills" class="mobile-nav-link py-1 hover:text-emerald-200">DBT Skills</a>
+            <a href="#human-side" class="mobile-nav-link py-1 hover:text-emerald-200">Cape Town Fellowship</a>
+            <a href="#principles" class="mobile-nav-link py-1 hover:text-emerald-200">Principles</a>
+            <a href="#faq" class="mobile-nav-link py-1 hover:text-emerald-200">FAQ</a>
+          </div>
+          <div class="pt-3 border-t border-white/15 flex flex-col gap-2">
+            <button id="open-breathing-mobile" class="w-full text-center py-2.5 text-xs font-semibold text-emerald-950 bg-emerald-100 rounded-full">
+              Practice 4 4 6 Paced Breathing
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto w-full relative z-20 my-auto py-8 lg:py-14">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Left Column: Display Headline, Eyebrow, Subtitle, Dual CTAs -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-block text-xs font-mono font-bold tracking-widest text-emerald-200/90 uppercase">
+              BODY FIRST, WORDS SECOND.
+            </div>
+
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.04]">
+              Real tools <br>
+              for hard <br>
+              moments.
+            </h1>
+
+            <p class="text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-lg">
+              A safe, practical space for grounding, recovery and connection.
+            </p>
+
+            <!-- Dual Pill Buttons (Matching reference mockup) -->
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="#tools" class="btn-tactile inline-flex items-center gap-2 bg-white text-text-ink font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-stone-100 shadow-xl transition-all">
+                <span>Explore WiseMind</span>
+                <span class="text-base font-bold">↓</span>
+              </a>
+              <a href="#idea" class="btn-tactile inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white font-semibold text-sm px-6 py-3.5 rounded-full border border-white/30 backdrop-blur-md transition-all">
+                <span>See how it works</span>
+              </a>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="pt-4 flex flex-wrap items-center gap-6 text-xs text-emerald-200/80 font-mono">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Zero Accounts Required
+              </span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Offline First Architecture
+              </span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Cape Town Sourced Data
+              </span>
+            </div>
+          </div>
+
+          <!-- Right Column: Creative 3-Screen Device Cascade -->
+          <div class="lg:col-span-6 relative flex flex-col items-center justify-center">
+            
+            <!-- Deck Quick Tabs for Tap-to-Focus -->
+            <div class="flex items-center justify-center gap-2 mb-6 z-30">
+              <button id="tab-deck-sanctuary" class="deck-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-brand-ocean shadow-md transition-all">
+                1. Daily Sanctuary
+              </button>
+              <button id="tab-deck-breathing" class="deck-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all">
+                2. Paced Breathing
+              </button>
+              <button id="tab-deck-meetings" class="deck-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all">
+                3. Cape Town Meetings
+              </button>
+            </div>
+
+            <!-- The Cascaded Phones Stage -->
+            <div class="relative w-full max-w-[500px] h-[550px] sm:h-[620px] flex items-center justify-center">
+              
+              <!-- Card 2: Paced Breathing (Upper Right / Behind) -->
+              <div id="deck-card-breathing" class="hero-clean-phone absolute w-[240px] sm:w-[280px] cursor-pointer transition-spring"
+                   style="transform: translate(24%, -4%) rotate(7deg); z-index: 10; opacity: 0.94;">
+                <img src="light/20-breathing-running.png" alt="Paced Breathing 4 4 6 Tool" loading="lazy">
+                <!-- Pinned 'In The Moment' Callout Badge (Matching reference image) -->
+                <div class="hero-moment-badge absolute -bottom-3 right-1 p-3 text-text-ink max-w-[190px] z-30">
+                  <div class="text-[9px] font-mono font-bold uppercase tracking-wider text-brand-terracotta">IN THE MOMENT</div>
+                  <div class="text-[11px] font-bold leading-tight mt-0.5">Practical support, without the noise.</div>
+                </div>
+              </div>
+
+              <!-- Card 3: Cape Town Meetings (Foreground Left / Offset) -->
+              <div id="deck-card-meetings" class="hero-clean-phone absolute w-[230px] sm:w-[270px] cursor-pointer transition-spring"
+                   style="transform: translate(-30%, 14%) rotate(-6deg); z-index: 15; opacity: 0.94;">
+                <img src="light/13-meetings-today.png" alt="Cape Town Local Meetings Directory" loading="lazy">
+                <!-- Pinned 'Fellowship' Callout Badge -->
+                <div class="hero-moment-badge absolute -bottom-3 left-1 p-3 text-text-ink max-w-[190px] z-30">
+                  <div class="text-[9px] font-mono font-bold uppercase tracking-wider text-brand-ocean">CAPE TOWN FELLOWSHIP</div>
+                  <div class="text-[11px] font-bold leading-tight mt-0.5">Verified in person & online.</div>
+                </div>
+              </div>
+
+              <!-- Card 1: Daily Sanctuary (Center Anchor / Spotlight) -->
+              <div id="deck-card-sanctuary" class="hero-clean-phone absolute w-[260px] sm:w-[300px] cursor-pointer transition-spring"
+                   style="transform: translate(0%, 0%) rotate(1deg); z-index: 25; opacity: 1;">
+                <img src="light/01-home.png" alt="Daily Sanctuary Home Screen with tools and check in" loading="eager">
+              </div>
+
+            </div>
+
+            <p class="text-xs text-emerald-200/70 text-center mt-6 font-mono">
+              Click any device to spotlight it into full focus.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: IN THE MOMENT (SOMATIC PROTOCOLS) -->
+    <section id="tools" class="py-24 bg-white border-y border-border-subtle relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-16 reveal-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-ocean-soft text-brand-ocean text-xs font-semibold mb-4">
+            <span>Stage 1: Physiological Interventions</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
+            In the moment. <br>
+            <span class="font-serif italic font-normal text-brand-ocean">Practical support, without the noise.</span>
+          </h2>
+          <p class="text-lg text-text-body leading-relaxed">
+            Distress lives in the heart rate, the diaphragm, and the autonomic nervous system. You cannot talk yourself out of an adrenaline flood. These three somatic practices intervene at the physical level first.
+          </p>
+        </div>
+
+        <!-- Interactive Switcher & Device Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Left Column: Tool Selectors -->
+          <div class="lg:col-span-6 space-y-4">
+            <!-- Tool 1: Paced Breathing -->
+            <button class="tool-switcher-card w-full text-left p-6 rounded-3xl border-2 border-brand-ocean bg-brand-ocean-soft/40 transition-all cursor-pointer relative" data-tool="breathing" data-img="light/20-breathing-running.png">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-brand-ocean text-white">01</span>
+                    <h3 class="text-xl font-bold text-text-ink">Paced Breathing (4 4 6)</h3>
+                  </div>
+                  <p class="text-sm text-text-body leading-relaxed mb-3">
+                    Prolongs exhalation to physically stimulate the vagus nerve. Forces heart rate deceleration and de escalates acute fight or flight arousal within minutes.
+                  </p>
+                  <div class="flex items-center gap-4 text-xs font-mono text-brand-ocean font-semibold">
+                    <span>Inhale 4s</span>
+                    <span>·</span>
+                    <span>Hold 4s</span>
+                    <span>·</span>
+                    <span>Exhale 6s</span>
+                  </div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-brand-ocean text-white flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 3v18M3 12h18"/>
+                  </svg>
+                </div>
+              </div>
+            </button>
+
+            <!-- Tool 2: Urge Surfing -->
+            <button class="tool-switcher-card w-full text-left p-6 rounded-3xl border border-border-subtle bg-white hover:border-brand-ocean/40 transition-all cursor-pointer relative" data-tool="urge" data-img="light/24-urge-running.png">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-border-strong text-text-ink">02</span>
+                    <h3 class="text-xl font-bold text-text-ink">Urge Surfing</h3>
+                  </div>
+                  <p class="text-sm text-text-body leading-relaxed mb-3">
+                    Craving impulses peak like ocean waves, crested at ten minutes before decaying. Visualizes bodily sensation without giving in to compulsive reaction.
+                  </p>
+                  <div class="flex items-center gap-4 text-xs font-mono text-text-muted">
+                    <span>Wave Progression</span>
+                    <span>·</span>
+                    <span>Somatic Tracking</span>
+                    <span>·</span>
+                    <span>No Action</span>
+                  </div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-bg-surface-subtle text-text-muted flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12c3-3 6-3 9 0s6 3 9 0"/>
+                  </svg>
+                </div>
+              </div>
+            </button>
+
+            <!-- Tool 3: Cold Water Immersion -->
+            <button class="tool-switcher-card w-full text-left p-6 rounded-3xl border border-border-subtle bg-white hover:border-brand-ocean/40 transition-all cursor-pointer relative" data-tool="cold" data-img="light/28-cold-countdown.png">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-border-strong text-text-ink">03</span>
+                    <h3 class="text-xl font-bold text-text-ink">Cold Water Immersion (TIPP)</h3>
+                  </div>
+                  <p class="text-sm text-text-body leading-relaxed mb-3">
+                    Cold water applied to the facial temples activates the mammalian dive reflex, dropping the pulse 10 to 25 beats per minute automatically.
+                  </p>
+                  <div class="flex items-center gap-4 text-xs font-mono text-text-muted">
+                    <span>30s Immersion</span>
+                    <span>·</span>
+                    <span>Dive Reflex</span>
+                    <span>·</span>
+                    <span>Immediate Drop</span>
+                  </div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-bg-surface-subtle text-text-muted flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
+              </div>
+            </button>
+
+            <!-- Interactive Breath Trigger Banner -->
+            <div class="p-5 rounded-2xl bg-[#F4F9F7] border border-brand-ocean/20 flex items-center justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold text-brand-ocean">Want to test the rhythm right now?</p>
+                <p class="text-xs text-text-body">Experience an interactive 4 4 6 breath cycle directly in your browser.</p>
+              </div>
+              <button id="open-breathing-interactive" class="btn-tactile shrink-0 px-4 py-2.5 rounded-full bg-brand-ocean text-white text-xs font-semibold shadow-sm hover:bg-brand-ocean-light transition-all">
+                Start Breath
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Phone Preview -->
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="relative w-[300px] sm:w-[340px] reveal-on-scroll">
+              <div class="phone-mockup">
+                <img id="tool-display-img" src="light/20-breathing-running.png" alt="Interactive display of somatic tool screenshot" class="transition-opacity duration-300" loading="lazy">
+              </div>
+              <!-- Floating Pill Indicator -->
+              <div id="tool-indicator-badge" class="floating-chip absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full text-xs font-semibold text-brand-ocean whitespace-nowrap shadow-md">
+                Paced Breathing Active · 4 4 6 Cycle
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: THE IDEA & BIOLOGICAL RATIONALE -->
+    <section id="idea" class="py-24 bg-bg-sand relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Scroll-Triggered Animated Tagline -->
+        <div class="max-w-4xl mx-auto text-center py-12 mb-16">
+          <div class="text-xs font-mono uppercase tracking-widest text-brand-terracotta mb-4">The Operating Thesis</div>
+          <div id="tagline-container" class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-snug">
+            <span class="tagline-word">When</span>
+            <span class="tagline-word">distress</span>
+            <span class="tagline-word">strikes,</span>
+            <span class="tagline-word">the</span>
+            <span class="tagline-word">rational</span>
+            <span class="tagline-word">brain</span>
+            <span class="tagline-word">disconnects.</span>
+            <br class="hidden sm:inline">
+            <span class="tagline-word text-brand-ocean font-serif italic">Body</span>
+            <span class="tagline-word text-brand-ocean font-serif italic">first.</span>
+            <span class="tagline-word text-brand-terracotta font-serif italic">Words</span>
+            <span class="tagline-word text-brand-terracotta font-serif italic">second.</span>
+          </div>
+        </div>
+
+        <!-- Bento Biological Progression -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card 1: The Amygdala Hijack -->
+          <div class="glass-card surface-warm-terracotta p-8 rounded-3xl reveal-on-scroll">
+            <div class="w-12 h-12 rounded-2xl bg-brand-terracotta-soft text-brand-terracotta flex items-center justify-center mb-6 font-mono font-bold text-lg">
+              01
+            </div>
+            <h3 class="text-2xl font-bold text-text-ink mb-3">Prefrontal Deactivation</h3>
+            <p class="text-sm text-text-body leading-relaxed mb-6">
+              When emotional arousal exceeds biological threshold, perfusion drops in the prefrontal cortex. Asking someone in panic or acute craving to think rationally is asking the impossible.
+            </p>
+            <div class="p-4 rounded-xl bg-white/80 border border-brand-terracotta-border text-xs text-text-body space-y-1 font-mono">
+              <div class="flex justify-between"><span>Heart Rate:</span><span class="text-brand-terracotta font-bold">>115 BPM</span></div>
+              <div class="flex justify-between"><span>Cognitive Reasoning:</span><span class="text-text-muted">Impaired</span></div>
+              <div class="flex justify-between"><span>Action Required:</span><span class="text-brand-terracotta font-bold">Physical Reset</span></div>
+            </div>
+          </div>
+
+          <!-- Card 2: Somatic Downregulation -->
+          <div class="glass-card surface-soft-ocean p-8 rounded-3xl reveal-on-scroll" style="transition-delay: 150ms;">
+            <div class="w-12 h-12 rounded-2xl bg-brand-ocean-soft text-brand-ocean flex items-center justify-center mb-6 font-mono font-bold text-lg">
+              02
+            </div>
+            <h3 class="text-2xl font-bold text-text-ink mb-3">Vagal Brake Engagement</h3>
+            <p class="text-sm text-text-body leading-relaxed mb-6">
+              Extended exhalations and cold water stimulation send acetylcholine across the vagus nerve directly to the heart sinoatrial node, commanding an involuntary reduction in cardiac speed.
+            </p>
+            <div class="p-4 rounded-xl bg-white/80 border border-brand-ocean-border text-xs text-text-body space-y-1 font-mono">
+              <div class="flex justify-between"><span>Nerve Pathway:</span><span class="text-brand-ocean font-bold">Vagus / Cranial X</span></div>
+              <div class="flex justify-between"><span>Heart Rate:</span><span class="text-brand-ocean font-bold">Minus 18 BPM</span></div>
+              <div class="flex justify-between"><span>Duration to Calm:</span><span class="text-brand-ocean font-bold">90 Seconds</span></div>
+            </div>
+          </div>
+
+          <!-- Card 3: Dialectical Recovery -->
+          <div class="glass-card surface-warm-sand p-8 rounded-3xl reveal-on-scroll" style="transition-delay: 300ms;">
+            <div class="w-12 h-12 rounded-2xl bg-bg-sand-warm text-brand-ocean flex items-center justify-center mb-6 font-mono font-bold text-lg">
+              03
+            </div>
+            <h3 class="text-2xl font-bold text-text-ink mb-3">Receptive Grounding</h3>
+            <p class="text-sm text-text-body leading-relaxed mb-6">
+              Once the body is physically tranquilized, the executive cortex comes back online. Now, and only now, can the user apply the STOP skill, make a recovery call, or attend a meeting.
+            </p>
+            <div class="p-4 rounded-xl bg-white/80 border border-border-strong text-xs text-text-body space-y-1 font-mono">
+              <div class="flex justify-between"><span>Wise Mind Balance:</span><span class="text-text-ink font-bold">Restored</span></div>
+              <div class="flex justify-between"><span>Community Link:</span><span class="text-brand-ocean font-bold">Accessible</span></div>
+              <div class="flex justify-between"><span>Next Step:</span><span class="text-text-ink font-bold">DBT Skills</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: GROUNDED SUPPORT (DBT SKILLS) -->
+    <section id="skills" class="py-24 bg-white border-y border-border-subtle relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-16 reveal-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-terracotta-soft text-brand-terracotta text-xs font-semibold mb-4">
+            <span>Stage 2: Clinical DBT Foundations</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
+            Dialectical Behavior Therapy. <br>
+            <span class="font-serif italic font-normal text-brand-terracotta">Skills designed for acute survival.</span>
+          </h2>
+          <p class="text-lg text-text-body leading-relaxed">
+            DBT was developed specifically for individuals experiencing intolerable emotional turmoil. WiseMind simplifies these clinical protocols into tap friendly, offline flows you can follow when your brain is tired.
+          </p>
+        </div>
+
+        <!-- Skills Navigation Tabs -->
+        <div class="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-border-subtle" role="tablist">
+          <button class="skill-tab-btn active px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-brand-ocean text-white" data-skill="stop" role="tab">
+            STOP Protocol
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-bg-surface-subtle text-text-muted hover:text-text-ink" data-skill="tipp" role="tab">
+            TIPP Distress Tolerance
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-bg-surface-subtle text-text-muted hover:text-text-ink" data-skill="wisemind" role="tab">
+            Wise Mind Balance
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-bg-surface-subtle text-text-muted hover:text-text-ink" data-skill="crisis" role="tab">
+            Surviving a Crisis
+          </button>
+        </div>
+
+        <!-- Skill Detail Panels -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Text and Breakdown Column -->
+          <div id="skill-content-panel" class="lg:col-span-7 space-y-6 reveal-on-scroll">
+            <!-- Dynamic Content Injected via Script -->
+            <div class="space-y-4">
+              <span class="text-xs font-mono uppercase tracking-widest text-brand-ocean font-bold">The Golden Standard Protocol</span>
+              <h3 class="text-3xl font-bold text-text-ink">The STOP Skill</h3>
+              <p class="text-base text-text-body leading-relaxed">
+                When an emotional reaction feels sudden and overwhelming, STOP puts space between impulse and action. Do not react. Do not speak. Stand perfectly still.
+              </p>
+            </div>
+
+            <!-- Connected Step Track -->
+            <div class="timeline-track space-y-4 pt-2">
+              <div class="flex items-start gap-4 relative z-10">
+                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">S</div>
+                <div>
+                  <h4 class="font-bold text-text-ink text-sm">Stop immediately</h4>
+                  <p class="text-xs text-text-muted">Freeze your body. Do not move a muscle. Do not let your feelings push you into speech or behavior.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 relative z-10">
+                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">T</div>
+                <div>
+                  <h4 class="font-bold text-text-ink text-sm">Take a step back</h4>
+                  <p class="text-xs text-text-muted">Physically step backward or uncross your hands. Take a deep, measured breath to break the impulse cycle.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 relative z-10">
+                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">O</div>
+                <div>
+                  <h4 class="font-bold text-text-ink text-sm">Observe without judgment</h4>
+                  <p class="text-xs text-text-muted">Notice what is happening inside your physical body and in the room around you without judging it good or bad.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 relative z-10">
+                <div class="w-6 h-6 rounded-full bg-brand-ocean text-white text-xs font-bold flex items-center justify-center shrink-0">P</div>
+                <div>
+                  <h4 class="font-bold text-text-ink text-sm">Proceed with intention</h4>
+                  <p class="text-xs text-text-muted">Ask what choice will make the situation better rather than worse. Act from clarity.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+              <a href="#human-side" class="text-xs font-bold text-brand-ocean underline underline-offset-4 hover:text-brand-ocean-light">
+                Find a local DBT practice group in Cape Town →
+              </a>
+            </div>
+          </div>
+
+          <!-- Phone Mockup Display Column -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-[290px] sm:w-[320px]">
+              <div class="phone-mockup">
+                <img id="skill-display-img" src="light/08-skill-stop.png" alt="STOP DBT Skill Walkthrough on mobile" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: CAPE TOWN FELLOWSHIP & GROUNDING GALLERY (#human-side) -->
+    <section id="human-side" class="py-24 bg-bg-sand relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Cape Town Coastal Hero Banner Card -->
+        <div class="relative rounded-3xl overflow-hidden shadow-xl mb-16 border border-border-strong">
+          <div class="h-80 sm:h-96 w-full relative">
+            <img src="assets/capetown-coastal.jpg" alt="Cape Town Atlantic Ocean granite shoreline at dawn" class="w-full h-full object-cover object-center" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0B1512] via-[#0B1512]/40 to-transparent"></div>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-8 sm:p-12 text-white">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-emerald-200 text-xs font-mono font-medium mb-3">
+              <span>33.9249° S, 18.4241° E · Atlantic Seaboard</span>
+            </div>
+            <h3 class="text-2xl sm:text-4xl font-bold tracking-tight mb-2">
+              Grounding in the Cape Peninsula.
+            </h3>
+            <p class="text-sm sm:text-base text-stone-200 max-w-2xl leading-relaxed">
+              Granite boulders, freezing sea currents, and living rooms where people tell the truth without pretense. Recovery is rooted in real geography.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-12 reveal-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-ocean-soft text-brand-ocean text-xs font-semibold mb-4">
+            <span>Stage 3: Community & Fellowship</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
+            Verified recovery meetings. <br>
+            <span class="font-serif italic font-normal text-brand-ocean">Cape Town and online rooms.</span>
+          </h2>
+          <p class="text-base sm:text-lg text-text-body leading-relaxed">
+            Isolation fuels relapse. When the crisis settles, connecting with people who have walked the same path provides lasting ballast. Filter verified AA and NA meetings below.
+          </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div class="flex items-center gap-2" role="group" aria-label="Meeting location filter">
+            <button class="meeting-filter-btn active px-4 py-2 rounded-full text-xs font-bold bg-brand-ocean text-white shadow-sm transition-all" data-filter="all">
+              All Meetings
+            </button>
+            <button class="meeting-filter-btn px-4 py-2 rounded-full text-xs font-bold bg-white text-text-muted hover:text-text-ink border border-border-subtle transition-all" data-filter="in-person">
+              In Person Cape Town
+            </button>
+            <button class="meeting-filter-btn px-4 py-2 rounded-full text-xs font-bold bg-white text-text-muted hover:text-text-ink border border-border-subtle transition-all" data-filter="online">
+              Online Rooms
+            </button>
+          </div>
+          <div class="text-xs font-mono text-text-muted">
+            Audited weekly · All meetings are free and open
+          </div>
+        </div>
+
+        <!-- Meeting Directory Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16" id="meetings-grid">
+          
+          <!-- Meeting 1 -->
+          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="in-person">
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-emerald-100 text-brand-ocean mb-2">
+                  Alcoholics Anonymous · In Person
+                </span>
+                <h4 class="text-xl font-bold text-text-ink">Steps to Freedom</h4>
+              </div>
+              <div class="text-right">
+                <div class="text-lg font-bold font-mono text-brand-ocean">19:30</div>
+                <div class="text-xs text-text-muted font-mono">Every Thursday</div>
+              </div>
+            </div>
+            <p class="text-sm text-text-body mb-4">
+              St Johns Parish Hall, Kloof Street, Gardens, Cape Town. Safe, quiet courtyard entrance with street parking available.
+            </p>
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
+              <span class="text-text-muted font-mono">Open Meeting · Wheelchair Access</span>
+              <a href="https://maps.google.com/?q=St+Johns+Parish+Kloof+Street+Cape+Town" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-ocean hover:underline">
+                Directions →
+              </a>
+            </div>
+          </div>
+
+          <!-- Meeting 2 -->
+          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="in-person">
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-amber-100 text-amber-800 mb-2">
+                  Narcotics Anonymous · In Person
+                </span>
+                <h4 class="text-xl font-bold text-text-ink">Freaky Fridays</h4>
+              </div>
+              <div class="text-right">
+                <div class="text-lg font-bold font-mono text-brand-terracotta">12:15</div>
+                <div class="text-xs text-text-muted font-mono">Every Friday</div>
+              </div>
+            </div>
+            <p class="text-sm text-text-body mb-4">
+              Kenilworth Community Centre, 14 Kenilworth Road, Southern Suburbs, Cape Town. Midday solidarity format.
+            </p>
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
+              <span class="text-text-muted font-mono">Discussion Format · Free Attendance</span>
+              <a href="https://maps.google.com/?q=Kenilworth+Road+Cape+Town" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-ocean hover:underline">
+                Directions →
+              </a>
+            </div>
+          </div>
+
+          <!-- Meeting 3 -->
+          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="online">
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-blue-100 text-blue-800 mb-2">
+                  Narcotics Anonymous · Online Zoom
+                </span>
+                <h4 class="text-xl font-bold text-text-ink">Morning Hope Daily</h4>
+              </div>
+              <div class="text-right">
+                <div class="text-lg font-bold font-mono text-brand-ocean">07:00</div>
+                <div class="text-xs text-text-muted font-mono">Monday to Sunday</div>
+              </div>
+            </div>
+            <p class="text-sm text-text-body mb-4">
+              Daily morning grounding room. Camera optional for newcomers. Join safely from any private space before your workday begins.
+            </p>
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
+              <span class="text-text-muted font-mono">Zoom ID verified in app</span>
+              <span class="font-bold text-brand-ocean">Zero Registration Needed</span>
+            </div>
+          </div>
+
+          <!-- Meeting 4 -->
+          <div class="meeting-card glass-card p-6 rounded-3xl" data-type="online">
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono bg-purple-100 text-purple-800 mb-2">
+                  Dialectical Group · Online
+                </span>
+                <h4 class="text-xl font-bold text-text-ink">New Beginnings Evening</h4>
+              </div>
+              <div class="text-right">
+                <div class="text-lg font-bold font-mono text-brand-ocean">20:00</div>
+                <div class="text-xs text-text-muted font-mono">Tuesdays & Thursdays</div>
+              </div>
+            </div>
+            <p class="text-sm text-text-body mb-4">
+              Evening peer group focusing on DBT distress tolerance practice, urge sharing, and weekly accountability check ins.
+            </p>
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between text-xs">
+              <span class="text-text-muted font-mono">Peer Led · Confidential</span>
+              <span class="font-bold text-brand-ocean">Open to All</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 4 Mood Pillars: Calm, Grounded, Focused, Hopeful -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
+            <div class="text-2xl font-serif italic text-brand-ocean mb-1">Calm</div>
+            <div class="text-xs text-text-muted">Physiological equilibrium restored through vagal breath.</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
+            <div class="text-2xl font-serif italic text-brand-terracotta mb-1">Grounded</div>
+            <div class="text-xs text-text-muted">Feet planted on earth, present in physical reality.</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
+            <div class="text-2xl font-serif italic text-brand-ocean mb-1">Focused</div>
+            <div class="text-xs text-text-muted">Attentive to the single next right decision.</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-white border border-border-subtle text-center">
+            <div class="text-2xl font-serif italic text-amber-700 mb-1">Hopeful</div>
+            <div class="text-xs text-text-muted">Supported by living fellowship and daily practice.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: PRODUCT ARCHITECTURE & PRIVACY INVARIANTS -->
+    <section id="principles" class="py-24 bg-white border-y border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-16 reveal-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-ocean-soft text-brand-ocean text-xs font-semibold mb-4">
+            <span>Unshakeable Standards</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-text-ink mb-4">
+            Built for crisis conditions. <br>
+            <span class="font-serif italic font-normal text-brand-ocean">Zero tracking. Zero obstacles.</span>
+          </h2>
+          <p class="text-lg text-text-body leading-relaxed">
+            When a user opens an app in the middle of a panic attack or relapse urge, every unnecessary dialog is an act of hostility. We built WiseMind on four non negotiable invariants.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Invariant 1 -->
+          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-brand-ocean text-white flex items-center justify-center font-bold text-sm">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-text-ink">No Account Walls</h3>
+            <p class="text-xs text-text-body leading-relaxed">
+              No registration forms, no email verifications, and no passwords standing between a person in crisis and immediate relief tools.
+            </p>
+          </div>
+
+          <!-- Invariant 2 -->
+          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-brand-ocean text-white flex items-center justify-center font-bold text-sm">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-text-ink">Zero Cloud Telemetry</h3>
+            <p class="text-xs text-text-body leading-relaxed">
+              Your check in notes, urge records, and meeting searches are written only to local device storage. Nothing leaves your phone.
+            </p>
+          </div>
+
+          <!-- Invariant 3 -->
+          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-brand-ocean text-white flex items-center justify-center font-bold text-sm">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-text-ink">Offline Invariant</h3>
+            <p class="text-xs text-text-body leading-relaxed">
+              Every somatic timer, audio vibration cue, and meeting address is pre bundled. The app functions flawlessly in airplane mode.
+            </p>
+          </div>
+
+          <!-- Invariant 4 -->
+          <div class="p-6 rounded-3xl bg-bg-surface-subtle border border-border-subtle space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-brand-terracotta text-white flex items-center justify-center font-bold text-sm">
+              04
+            </div>
+            <h3 class="text-lg font-bold text-text-ink">Direct Emergency Rail</h3>
+            <p class="text-xs text-text-body leading-relaxed">
+              One tap access to national 112 services, WhatsApp crisis chats, and South African helplines without third party mediation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: EDITORIAL FAQ STREAM WITH STICKY CRISIS RAIL -->
+    <section id="faq" class="py-24 bg-bg-sand relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Sticky Left Rail: Immediate Crisis Card -->
+          <div class="lg:col-span-4 sticky-rail">
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-brand-terracotta/30 bg-white shadow-xl">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-terracotta animate-pulse" aria-hidden="true"></span>
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-terracotta">Emergency Contacts</span>
+              </div>
+              <h3 class="text-2xl font-bold text-text-ink mb-2">In acute danger?</h3>
+              <p class="text-xs text-text-body mb-6 leading-relaxed">
+                If you or someone around you is in immediate physical danger or contemplating self harm, please connect right now.
+              </p>
+
+              <!-- Direct Dial Buttons -->
+              <div class="space-y-3">
+                <a href="tel:112" class="btn-tactile w-full flex items-center justify-between p-3.5 rounded-2xl bg-brand-terracotta text-white font-bold text-sm shadow hover:bg-[#B74630] transition-colors">
+                  <span class="flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Call 112 (Emergency)
+                  </span>
+                  <span class="font-mono text-xs opacity-90">Free from Mobile</span>
+                </a>
+
+                <a href="https://wa.me/27876543210" target="_blank" rel="noopener noreferrer" class="btn-tactile w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-600 text-white font-bold text-sm shadow hover:bg-emerald-700 transition-colors">
+                  <span class="flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                    WhatsApp Crisis Chat
+                  </span>
+                  <span class="font-mono text-xs opacity-90">+27 87 654 3210</span>
+                </a>
+              </div>
+
+              <div class="mt-6 pt-5 border-t border-border-subtle text-xs space-y-2 text-text-muted">
+                <div>Cipla Mental Health: <strong class="text-text-ink">0800 456 789</strong></div>
+                <div>Suicide Crisis Helpline: <strong class="text-text-ink">0800 567 567</strong></div>
+                <div>Substance Abuse Helpline: <strong class="text-text-ink">0800 12 13 14</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Accordion Stream -->
+          <div class="lg:col-span-8 space-y-4">
+            <div class="mb-8 reveal-on-scroll">
+              <span class="text-xs font-mono uppercase tracking-widest text-brand-ocean font-bold">Frequently Asked Questions</span>
+              <h2 class="text-3xl font-bold text-text-ink mt-2">Everything you need to know.</h2>
+            </div>
+
+            <!-- FAQ Item 1 -->
+            <div class="faq-item glass-card rounded-2xl overflow-hidden">
+              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
+                <span>Why does WiseMind emphasize the body before rational words?</span>
+                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
+              </button>
+              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
+                In acute distress, fight or flight arousal shunts blood away from the frontal lobes toward survival muscles. Trying to talk yourself down during an intense panic state or compulsive urge rarely succeeds because the neurological hardware for logic is temporarily deactivated. Somatic interventions like cold immersion and prolonged exhalation physically brake the heartbeat via the vagus nerve. Once biological safety is re established, words and skills can actually take hold.
+              </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item glass-card rounded-2xl overflow-hidden">
+              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
+                <span>Is WiseMind a replacement for professional therapy or medical care?</span>
+                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
+              </button>
+              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
+                No. WiseMind is a practical in the moment companion tool for emotional regulation and recovery maintenance. It is designed to complement clinical therapy, psychiatry, and twelve step fellowships, not replace them. In acute clinical emergencies, use our emergency rail to dial 112 or contact the Suicide Crisis Helpline immediately.
+              </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item glass-card rounded-2xl overflow-hidden">
+              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
+                <span>How are the Cape Town recovery meetings verified?</span>
+                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
+              </button>
+              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
+                Our team audits local AA and NA intergroup meeting schedules weekly across the Cape Peninsula. We verify physical venue accessibility, start times, and open versus closed attendance parameters directly with local group secretaries.
+              </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item glass-card rounded-2xl overflow-hidden">
+              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
+                <span>Do I need an internet connection to use the tools?</span>
+                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
+              </button>
+              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
+                No. WiseMind is designed with an offline first architecture. Every breathing timer, somatic protocol, DBT skill card, and saved meeting is stored directly on your phone. You can use it in remote mountain areas, during loadshedding, or on airplane mode without losing access to any core functionality.
+              </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item glass-card rounded-2xl overflow-hidden">
+              <button class="faq-toggle w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-text-ink text-base cursor-pointer">
+                <span>What data does the app collect about me?</span>
+                <span class="faq-icon text-brand-ocean text-xl font-bold">+</span>
+              </button>
+              <div class="faq-answer px-6 pb-6 text-sm text-text-body leading-relaxed hidden">
+                Zero. We require no username, no password, no email address, and no phone number to use the app. All check ins and preferences remain strictly encrypted in your phone local database. We operate zero cloud analytics trackers.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: FINAL CALL TO ACTION -->
+    <section class="py-24 bg-white relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative rounded-3xl overflow-hidden bg-[#0F4D3F] text-white p-10 sm:p-16 shadow-2xl">
+          <!-- Dialectical Mountain Wave Background Watermark -->
+          <div class="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 opacity-10 pointer-events-none" aria-hidden="true">
+            <svg class="w-[600px] h-[600px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 17l4.5-8.5L12 15l4.5-9.5L21 17"/>
+              <path d="M3 20c3-1 6 1 9 0s6-1 9 0"/>
+            </svg>
+          </div>
+
+          <div class="max-w-2xl relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-200 text-xs font-mono mb-6">
+              <span>Ready whenever you are</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-6 leading-tight">
+              A quiet sanctuary in your pocket.
+            </h2>
+            <p class="text-base sm:text-lg text-emerald-100 leading-relaxed mb-8">
+              No subscription paywalls. No personal profiles. Just real somatic tools, dialectical behavioral clarity, and the courage to meet the next breath.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4">
+              <button id="final-breathing-trigger" class="btn-tactile inline-flex items-center justify-center gap-2 bg-white text-brand-ocean font-bold text-sm px-7 py-3.5 rounded-full hover:bg-emerald-50 shadow-lg transition-all">
+                <span>Practice 4 4 6 Breathing</span>
+              </button>
+              <a href="#human-side" class="btn-tactile inline-flex items-center justify-center gap-2 bg-transparent text-white border border-white/30 font-semibold text-sm px-6 py-3.5 rounded-full hover:bg-white/10 transition-all">
+                <span>View Meeting Schedule</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-bg-sand border-t border-border-strong py-16 px-4 sm:px-6 lg:px-8 text-text-body">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <!-- Brand Column -->
+        <div class="space-y-4 md:col-span-2">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-ocean text-white flex items-center justify-center">
+              <svg class="w-4 h-4 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 17l4.5-8.5L12 15l4.5-9.5L21 17"/>
+                <path d="M3 20c3-1 6 1 9 0s6-1 9 0" opacity="0.75"/>
+              </svg>
+            </div>
+            <span class="font-bold text-lg text-text-ink">WiseMind</span>
+          </div>
+          <p class="text-xs text-text-muted leading-relaxed max-w-sm">
+            A practical, dialectical companion for acute grounding, somatic regulation, and recovery fellowship in Cape Town and across the world.
+          </p>
+          <div class="text-[11px] font-mono text-text-muted">
+            Designed with clinical care · Authentic screenshots from production client
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-text-ink">Explore</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#tools" class="hover:text-brand-ocean transition-colors">Somatic Interventions</a></li>
+            <li><a href="#idea" class="hover:text-brand-ocean transition-colors">Biological Rationale</a></li>
+            <li><a href="#skills" class="hover:text-brand-ocean transition-colors">DBT Skill Modules</a></li>
+            <li><a href="#human-side" class="hover:text-brand-ocean transition-colors">Cape Town Meetings</a></li>
+            <li><a href="#principles" class="hover:text-brand-ocean transition-colors">Product Invariants</a></li>
+            <li><a href="#faq" class="hover:text-brand-ocean transition-colors">Emergency Helplines</a></li>
+          </ul>
+        </div>
+
+        <!-- South Africa Emergency Dialers -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-brand-terracotta">Crisis Helplines</h4>
+          <ul class="space-y-2 text-xs font-mono">
+            <li>Emergency Services: <a href="tel:112" class="font-bold text-text-ink hover:underline">112</a></li>
+            <li>Cipla Mental Health: <a href="tel:0800456789" class="font-bold text-text-ink hover:underline">0800 456 789</a></li>
+            <li>Suicide Crisis Helpline: <a href="tel:0800567567" class="font-bold text-text-ink hover:underline">0800 567 567</a></li>
+            <li>Substance Abuse Line: <a href="tel:0800121314" class="font-bold text-text-ink hover:underline">0800 12 13 14</a></li>
+            <li>WhatsApp Chat: <a href="https://wa.me/27876543210" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-700 hover:underline">+27 87 654 3210</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted font-mono">
+        <div>
+          WiseMind Companion · Offline First · Zero Cloud Tracking
+        </div>
+        <div>
+          Body first. Words second. And the in between.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: LIVE INTERACTIVE 4 4 6 BREATHING SIMULATOR -->
+  <div id="breathing-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="breath-modal-title">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative text-center border border-border-subtle">
+      <!-- Close Button -->
+      <button id="close-breathing-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-bg-surface-subtle hover:bg-border-subtle text-text-ink flex items-center justify-center transition-colors" aria-label="Close breathing modal">
+        ✕
+      </button>
+
+      <span class="text-xs font-mono uppercase tracking-widest text-brand-ocean font-bold">Vagal Tone Stimulator</span>
+      <h3 id="breath-modal-title" class="text-2xl font-bold text-text-ink mt-1 mb-2">4 4 6 Paced Breathing</h3>
+      <p class="text-xs text-text-body mb-8 max-w-xs mx-auto">
+        Follow the circle. Inhale through the nose for 4 seconds, hold gently for 4, and release through slightly parted lips for 6.
+      </p>
+
+      <!-- Breathing Circle Graphic -->
+      <div class="relative w-56 h-56 mx-auto flex items-center justify-center mb-8">
+        <!-- Outer Track -->
+        <div class="absolute inset-0 rounded-full border-2 border-brand-ocean/15"></div>
+        <!-- Animated Pulsing Circle -->
+        <div id="breath-circle" class="w-32 h-32 rounded-full bg-gradient-to-tr from-brand-ocean to-brand-ocean-light shadow-xl flex items-center justify-center text-white transition-all duration-1000 ease-in-out transform scale-100">
+          <span id="breath-phase-text" class="font-bold text-base tracking-wide">Ready</span>
+        </div>
+        <!-- Seconds Counter -->
+        <div id="breath-second-counter" class="absolute bottom-2 font-mono text-xs text-text-muted">
+          Click start below
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-center gap-3">
+        <button id="start-breath-btn" class="btn-tactile px-6 py-3 rounded-full bg-brand-ocean text-white font-bold text-xs shadow-md hover:bg-brand-ocean-light transition-all">
+          Begin Practice
+        </button>
+        <button id="stop-breath-btn" class="btn-tactile px-5 py-3 rounded-full bg-bg-surface-subtle text-text-ink font-semibold text-xs border border-border-subtle hover:bg-border-subtle transition-all hidden">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: CRISIS SUPPORT MODAL -->
+  <div id="crisis-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-md hidden" role="dialog" aria-modal="true" aria-labelledby="crisis-modal-title">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border-2 border-brand-terracotta/40">
+      <!-- Close Button -->
+      <button id="close-crisis-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-bg-surface-subtle hover:bg-border-subtle text-text-ink flex items-center justify-center transition-colors" aria-label="Close crisis modal">
+        ✕
+      </button>
+
+      <div class="flex items-center gap-2.5 mb-2">
+        <span class="w-3 h-3 rounded-full bg-brand-terracotta animate-ping" aria-hidden="true"></span>
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-terracotta">Crisis Action Center</span>
+      </div>
+
+      <h3 id="crisis-modal-title" class="text-2xl sm:text-3xl font-bold text-text-ink mb-2">Immediate Support</h3>
+      <p class="text-sm text-text-body mb-6 leading-relaxed">
+        You do not have to endure this moment in silence. Connect immediately with emergency services or trained counselors in South Africa.
+      </p>
+
+      <!-- Primary Action: Call 112 -->
+      <div class="space-y-3 mb-6">
+        <a href="tel:112" class="btn-tactile flex items-center justify-between p-4 rounded-2xl bg-brand-terracotta text-white font-bold text-sm shadow hover:bg-[#B74630] transition-all">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <div class="text-base font-bold">Dial 112 Emergency</div>
+              <div class="text-xs opacity-90 font-normal">South Africa National Emergency (Toll free)</div>
+            </div>
+          </div>
+          <span class="text-xs font-mono underline">Call Now →</span>
+        </a>
+
+        <!-- WhatsApp Crisis Line -->
+        <a href="https://wa.me/27876543210" target="_blank" rel="noopener noreferrer" class="btn-tactile flex items-center justify-between p-4 rounded-2xl bg-emerald-600 text-white font-bold text-sm shadow hover:bg-emerald-700 transition-all">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+            <div>
+              <div class="text-base font-bold">WhatsApp Crisis Chat</div>
+              <div class="text-xs opacity-90 font-normal">Confidential Text Support (+27 87 654 3210)</div>
+            </div>
+          </div>
+          <span class="text-xs font-mono underline">Open Chat →</span>
+        </a>
+      </div>
+
+      <!-- Additional Verified Helplines -->
+      <div class="p-4 rounded-2xl bg-bg-surface-subtle border border-border-subtle text-xs space-y-2 font-mono">
+        <div class="flex justify-between items-center">
+          <span>Cipla Mental Health 24hr:</span>
+          <a href="tel:0800456789" class="font-bold text-text-ink hover:underline">0800 456 789</a>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>Suicide Crisis Line:</span>
+          <a href="tel:0800567567" class="font-bold text-text-ink hover:underline">0800 567 567</a>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>Substance Abuse Line:</span>
+          <a href="tel:0800121314" class="font-bold text-text-ink hover:underline">0800 12 13 14</a>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-text-muted text-center mt-6">
+        All helplines are toll free from any South African mobile network or landline.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

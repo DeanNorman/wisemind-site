@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap');
+
+:root {
+  --bg-sand: #FBF9F5;
+  --bg-sand-warm: #E8E5D9;
+  --bg-stone: #EFECE3;
+  --bg-surface: #FFFFFF;
+  --bg-surface-subtle: #F6F3EC;
+  --border-subtle: #E8E3D7;
+  --border-strong: #D5CEBD;
+  --text-ink: #0B0F14;
+  --text-body: #334155;
+  --text-muted: #64748B;
+  --brand-ocean: #0F4D3F;
+  --brand-ocean-light: #0F766E;
+  --brand-ocean-soft: #E8F4F1;
+  --brand-ocean-border: rgba(15, 77, 63, 0.18);
+  --brand-terracotta: #CB553D;
+  --brand-terracotta-soft: #FDEEE9;
+  --brand-terracotta-border: rgba(203, 85, 61, 0.22);
+  --brand-amber: #F59E0B;
+  --brand-amber-soft: #FEF3C7;
+  --bezier-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --shadow-ocean: 0 20px 48px -14px rgba(15, 77, 63, 0.1), 0 4px 16px -2px rgba(15, 77, 63, 0.04);
+  --shadow-float: 0 28px 60px -16px rgba(15, 77, 63, 0.16), 0 8px 20px -4px rgba(0, 0, 0, 0.04);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-sand);
+  color: var(--text-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle Film Grain Paper Texture Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Typography Rules */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+p, li, span, button, a {
+  text-wrap: pretty;
+}
+
+/* Editorial Serif Font for Quotes and Emotional Accents */
+.font-serif-accent {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+.font-serif-accent.italic, .italic-serif {
+  font-style: italic !important;
+}
+
+/* Monospace for numeric counters, timestamps, and coordinates */
+.font-mono {
+  font-family: 'Geist Mono', monospace;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Accessible visible focus states */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--brand-ocean);
+  outline-offset: 3px;
+}
+
+/* Physical tactile button press */
+button:active, .btn-tactile:active {
+  transform: scale(0.97);
+}
+
+.transition-spring {
+  transition: all 700ms var(--bezier-spring);
+}
+
+/* Scroll Interpolation */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(8px);
+  transition: opacity 800ms var(--bezier-spring), transform 800ms var(--bezier-spring), filter 800ms var(--bezier-spring);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* Tagline Reveal Section */
+.tagline-word {
+  display: inline-block;
+  opacity: 0.28;
+  filter: blur(0.4px);
+  color: var(--text-muted);
+  transition: opacity 600ms var(--bezier-spring), color 600ms var(--bezier-spring), filter 600ms var(--bezier-spring);
+}
+
+.tagline-word.active {
+  opacity: 1;
+  filter: blur(0px);
+  color: var(--text-ink);
+}
+
+/* Phone Bezel Presentation */
+.phone-mockup {
+  position: relative;
+  border-radius: 46px;
+  background: #141A19;
+  border: 7px solid #1E2726;
+  box-shadow: 
+    var(--shadow-float),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  aspect-ratio: 390 / 844;
+  user-select: none;
+  background-clip: padding-box;
+}
+
+/* Dynamic Island */
+.phone-mockup::before {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94px;
+  height: 22px;
+  background-color: #000000;
+  border-radius: 12px;
+  z-index: 20;
+  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Screen Glass Glare */
+.phone-mockup::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 50%);
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 38px;
+}
+
+/* Screen Image */
+.phone-mockup img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 38px;
+}
+
+/* Refined Glass and Card Bevels */
+.glass-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 16px 36px -12px rgba(11, 40, 36, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: border-color 400ms var(--bezier-spring), transform 400ms var(--bezier-spring), box-shadow 400ms var(--bezier-spring);
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 
+    0 24px 48px -12px rgba(11, 40, 36, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Floating Chips and Pinned Badges */
+.floating-chip {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(232, 227, 215, 0.9);
+  box-shadow: 
+    0 14px 28px -6px rgba(14, 39, 36, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.pinned-callout {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 
+    0 16px 36px -8px rgba(11, 40, 36, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Hero Full-Bleed Coastal Split Background */
+.hero-coastal-wrapper {
+  position: relative;
+  background-color: #13382F;
+  overflow: hidden;
+}
+
+.hero-coastal-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  z-index: 1;
+}
+
+.hero-coastal-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(90deg, 
+    #11362E 0%, 
+    #13382F 32%, 
+    rgba(19, 56, 47, 0.88) 48%, 
+    rgba(19, 56, 47, 0.35) 70%, 
+    rgba(19, 56, 47, 0.08) 100%
+  );
+}
+
+@media (max-width: 1024px) {
+  .hero-coastal-gradient {
+    background: linear-gradient(180deg, 
+      #13382F 0%, 
+      #13382F 45%, 
+      rgba(19, 56, 47, 0.85) 70%, 
+      rgba(19, 56, 47, 0.4) 100%
+    );
+  }
+}
+
+.hero-bottom-blend {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(251, 249, 245, 0) 0%, #FBF9F5 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Hero Modern Clean Floating Phone Card (Inspired by reference mockup) */
+.hero-clean-phone {
+  position: relative;
+  border-radius: 42px;
+  background: #FFFFFF;
+  padding: 8px;
+  box-shadow: 
+    0 32px 64px -16px rgba(0, 0, 0, 0.55),
+    0 12px 24px -6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  user-select: none;
+  transition: transform 500ms var(--bezier-spring), box-shadow 500ms var(--bezier-spring), z-index 0ms;
+}
+
+.hero-clean-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 34px;
+}
+
+.hero-clean-phone:hover {
+  box-shadow: 
+    0 40px 80px -18px rgba(0, 0, 0, 0.65),
+    0 16px 32px -8px rgba(0, 0, 0, 0.4);
+}
+
+/* Callout badge on hero phone */
+.hero-moment-badge {
+  background: #FFFFFF;
+  border-radius: 18px;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(220, 215, 205, 0.8);
+}
+  box-shadow: 
+    0 12px 36px -10px rgba(11, 40, 36, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Mobile Nav Overlay */
+.mobile-nav-backdrop {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgba(251, 249, 245, 0.97);
+}
+
+/* Live Breathing Pulse Simulation */
+@keyframes vagalPulse {
+  0% { transform: scale(1); opacity: 0.85; }
+  28.5% { transform: scale(1.35); opacity: 1; } /* Inhale 4s */
+  57.1% { transform: scale(1.35); opacity: 1; } /* Hold 4s */
+  100% { transform: scale(1); opacity: 0.85; } /* Exhale 6s */
+}
+
+.breathing-pulse {
+  animation: vagalPulse 14s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Interactive Breath Practice Animation */
+.interactive-breathing-circle {
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Connected Step Timeline Track */
+.timeline-track {
+  position: relative;
+}
+.timeline-track::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  bottom: 18px;
+  left: 11px;
+  width: 2px;
+  background: var(--border-subtle);
+  z-index: 1;
+}
+
+/* Sticky Rail for Editorial FAQ Stream */
+@media (min-width: 1024px) {
+  .sticky-rail {
+    position: sticky;
+    top: 6.5rem;
+    align-self: start;
+  }
+}
+
+/* Asymmetric Bento Surface Gradients */
+.surface-warm-sand {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FAF7F0 100%);
+}
+.surface-soft-ocean {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F2FAF8 100%);
+}
+.surface-warm-terracotta {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFF8F5 100%);
+}
+
+/* Reduced Motion Fallback */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .breathing-pulse {
+    animation: none !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .tagline-word {
+    opacity: 1 !important;
+    color: var(--text-ink) !important;
+    filter: none !important;
+  }
+}
