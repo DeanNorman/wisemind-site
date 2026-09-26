@@ -1,0 +1,29 @@
+# WiseMind
+
+> WiseMind is a free Android app, made in Cape Town, South Africa, for grounding and recovery. It keeps breathing exercises, DBT skills, South African helplines and Western Cape NA meetings together on your phone. The app needs no account, stores nothing about you, never connects to the internet on its own, and works offline. It is not a medical service. It is coming soon to Google Play.
+
+In an emergency in South Africa, call 112, or the SADAG Suicide Crisis Helpline on 0800 567 567 (24 hours).
+
+## What the app includes
+
+- Paced breathing: inhale 4 seconds, hold 4, exhale 6.
+- Urge surfing: a timer that keeps you company while a craving rises, peaks and passes.
+- Cold reset: 30 seconds of cold water on the face to set off the dive reflex (the T in the DBT skill TIPP).
+- A DBT skills library in plain words, including STOP, TIPP and Wise Mind.
+- NA meetings across the Western Cape, in person and online, with directions, from the public NA Western Cape list, refreshed before every release. AA South Africa's own list and helpline are linked instead of copied.
+- Free South African helplines, one tap away from any screen.
+
+## Pages
+
+- [WiseMind home](https://deannorman.github.io/wisemind-site/): what the app does, the tools, meetings, helplines and questions.
+- [Privacy](https://deannorman.github.io/wisemind-site/privacy.html): the app collects nothing; the website counts visits with Google Analytics.
+
+## Sources
+
+- The skills come from Dialectical Behaviour Therapy, developed by Marsha Linehan.
+- Urge surfing comes from Alan Marlatt's work on relapse prevention.
+- Helpline numbers are as listed by SADAG (sadag.org), last checked 26 September 2026.
+
+## Contact
+
+adhdezpz@gmail.com
