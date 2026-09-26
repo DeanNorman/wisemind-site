@@ -42,30 +42,56 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "WiseMind",
-  "description": "A small, free grounding and recovery companion: paced breathing, urge surfing, cold reset, DBT skills, South African helplines and Western Cape NA meetings. No account, no tracking, works offline.",
-  "operatingSystem": "Android",
-  "applicationCategory": "HealthApplication",
-  "url": "https://deannorman.github.io/wisemind-site/",
-  "image": "https://deannorman.github.io/wisemind-site/assets/img/og-image.jpg",
-  "inLanguage": "en-ZA",
-  "isAccessibleForFree": true,
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "ZAR"
-  },
-  "author": { "@id": "https://deannorman.github.io/wisemind-site/#org" },
-  "publisher": {
-    "@type": "Organization",
-    "@id": "https://deannorman.github.io/wisemind-site/#org",
-    "name": "WiseMind",
-    "url": "https://deannorman.github.io/wisemind-site/",
-    "email": "adhdezpz@gmail.com",
-    "logo": "https://deannorman.github.io/wisemind-site/assets/icons/icon-192.png",
-    "address": { "@type": "PostalAddress", "addressLocality": "Cape Town", "addressCountry": "ZA" }
-  }
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://deannorman.github.io/wisemind-site/#page",
+      "url": "https://deannorman.github.io/wisemind-site/",
+      "name": "WiseMind: Free Grounding and Recovery App for South Africa",
+      "inLanguage": "en-ZA",
+      "dateModified": "2026-09-26",
+      "about": {
+        "@id": "https://deannorman.github.io/wisemind-site/#app"
+      },
+      "publisher": {
+        "@id": "https://deannorman.github.io/wisemind-site/#org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "WiseMind",
+      "description": "A small, free grounding and recovery companion: paced breathing, urge surfing, cold reset, DBT skills, South African helplines and Western Cape NA meetings. No account, no tracking, works offline.",
+      "operatingSystem": "Android",
+      "applicationCategory": "HealthApplication",
+      "url": "https://deannorman.github.io/wisemind-site/",
+      "image": "https://deannorman.github.io/wisemind-site/assets/img/og-image.jpg",
+      "inLanguage": "en-ZA",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "ZAR"
+      },
+      "author": {
+        "@id": "https://deannorman.github.io/wisemind-site/#org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://deannorman.github.io/wisemind-site/#org",
+        "name": "WiseMind",
+        "url": "https://deannorman.github.io/wisemind-site/",
+        "email": "adhdezpz@gmail.com",
+        "logo": "https://deannorman.github.io/wisemind-site/assets/icons/icon-192.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cape Town",
+          "addressCountry": "ZA"
+        }
+      },
+      "@id": "https://deannorman.github.io/wisemind-site/#app",
+      "disambiguatingDescription": "A free grounding and recovery app for Android, made in Cape Town, South Africa. Its name nods to Wise Mind, one of the DBT skills it includes."
+    }
+  ]
 }
 </script>
 <link rel="preload" href="assets/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -115,7 +141,14 @@
   .nav-help { font-size: 15px; padding: 9px 2px; }
   .nav-help:hover { opacity: .7; }
   .btn, .nav-help, .links a { white-space: nowrap; }
-  @media (max-width: 820px) { .links { display: none; } .brand { margin-right: auto; } .nav-inner { gap: 14px; padding: 14px 16px; } .nav-help { font-size: 14px; } .btn { padding: 8px 14px; } }
+  .menu { display: none; position: relative; }
+  .menu summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; font-size: 14px; font-weight: 500; background: var(--fg); color: var(--inv); }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu-panel { position: absolute; right: 0; top: calc(100% + 8px); min-width: 180px; padding: 8px; border-radius: 16px; background: var(--bg); color: var(--ink);
+                box-shadow: 0 1px 2px rgba(20,20,19,.08), 0 16px 40px -12px rgba(20,20,19,.3); }
+  .menu-panel a { display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 10px; font-size: 16px; }
+  .menu-panel a:hover { background: #F0ECE3; }
+  @media (max-width: 820px) { .links, .nav .btn-dark { display: none; } .menu { display: block; } .brand { margin-right: auto; } .nav-inner { gap: 14px; padding: 10px 16px; } .nav-help { font-size: 14px; display: inline-flex; align-items: center; min-height: 44px; } }
 
   /* Intro: triptych that opens into the dawn horizon, then hands over to the light page.
      Base styles are the settled title card; the motion only exists inside @supports below. */
@@ -314,6 +347,8 @@
                text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; transition: color .2s, text-decoration-color .2s; }
   .numbers a:hover { color: var(--accent); text-decoration-color: currentColor; }
   .numbers small { font-size: 13px; color: var(--muted); }
+  .numbers-note { grid-column: 2; margin-top: clamp(32px, 4vw, 48px); max-width: 34em; font-size: 15px; }
+  @media (max-width: 820px) { .numbers-note { grid-column: auto; } }
   .faq-title { margin-bottom: clamp(32px, 5vh, 56px); }
   .faq details { border-top: 1px solid var(--line); }
   .faq details:last-child { border-bottom: 1px solid var(--line); }
@@ -490,6 +525,10 @@
     <div class="links"><a href="#tools">Tools</a><a href="#meetings">Meetings</a><a href="#principles">Principles</a><a href="#faq">FAQ</a></div>
     <a class="nav-help" href="#support">Crisis lines</a>
     <a class="btn btn-dark" href="#get">Coming soon</a>
+    <details class="menu">
+      <summary>Menu</summary>
+      <div class="menu-panel"><a href="#tools">Tools</a><a href="#meetings">Meetings</a><a href="#principles">Principles</a><a href="#faq">FAQ</a><a href="#get">Coming soon</a></div>
+    </details>
   </div>
 </nav>
 
@@ -515,7 +554,7 @@
 </header>
 
 <section class="read" id="read">
-  <p class="lede">Breathing exercises, DBT skills, helplines and local meetings, kept together on your phone for when things get hard. There is no account, nothing is tracked, and it works offline.</p>
+  <p class="lede">WiseMind is a free Android app, made in Cape Town, that keeps breathing exercises, DBT skills, helplines and local meetings together on your phone for when things get hard. There is no account, nothing is tracked, and it works offline.</p>
 </section>
 
 <section class="stage" aria-label="App preview">
@@ -663,6 +702,7 @@
     <li><span>Substance Abuse Helpline</span><a href="tel:0800121314">0800 12 13 14</a><small>24 hours, or SMS 32312</small></li>
     <li><span>Cipla Mental Health Helpline</span><a href="tel:0800456789">0800 456 789</a><small>SADAG, 24 hours</small></li>
   </ul>
+  <p class="numbers-note reveal">If talking is too much, SADAG's Cipla Mental Health WhatsApp chat is on <a class="inline" href="https://wa.me/27768822775" rel="noopener">076 882 2775</a>, from 8am to 5pm. Numbers checked against SADAG's list on 26 September 2026.</p>
 </section>
 
 <section class="sec faq" id="faq">
@@ -670,7 +710,8 @@
   <div class="reveal">
     <details><summary>Why does it start with breathing, not words?</summary><p>When you are flooded, the thinking part of your brain goes quiet, and it is hard to reason your way down. Slow breathing and cold water work on the body directly. Once you have settled a little, the skills are much easier to use.</p></details>
     <details><summary>Is WiseMind a replacement for therapy or medical care?</summary><p>No. It is a pocket companion for the moments in between, not treatment. It works best alongside a therapist, a doctor or a fellowship. If you are in danger, call 112 or the Suicide Crisis Helpline on 0800 567 567.</p></details>
-    <details><summary>Where does the meeting list come from?</summary><p>NA meetings come from the public NA Western Cape meeting list, refreshed before every release, and the app shows the date they were fetched. AA South Africa publishes its list only on its own site, so WiseMind links you there and to the AA helpline instead of copying it. Nothing in the list is made up.</p></details>
+    <details><summary>Where do the tools come from?</summary><p>The skills come from Dialectical Behaviour Therapy (DBT), developed by the psychologist <a class="inline" href="https://behavioraltech.org/" rel="noopener">Marsha Linehan</a>. Urge surfing comes from Alan Marlatt's work on relapse prevention. Cold water on the face sets off the dive reflex, the same reflex that slows a swimmer's heart underwater, and DBT uses it as the T in TIPP. WiseMind puts these in plain words. It does not replace learning them with a therapist.</p></details>
+    <details><summary>Where does the meeting list come from?</summary><p>NA meetings come from the public <a class="inline" href="https://na.org.za/wc/meetings/" rel="noopener">NA Western Cape meeting list</a>, refreshed before every release, and the app shows the date they were fetched. AA South Africa publishes its list only on its own site, so WiseMind links you there and to the AA helpline instead of copying it. Nothing in the list is made up.</p></details>
     <details><summary>Do I need an internet connection?</summary><p>No. Everything is inside the app, so it works in the mountains, during loadshedding or in airplane mode.</p></details>
     <details><summary>What data does the app collect?</summary><p>None. There is no sign-up and nothing to type in, and the app does not save anything about you or send anything anywhere.</p></details>
   </div>
@@ -699,10 +740,17 @@
       <li><span>Suicide Crisis</span><a href="tel:0800567567">0800 567 567</a></li>
       <li><span>Cipla Mental Health</span><a href="tel:0800456789">0800 456 789</a></li>
       <li><span>Substance Abuse</span><a href="tel:0800121314">0800 12 13 14</a></li>
-      <li><span>WhatsApp chat</span><a href="https://wa.me/27768822775">076 882 2775</a></li></ul></div>
+      <li><span>WhatsApp chat</span><a href="https://wa.me/27768822775" rel="noopener">076 882 2775</a></li></ul></div>
   </div>
   <p class="legal">WiseMind works offline and does not store anything about you. It is not a medical service. This website counts visits with Google Analytics. <a href="privacy.html">Privacy</a></p>
 </footer>
+
+<script>
+  // close the phone menu once a section is picked
+  document.querySelectorAll('.menu-panel a').forEach(function (a) {
+    a.addEventListener('click', function () { a.closest('details').open = false; });
+  });
+</script>
 
 </body>
 </html>
