@@ -8,7 +8,7 @@ Live at [deannorman.github.io/wisemind-site](https://deannorman.github.io/wisemi
 
 - `index.html` is the whole page: markup, styles and scripts in one file.
 - `assets/fonts` holds Inter and Source Serif 4, self-hosted under the SIL Open Font License (see `assets/fonts/LICENSE.md`).
-- `assets/img` and `assets/screens` hold the photos and app screenshots, as WebP.
+- `assets/img` and `assets/screens` hold the photos and app screenshots, as WebP. Each screenshot also has `-400` and `-640` versions that phones load through `srcset` (and the mobile CSS for the lifted crops); regenerate them with `cwebp -q 80 -resize 400 0` / `-resize 640 0` when a screenshot changes.
 - `assets/img/og-image.jpg` is the 1200 x 630 image people see when the link is shared.
 
 ## Writing for the page
