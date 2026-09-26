@@ -7,6 +7,7 @@ Live at [deannorman.github.io/wisemind-site](https://deannorman.github.io/wisemi
 ## What's here
 
 - `index.html` is the whole page: markup, styles and scripts in one file.
+- `privacy.html` covers both the app and the website (use it as the Play listing's privacy policy URL). Update it before any change to what the app stores or sends, or to the Google Analytics setup (retention is set to 14 months).
 - `assets/fonts` holds Inter and Source Serif 4, self-hosted under the SIL Open Font License (see `assets/fonts/LICENSE.md`).
 - `assets/img` and `assets/screens` hold the photos and app screenshots, as WebP. Each screenshot also has `-400` and `-640` versions that phones load through `srcset` (and the mobile CSS for the lifted crops); regenerate them with `cwebp -q 80 -resize 400 0` / `-resize 640 0` when a screenshot changes.
 - `assets/img/og-image.jpg` is the 1200 x 630 image people see when the link is shared.
