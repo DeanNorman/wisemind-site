@@ -368,6 +368,17 @@
   .get h2 { max-width: 12ch; margin: 0 auto; }
   .get h2 em { font-style: italic; }
   .get .sub { margin: 24px auto 0; max-width: 30em; }
+  .notify { max-width: 30em; margin: 36px auto 0; text-align: left; }
+  .notify label { display: block; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+  .notify-row { display: flex; gap: 8px; }
+  .notify input { flex: 1; min-width: 0; min-height: 48px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font: inherit; }
+  .notify input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+  .notify button { min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 500 15px/1 'Inter', system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
+  .notify button:hover { background: var(--accent); }
+  .notify-fine { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .notify-done { font-weight: 600; color: var(--accent); }
+  .notify.sent .notify-row, .notify.sent label { display: none; }
+  @media (max-width: 420px) { .notify-row { flex-direction: column; } }
   .get img { display: block; width: min(720px, 100%); height: auto; margin: 48px auto 0; }
   .get .store { margin-top: 24px; }
 
@@ -725,6 +736,16 @@
 <section class="sec get" id="get">
   <h2 class="reveal">Coming soon to <em>Android.</em></h2>
   <p class="sub reveal">It will be free, with no account and nothing to set up. The link will be here the day it is on Google Play.</p>
+  <form class="notify reveal" action="https://docs.google.com/forms/d/e/1FAIpQLSeTL2EeLsms7vadK4jF8DRlwKVr_Sg_AdvBq5nS1Q0f5DPBaQ/formResponse" method="post" target="notify-sink">
+    <label for="notify-email">Want an email when it's ready?</label>
+    <div class="notify-row">
+      <input id="notify-email" name="entry.1488692112" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+      <button type="submit">Let me know</button>
+    </div>
+    <p class="notify-fine">We'll only ever email you about WiseMind, starting with the day it's on Google Play. You can ask us to remove you at any time. See <a class="inline" href="privacy.html#launch-list">privacy</a>.</p>
+    <p class="notify-done" role="status" hidden>Thank you. We'll let you know the day it's on Google Play.</p>
+  </form>
+  <iframe name="notify-sink" title="" hidden></iframe>
   <img class="reveal" src="assets/img/phones-pair.webp" width="1380" height="1077" alt="WiseMind home and meetings screens" loading="lazy">
   <div class="store">
     <!-- TODO at launch: replace with Google's official "Get it on Google Play" badge linking to the listing -->
@@ -751,6 +772,14 @@
 </footer>
 
 <script>
+  // launch list: the form posts to Google Forms in a hidden frame, so show the thanks here
+  var notify = document.querySelector('.notify');
+  notify.addEventListener('submit', function () {
+    setTimeout(function () {
+      notify.classList.add('sent');
+      notify.querySelector('.notify-done').hidden = false;
+    }, 300);
+  });
   // close the phone menu once a section is picked
   document.querySelectorAll('.menu-panel a').forEach(function (a) {
     a.addEventListener('click', function () { a.closest('details').open = false; });
