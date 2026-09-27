@@ -376,7 +376,7 @@
   .notify button { min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 500 15px/1 'Inter', system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
   .notify button:hover { background: var(--accent); }
   .notify-fine { margin-top: 10px; font-size: 13px; color: var(--muted); }
-  .notify-done { font-weight: 600; color: var(--accent); }
+  .notify-done { font-weight: 600; color: var(--accent); margin-bottom: 4px; }
   .notify.sent .notify-row, .notify.sent label { display: none; }
   @media (max-width: 420px) { .notify-row { flex-direction: column; } }
   .get img { display: block; width: min(720px, 100%); height: auto; margin: 48px auto 0; }
@@ -742,8 +742,8 @@
       <input id="notify-email" name="entry.1488692112" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
       <button type="submit">Let me know</button>
     </div>
-    <p class="notify-fine">We'll only ever email you about WiseMind, starting with the day it's on Google Play. You can ask us to remove you at any time. See <a class="inline" href="privacy.html#launch-list">privacy</a>.</p>
     <p class="notify-done" role="status" hidden>Thank you. We'll let you know the day it's on Google Play.</p>
+    <p class="notify-fine">We'll only ever email you about WiseMind, starting with the day it's on Google Play. You can ask us to remove you at any time. See <a class="inline" href="privacy.html#launch-list">privacy</a>.</p>
   </form>
   <iframe name="notify-sink" title="" hidden></iframe>
   <img class="reveal" src="assets/img/phones-pair.webp" width="1380" height="1077" alt="WiseMind home and meetings screens" loading="lazy">
