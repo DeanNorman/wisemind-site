@@ -49,7 +49,7 @@
       "url": "https://deannorman.github.io/wisemind-site/",
       "name": "WiseMind: Free Grounding and Recovery App for South Africa",
       "inLanguage": "en-ZA",
-      "dateModified": "2026-09-26",
+      "dateModified": "2026-10-11",
       "about": {
         "@id": "https://deannorman.github.io/wisemind-site/#app"
       },
@@ -95,6 +95,80 @@
       },
       "@id": "https://deannorman.github.io/wisemind-site/#app",
       "disambiguatingDescription": "A free grounding and recovery app for Android, made in Cape Town, South Africa. Its name nods to Wise Mind, one of the DBT skills it includes."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://deannorman.github.io/wisemind-site/#faq",
+      "isPartOf": {
+        "@id": "https://deannorman.github.io/wisemind-site/#page"
+      },
+      "inLanguage": "en-ZA",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does it start with breathing, not words?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When you are flooded, the thinking part of your brain goes quiet, and it is hard to reason your way down. Slow breathing and cold water work on the body directly. Once you have settled a little, the skills are much easier to use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is WiseMind a replacement for therapy or medical care?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is a pocket companion for the moments in between, not treatment. It works best alongside a therapist, a doctor or a fellowship. If you are in danger, call 112 or the Suicide Crisis Helpline on 0800 567 567."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where do the tools come from?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The skills come from Dialectical Behaviour Therapy (DBT), developed by the psychologist Marsha Linehan. Urge surfing comes from Alan Marlatt's work on relapse prevention. Cold water on the face sets off the dive reflex, the same reflex that slows a swimmer's heart underwater, and DBT uses it as the T in TIPP. WiseMind puts these in plain words. It does not replace learning them with a therapist."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does the meeting list come from?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NA meetings come from the public NA Western Cape meeting list, refreshed before every release, and the app shows the date they were fetched. AA South Africa publishes its list only on its own site, so WiseMind links you there and to the AA helpline instead of copying it. Nothing in the list is made up."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do I have to join a Google Group?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Google requires testers to be in a Google Group during closed testing before allowing access to the Play Store download. You will not get spam or emails from the group; it is solely used by Google to authorize your account for testing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I give feedback?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can email thoughts, bug reports or ideas directly to adhdezpz@gmail.com. Every message is read and appreciated."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an internet connection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything is inside the app, so it works in the mountains, during loadshedding or in airplane mode."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What data does the app collect?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "None. There is no sign-up and nothing to type in, and the app does not send anything anywhere. The only thing it saves is whether you chose the light or dark look. The privacy page has the details."
+          }
+        }
+      ]
     }
   ]
 }
@@ -190,6 +264,7 @@
   .card .kicker { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .85; margin-bottom: 20px; }
   h1 { padding-bottom: .08em; font: 400 clamp(44px, 7vw, 96px)/1.08 'Source Serif 4', Georgia, serif; letter-spacing: -0.025em; max-width: 12ch; text-shadow: 0 2px 30px rgba(0,0,0,.45); }
   h1 em { font-style: italic; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .now { margin-top: 22px; max-width: 30em; font-size: 15px; line-height: 1.5; text-shadow: 0 1px 12px rgba(0,0,0,.45); }
   .now a { display: inline-block; padding: 10px 2px; margin: -10px 0; font-weight: 600; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
   .toc { list-style: none; margin-top: clamp(32px, 6vh, 56px); width: min(360px, 100%); font-size: 14px; }
@@ -670,23 +745,24 @@
 
 <div class="intro-experience">
   <div class="intro-backdrop">
-    <div class="panel panel-left"><video src="assets/video/left.mp4" poster="assets/img/intro-left.webp" autoplay loop muted playsinline></video></div>
-    <div class="panel panel-right"><video src="assets/video/right.mp4" poster="assets/img/intro-right.webp" autoplay loop muted playsinline></video></div>
-    <div class="panel panel-center"><video src="assets/video/center.mp4" poster="assets/img/intro-center.webp" autoplay loop muted playsinline></video><div class="scrim"></div></div>
+    <div class="panel panel-left"><video data-src="assets/video/left.mp4" poster="assets/img/intro-left.webp" preload="none" loop muted playsinline></video></div>
+    <div class="panel panel-right"><video data-src="assets/video/right.mp4" poster="assets/img/intro-right.webp" preload="none" loop muted playsinline></video></div>
+    <div class="panel panel-center"><video data-src="assets/video/center.mp4" poster="assets/img/intro-center.webp" preload="none" loop muted playsinline></video><div class="scrim"></div></div>
     <div class="grain" aria-hidden="true"></div>
   </div>
 
   <div class="intro-flow">
     <header class="intro-hero">
       <div class="card">
-        <p class="kicker">WiseMind for Android</p>
+        <p class="kicker">WiseMind: free grounding and DBT skills app for Android</p>
         <h1>A small companion for <em>hard moments.</em></h1>
         <p class="now">Need someone right now? Call the Suicide Crisis Helpline on <a href="tel:0800567567">0800 567 567</a>, or <a href="tel:112">112</a> for emergencies.</p>
       </div>
     </header>
 
     <!-- Interactive Showcase: sticky phone stage with floating value steps you scroll past -->
-    <section class="stage-showcase" id="why" aria-label="App preview and features">
+    <section class="stage-showcase" id="preview" aria-labelledby="t-preview">
+      <h2 id="t-preview" class="sr-only">What WiseMind does</h2>
       <div class="stage-sticky">
         <div class="phones">
           <div class="phone left">
@@ -967,9 +1043,25 @@
 </footer>
 
 <script>
+  // hero videos: wide screens only, and not for reduced motion or Save-Data; phones keep the posters
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (!saveData && matchMedia('(min-width: 821px) and (prefers-reduced-motion: no-preference)').matches) {
+    document.querySelectorAll('video[data-src]').forEach(function (v) {
+      v.autoplay = true;
+      v.src = v.dataset.src;
+    });
+  }
+  // count sign-ups and beta steps (never what anyone types, and never helpline taps)
+  document.querySelectorAll('a[href*="groups.google.com"]').forEach(function (a) {
+    a.addEventListener('click', function () { gtag('event', 'join_group', { group_id: 'beta_testers' }); });
+  });
+  document.querySelectorAll('a[href*="play.google.com"]').forEach(function (a) {
+    a.addEventListener('click', function () { gtag('event', 'beta_play_click', { link: a.href.indexOf('/testing/') > -1 ? 'opt_in' : 'store' }); });
+  });
   // launch list: the form posts to Google Forms in a hidden frame, so show the thanks here
   document.querySelectorAll('.notify').forEach(function (form) {
     form.addEventListener('submit', function () {
+      gtag('event', 'generate_lead', { form: form.classList.contains('notify-hero') ? 'hero' : 'beta' });
       setTimeout(function () {
         form.classList.add('sent');
         var doneEl = form.querySelector('.notify-done');

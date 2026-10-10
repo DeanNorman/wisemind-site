@@ -2,3 +2,6 @@
 # local preview config and design scratch work
 .claude/launch.json
 mockups/
+
+# SEO audit output (local only; Pages would publish it)
+seo-audit/
