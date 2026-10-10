@@ -282,12 +282,23 @@
     .value-pill { max-width: 340px; padding: 22px 24px; }
   }
 
-  .store { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 100px; position: relative; z-index: 2; }
+  .store { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 100px; position: relative; z-index: 2; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; }
   .badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(17,17,17,.85); backdrop-filter: blur(12px); color: #fff; border-radius: 10px; padding: 8px 22px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 8px 24px rgba(0,0,0,.4); }
   .badge.soon { cursor: default; }
   .badge small { display: block; font-size: 10px; line-height: 1.1; letter-spacing: .06em; opacity: .9; }
   .badge strong { display: block; font-size: 20px; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
   .store p { font-size: 13px; color: rgba(255,255,255,.8); text-shadow: 0 1px 8px rgba(0,0,0,.4); }
+
+  /* Hero Notify Signup Form */
+  .notify-hero { width: min(420px, 92vw); margin: 24px auto 0; padding: 22px 24px; background: rgba(13, 15, 16, 0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; box-shadow: 0 16px 40px -10px rgba(0,0,0,0.6); }
+  .notify-hero label { color: #fff; font-size: 14px; text-shadow: 0 1px 6px rgba(0,0,0,0.4); margin-bottom: 8px; }
+  .notify-hero input { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #fff; }
+  .notify-hero input::placeholder { color: rgba(255,255,255,0.5); }
+  .notify-hero input:focus { border-color: #5eead4; outline-color: #5eead4; background: rgba(255,255,255,0.14); }
+  .notify-hero button { background: #fff; color: #141413; font-weight: 600; }
+  .notify-hero button:hover { background: #5eead4; color: #0d0f10; }
+  .notify-hero .notify-fine { color: rgba(255,255,255,0.65); font-size: 12px; }
+  .notify-hero .notify-done { color: #5eead4; }
 
   /* Scroll-driven motion: native, off the main thread */
   @supports (animation-timeline: view()) {
@@ -592,7 +603,7 @@
     <header class="intro-hero">
       <div class="card">
         <p class="kicker">WiseMind for Android</p>
-        <h1>An app for <em>hard moments.</em></h1>
+        <h1>A small companion for <em>hard moments.</em></h1>
         <p class="now">Need someone right now? Call the Suicide Crisis Helpline on <a href="tel:0800567567">0800 567 567</a>, or <a href="tel:112">112</a> for emergencies.</p>
         <ol class="toc">
           <li><a href="#why"><span>(1)</span><span>Why WiseMind</span></a></li>
@@ -666,6 +677,16 @@
           <span><small>COMING SOON TO</small><strong>Google Play</strong></span>
         </span>
         <p>Free on Android. Works offline.</p>
+
+        <form class="notify notify-hero" action="https://docs.google.com/forms/d/e/1FAIpQLSeTL2EeLsms7vadK4jF8DRlwKVr_Sg_AdvBq5nS1Q0f5DPBaQ/formResponse" method="post" target="notify-sink">
+          <label for="notify-hero-email">Want an email when it's ready?</label>
+          <div class="notify-row">
+            <input id="notify-hero-email" name="entry.1488692112" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+            <button type="submit">Let me know</button>
+          </div>
+          <p class="notify-done" role="status" hidden>Thank you. We'll let you know the day it's on Google Play.</p>
+          <p class="notify-fine">We'll only ever email you about WiseMind, starting with the day it's on Google Play.</p>
+        </form>
       </div>
     </section>
   </div>
@@ -841,12 +862,14 @@
 
 <script>
   // launch list: the form posts to Google Forms in a hidden frame, so show the thanks here
-  var notify = document.querySelector('.notify');
-  notify.addEventListener('submit', function () {
-    setTimeout(function () {
-      notify.classList.add('sent');
-      notify.querySelector('.notify-done').hidden = false;
-    }, 300);
+  document.querySelectorAll('.notify').forEach(function (form) {
+    form.addEventListener('submit', function () {
+      setTimeout(function () {
+        form.classList.add('sent');
+        var doneEl = form.querySelector('.notify-done');
+        if (doneEl) doneEl.hidden = false;
+      }, 300);
+    });
   });
   // close the phone menu once a section is picked
   document.querySelectorAll('.menu-panel a').forEach(function (a) {
