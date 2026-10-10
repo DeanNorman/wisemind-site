@@ -155,36 +155,180 @@
   .menu-panel a:hover { background: #F0ECE3; }
   @media (max-width: 820px) { .links, .nav .btn-dark { display: none; } .menu { display: block; } .brand { margin-right: auto; } .nav-inner { gap: 14px; padding: 10px 16px; } .nav-help { font-size: 14px; display: inline-flex; align-items: center; min-height: 44px; } }
 
-  /* Intro: triptych that opens into the dawn horizon, then hands over to the light page.
-     Base styles are the settled title card; the motion only exists inside @supports below. */
-  .intro { position: relative; height: 100vh; height: 100svh; view-timeline: --intro block; background: #0d0f10; }
-  .intro-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-  .intro-sticky::after { content: ''; position: absolute; inset: 0 0 auto; height: 140px; pointer-events: none;
-                         background: linear-gradient(180deg, rgba(8,12,14,.45), transparent); } /* keeps the white nav legible over bright sky */
-  .panel { position: absolute; inset: 0; overflow: hidden; }
-  .panel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .panel-center { clip-path: inset(0 0 0 0); }
-  .panel-center img { object-position: 50% 70%; transform: scale(1.04); }
-  .panel-left  { right: 73%; transform: translateX(-100%); }
-  .panel-left img { object-position: 50% 50%; }
-  .panel-right { left: 69%; transform: translateX(100%); }
-  .panel-right img { object-position: 38% 50%; }
-  .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,12,14,.35) 0%, rgba(8,12,14,.15) 40%, rgba(8,12,14,.55) 100%); }
-  .grain { position: absolute; inset: -50%; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
-           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  .opener { position: absolute; left: 0; right: 0; text-align: center; color: #fff; opacity: 0; }
-  .opener { top: 50%; transform: translateY(-50%); font: 400 clamp(26px, 3vw, 40px)/1 'Source Serif 4', Georgia, serif; letter-spacing: -0.01em; text-shadow: 0 1px 20px rgba(0,0,0,.25); }
-  .card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; color: #fff; text-align: center; }
-  .card .kicker { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .85; margin-bottom: 20px; }
-  h1 { padding-bottom: .08em; font: 400 clamp(44px, 7vw, 96px)/1.08 'Source Serif 4', Georgia, serif; letter-spacing: -0.025em; max-width: 12ch; text-shadow: 0 2px 30px rgba(0,0,0,.25); }
-  h1 em { font-style: italic; }
-  .now { margin-top: 22px; max-width: 30em; font-size: 15px; line-height: 1.5; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
-  .now a { display: inline-block; padding: 10px 2px; margin: -10px 0; font-weight: 600; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
-  .toc { list-style: none; margin-top: clamp(32px, 6vh, 56px); width: min(360px, 100%); font-size: 14px; }
-  .toc a { display: flex; align-items: baseline; gap: 12px; padding: 5px 0; }
-  .toc a::after { content: ''; order: 1; flex: 1; border-bottom: 1px solid rgba(255,255,255,.35); transform: translateY(-4px); }
-  .toc span:last-child { order: 2; }
-  .toc a:hover span:last-child { text-decoration: underline; text-underline-offset: 3px; }
+  /* Intro / Hero section: plain background matching the rest of the site,
+     with left-justified copy and large WiseMind logo mask (two overlapping circles) */
+  .intro { position: relative; height: 100vh; height: 100svh; view-timeline: --intro block; background: var(--bg); color: var(--ink); }
+  .intro-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+  .hero-grid {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(72px, 10vh, 96px) 24px 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    color: var(--ink);
+  }
+  .hero-copy .kicker {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero-copy h1 {
+    padding-bottom: 0;
+    font: 400 clamp(40px, 5.2vw, 76px)/1.06 'Source Serif 4', Georgia, serif;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 13ch;
+    text-shadow: none;
+  }
+  .hero-copy h1 em { font-style: italic; }
+  .hero-copy .now {
+    margin-top: 18px;
+    max-width: 32em;
+    font-size: clamp(15px, 1.25vw, 17px);
+    line-height: 1.55;
+    color: var(--body);
+    text-shadow: none;
+  }
+  .hero-copy .now a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .crisis-pill {
+    margin-top: 18px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: #F0ECE3;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body);
+    max-width: 36em;
+  }
+  .crisis-pill a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-cta .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+  }
+  .hero-cta .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+  }
+  .hero-cta .btn-outline {
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+  }
+  .hero-cta .btn-outline:hover {
+    border-color: var(--ink);
+    transform: translateY(-1px);
+  }
+  .hero-copy .toc {
+    list-style: none;
+    margin-top: clamp(24px, 4vh, 36px);
+    width: min(340px, 100%);
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .hero-copy .toc a {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 4px 0;
+    color: var(--body);
+  }
+  .hero-copy .toc a::after {
+    content: '';
+    order: 1;
+    flex: 1;
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-4px);
+  }
+  .hero-copy .toc span:last-child { order: 2; }
+  .hero-copy .toc a:hover span:last-child {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Very large WiseMind logo mask (two overlapping circles) */
+  .hero-mask-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    aspect-ratio: 560 / 380;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-mask-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 20px 40px rgba(20, 20, 19, 0.14)) drop-shadow(0 2px 8px rgba(20, 20, 19, 0.08));
+    transition: transform 0.3s ease;
+  }
+  .hero-mask-svg:hover {
+    transform: scale(1.02);
+  }
+  @media (max-width: 820px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding-top: 88px;
+      padding-bottom: 32px;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+    .hero-mask-wrap {
+      max-width: 360px;
+      order: -1;
+    }
+    .hero-copy h1 { max-width: 100%; }
+  }
 
   /* Light reading page that follows */
   .read { max-width: 760px; margin: 0 auto; padding: clamp(80px, 14vh, 140px) 24px 0; }
@@ -291,28 +435,41 @@
   }
 
 
-  /* Intro motion: 300vh of scroll, the image is pinned while it opens */
+  /* Intro motion: scroll-driven timeline where the left-justified copy and large mask reveal */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      .intro { height: 300vh; }
-      .intro [class^="panel"], .opener, .scrim, .card { animation-timeline: --intro; animation-fill-mode: both; animation-timing-function: linear; }
-      .opener { animation-name: fade-out; animation-range: contain 0% contain 12%; }
-      .panel-center { animation-name: open-center; animation-range: contain 3% contain 50%; }
-      .panel-left   { animation-name: out-left;    animation-range: contain 3% contain 50%; }
-      .panel-right  { animation-name: out-right;   animation-range: contain 3% contain 50%; }
-      .scrim { animation-name: fade-in; animation-range: contain 30% contain 60%; }
-      .card  { animation-name: card-in; animation-range: contain 45% contain 72%; }
-      .nav { animation: nav-tone linear both; animation-timeline: --intro; animation-range: exit 88% exit 98%; }
+      .intro { height: 240vh; }
+      .hero-copy, .hero-mask-wrap {
+        animation-timeline: --intro;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .hero-copy {
+        animation-name: hero-copy-reveal;
+        animation-range: contain 4% contain 45%;
+      }
+      .hero-mask-wrap {
+        animation-name: hero-mask-reveal;
+        animation-range: contain 0% contain 45%;
+      }
+      .hero-mask-svg image {
+        animation: hero-img-drift linear both;
+        animation-timeline: --intro;
+        animation-range: contain 0% contain 100%;
+      }
     }
   }
-  @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
-  @keyframes fade-in  { from { opacity: 0; } }
-  @keyframes open-center { from { clip-path: inset(0 31% 0 27%); } to { clip-path: inset(0 4.5% 0 4.5%); } }
-  @keyframes out-left  { from { transform: translateX(0); } to { transform: translateX(-83%); } }
-  @keyframes out-right { from { transform: translateX(0); } to { transform: translateX(85%); } }
-  @keyframes card-in { from { opacity: 0; transform: translateY(28px); } }
-  @keyframes nav-tone {
-    from { --fg: #fff; --inv: #141413; --nav-bg: transparent; backdrop-filter: blur(0); }
+  @keyframes hero-copy-reveal {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes hero-mask-reveal {
+    from { opacity: 0.85; transform: scale(1.15) translateX(-12%); }
+    to   { opacity: 1; transform: scale(1) translateX(0); }
+  }
+  @keyframes hero-img-drift {
+    from { transform: scale(1.08) translateY(-3%); }
+    to   { transform: scale(1) translateY(3%); }
   }
 
   /* Editorial sections */
@@ -550,21 +707,50 @@
 
 <header class="intro">
   <div class="intro-sticky">
-    <div class="panel panel-left"><img src="assets/img/intro-left.webp" width="692" height="1080" srcset="assets/img/intro-left-360.webp 360w, assets/img/intro-left.webp 692w" sizes="27vw" alt=""></div>
-    <div class="panel panel-right"><img src="assets/img/intro-right.webp" width="2000" height="1116" srcset="assets/img/intro-right-540.webp 540w, assets/img/intro-right-1080.webp 1080w, assets/img/intro-right.webp 2000w" sizes="31vw" alt=""></div>
-    <div class="panel panel-center"><img src="assets/img/intro-center.webp" width="2000" height="1117" srcset="assets/img/intro-center-1080.webp 1080w, assets/img/intro-center.webp 2000w" sizes="100vw" fetchpriority="high" alt="Dusk over a calm sea, the sky fading from blue to amber at the horizon"><div class="scrim"></div></div>
-    <div class="grain" aria-hidden="true"></div>
-    <p class="opener" aria-hidden="true">Take a breath</p>
-    <div class="card">
-      <p class="kicker">WiseMind for Android</p>
-      <h1>A small companion for <em>hard moments.</em></h1>
-      <p class="now">Need someone right now? Call the Suicide Crisis Helpline on <a href="tel:0800567567">0800 567 567</a>, or <a href="tel:112">112</a> for emergencies.</p>
-      <ol class="toc">
-        <li><a href="#why"><span>(1)</span><span>Why WiseMind</span></a></li>
-        <li><a href="#tools"><span>(2)</span><span>Grounding tools</span></a></li>
-        <li><a href="#meetings"><span>(3)</span><span>Meetings</span></a></li>
-        <li><a href="#get"><span>(4)</span><span>Coming soon</span></a></li>
-      </ol>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">WiseMind for Android</p>
+        <h1>A small companion for <em>hard moments.</em></h1>
+        <p class="now">Free help for anxiety and cravings, kept close on your phone: paced breathing, DBT skills, South African crisis helplines and Western Cape NA meetings. Works offline, no account.</p>
+        <div class="crisis-pill">
+          <span>Need someone right now? Call the Suicide Crisis Helpline on <a href="tel:0800567567">0800 567 567</a>, or <a href="tel:112">112</a> for emergencies.</span>
+        </div>
+        <div class="hero-cta">
+          <a class="btn-primary" href="#get">Get WiseMind</a>
+          <a class="btn-outline" href="#tools">Explore grounding tools</a>
+        </div>
+        <ol class="toc">
+          <li><a href="#why"><span>(1)</span><span>Why WiseMind</span></a></li>
+          <li><a href="#tools"><span>(2)</span><span>Grounding tools</span></a></li>
+          <li><a href="#meetings"><span>(3)</span><span>Meetings</span></a></li>
+          <li><a href="#get"><span>(4)</span><span>Coming soon</span></a></li>
+        </ol>
+      </div>
+      <div class="hero-mask-wrap">
+        <svg class="hero-mask-svg" viewBox="0 0 560 380" aria-label="WiseMind logo mask with calm ocean horizon">
+          <defs>
+            <clipPath id="wisemind-logo-clip">
+              <!-- Left circle: Emotional Mind -->
+              <circle cx="210" cy="190" r="145" />
+              <!-- Right circle: Reasonable Mind -->
+              <circle cx="350" cy="190" r="145" />
+            </clipPath>
+          </defs>
+          <!-- Dusk ocean image peeking through the two circles -->
+          <image
+            href="assets/img/intro-center.webp"
+            x="0"
+            y="0"
+            width="560"
+            height="380"
+            preserveAspectRatio="xMidYMid slice"
+            clip-path="url(#wisemind-logo-clip)"
+          />
+          <!-- Overlapping circle outlines matching WiseMind branding (teal & indigo) -->
+          <circle cx="210" cy="190" r="145" fill="none" stroke="#0F766E" stroke-width="3.5" opacity="0.95" />
+          <circle cx="350" cy="190" r="145" fill="none" stroke="#4F46E5" stroke-width="3.5" opacity="0.9" />
+        </svg>
+      </div>
     </div>
   </div>
 </header>
