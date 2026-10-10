@@ -99,6 +99,8 @@
   ]
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <link rel="preload" href="assets/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -131,12 +133,17 @@
 
   /* Nav: always visible. White over the intro image,
      ink on the light page. --fg/--inv are registered so they can animate. */
-  @property --fg  { syntax: '<color>'; inherits: true; initial-value: #141413; }
-  @property --inv { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+  @property --fg  { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+  @property --inv { syntax: '<color>'; inherits: true; initial-value: #141413; }
   @property --nav-bg { syntax: '<color>'; inherits: false; initial-value: transparent; }
-  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; --fg: var(--ink); --inv: #fff; --nav-bg: color-mix(in srgb, var(--bg) 90%, transparent);
-         backdrop-filter: blur(12px);
-         color: var(--fg); background: var(--nav-bg); }
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+         --fg: #ffffff; --inv: #141413; --nav-bg: rgba(0, 0, 0, 0.6);
+         backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+         color: var(--fg); background: var(--nav-bg);
+         transition: color .3s, background-color .3s; }
+  .nav.nav-light-theme {
+    --fg: var(--ink); --inv: #ffffff; --nav-bg: color-mix(in srgb, var(--bg) 90%, transparent);
+  }
   .nav .btn-dark { background: var(--fg); color: var(--inv); }
   .nav-inner { max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; align-items: center; gap: 32px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
@@ -155,179 +162,361 @@
   .menu-panel a:hover { background: #F0ECE3; }
   @media (max-width: 820px) { .links, .nav .btn-dark { display: none; } .menu { display: block; } .brand { margin-right: auto; } .nav-inner { gap: 14px; padding: 10px 16px; } .nav-help { font-size: 14px; display: inline-flex; align-items: center; min-height: 44px; } }
 
-  /* Intro / Hero section: plain background matching the rest of the site,
-     with left-justified copy and large WiseMind logo mask (two overlapping circles) */
-  .intro { position: relative; height: 100vh; height: 100svh; view-timeline: --intro block; background: var(--bg); color: var(--ink); }
-  .intro-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-
-  .hero-grid {
+  /* Spotify ScrollingHero Byte-for-Byte Styles */
+  .ScrollingHero_container__Vajti {
     position: relative;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: clamp(72px, 10vh, 96px) 24px 32px;
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: clamp(32px, 5vw, 64px);
-    align-items: center;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 220vh;
+    --hero-mask-y-ratio: 0;
+    --background-base: #000000;
+    --text-base: #ffffff;
+    --scrolling-hero-content-and-mask-z-index: 2;
+    --base-z-index: 1;
+    overflow-x: clip;
   }
 
-  .hero-copy {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    color: var(--ink);
-  }
-  .hero-copy .kicker {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
-  .hero-copy h1 {
-    padding-bottom: 0;
-    font: 400 clamp(40px, 5.2vw, 76px)/1.06 'Source Serif 4', Georgia, serif;
-    letter-spacing: -0.025em;
-    color: var(--ink);
-    max-width: 13ch;
-    text-shadow: none;
-  }
-  .hero-copy h1 em { font-style: italic; }
-  .hero-copy .now {
-    margin-top: 18px;
-    max-width: 32em;
-    font-size: clamp(15px, 1.25vw, 17px);
-    line-height: 1.55;
-    color: var(--body);
-    text-shadow: none;
-  }
-  .hero-copy .now a {
-    color: var(--ink);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .crisis-pill {
-    margin-top: 18px;
-    padding: 10px 16px;
-    border-radius: 12px;
-    background: #F0ECE3;
-    border: 1px solid var(--line);
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--body);
-    max-width: 36em;
-  }
-  .crisis-pill a {
-    color: var(--ink);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .hero-cta {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-  }
-  .hero-cta .btn-primary {
-    background: var(--ink);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-weight: 500;
-    font-size: 15px;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-flex;
-    align-items: center;
-  }
-  .hero-cta .btn-primary:hover {
-    background: var(--accent);
-    transform: translateY(-1px);
-  }
-  .hero-cta .btn-outline {
-    border: 1px solid var(--line);
-    background: #fff;
-    color: var(--ink);
-    padding: 12px 22px;
-    border-radius: 999px;
-    font-weight: 500;
-    font-size: 15px;
-    transition: border-color 0.2s, transform 0.15s;
-    display: inline-flex;
-    align-items: center;
-  }
-  .hero-cta .btn-outline:hover {
-    border-color: var(--ink);
-    transform: translateY(-1px);
-  }
-  .hero-copy .toc {
-    list-style: none;
-    margin-top: clamp(24px, 4vh, 36px);
-    width: min(340px, 100%);
-    font-size: 14px;
-    color: var(--muted);
-  }
-  .hero-copy .toc a {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 4px 0;
-    color: var(--body);
-  }
-  .hero-copy .toc a::after {
-    content: '';
-    order: 1;
-    flex: 1;
-    border-bottom: 1px solid var(--line);
-    transform: translateY(-4px);
-  }
-  .hero-copy .toc span:last-child { order: 2; }
-  .hero-copy .toc a:hover span:last-child {
-    color: var(--ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  /* Very large WiseMind logo mask (two overlapping circles) */
-  .hero-mask-wrap {
+  .ScrollingHero_content__QPAtm {
     position: relative;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 540px;
-    margin: 0 auto;
-    aspect-ratio: 560 / 380;
+    height: 100%;
+    z-index: 3;
+  }
+
+  .ScrollingHero_videoContainer__RMUh6 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    --mask-opacity: 1;
+    --mask-scale: 1;
+    --mask-x: 50%;
+    --mask-y: 0%;
+  }
+
+  .ScrollingHero_mask__YCnyA {
+    background-color: #000000;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    background-size: 55%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    -webkit-mask-image: linear-gradient(#000000, #000000), url(https://wwwmarketing.scdn.co/static/images/premium/voyager/scrolling-hero/logo-v1.png);
+    mask-image: linear-gradient(#000000, #000000), url(https://wwwmarketing.scdn.co/static/images/premium/voyager/scrolling-hero/logo-v1.png);
+    -webkit-mask-size: 100%, 80%;
+    mask-size: 100%, 80%;
+    -webkit-mask-position: top left, var(--mask-x, 30%) max(0px, calc(var(--mask-y, 50%) - 16px));
+    mask-position: top left, var(--mask-x, 30%) max(0px, calc(var(--mask-y, 50%) - 16px));
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+
+  @media (min-width: 1024px) {
+    .ScrollingHero_mask__YCnyA {
+      -webkit-mask-size: 100%, 53%;
+      mask-size: 100%, 53%;
+      --mask-x: calc(100% - 25px);
+      --mask-y: 50%;
+    }
+  }
+
+  .spotify-video-holder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .spotify-video-holder video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  .intro_intro__QBbF2 {
+    --encore-text-size-larger-5: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 120px 24px 48px;
+    flex-direction: column;
+    box-sizing: border-box;
   }
-  .hero-mask-svg {
+
+  @media (min-width: 768px) {
+    .intro_intro__QBbF2 {
+      --encore-text-size-larger-5: 5.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .intro_intro__QBbF2 {
+      align-items: flex-start;
+      padding: 140px 60px 60px;
+      --encore-text-size-larger-5: 6.5rem;
+    }
+  }
+
+  @media (min-width: 1310px) {
+    .intro_intro__QBbF2 {
+      padding: 160px 100px 80px;
+      --encore-text-size-larger-5: 7.5rem;
+    }
+  }
+
+  .intro_title__lpLfY {
+    font-family: inherit;
+    font-size: var(--encore-text-size-larger-5);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #ffffff;
+    white-space: pre-wrap;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .intro_title__lpLfY {
+      text-align: start;
+      max-width: 10em;
+    }
+  }
+
+  .intro_titleBase__6NNrW {
+    display: block;
+  }
+
+  .intro_keywordListContainer__m98aY {
+    container-type: inline-size;
     width: 100%;
-    height: 100%;
-    overflow: visible;
-    filter: drop-shadow(0 20px 40px rgba(20, 20, 19, 0.14)) drop-shadow(0 2px 8px rgba(20, 20, 19, 0.08));
-    transition: transform 0.3s ease;
+    overflow: hidden;
+    height: 1.15lh;
+    display: flex;
+    position: relative;
   }
-  .hero-mask-svg:hover {
-    transform: scale(1.02);
+
+  .intro_keywordList__xqIPA {
+    position: relative;
+    flex-grow: 1;
+    height: 1.15lh;
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
-  @media (max-width: 820px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-      padding-top: 88px;
-      padding-bottom: 32px;
-      overflow-y: auto;
-      max-height: 100vh;
+
+  .intro_keyword__vl0FN {
+    font-style: italic;
+    font-size: min(1em, calc(115cqi / var(--keyword-chars, 10)));
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    width: 100%;
+    height: 1.15lh;
+    line-height: 1.15lh;
+    opacity: 1;
+    text-align: center;
+    color: #1ED760;
+  }
+
+  @media (min-width: 1024px) {
+    .intro_keyword__vl0FN {
+      text-align: start;
     }
-    .hero-mask-wrap {
-      max-width: 360px;
-      order: -1;
+  }
+
+  .intro_cta__ms5XI {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .intro_cta__ms5XI {
+      flex-direction: row;
+      align-items: center;
     }
-    .hero-copy h1 { max-width: 100%; }
+  }
+
+  .spotify-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1ED760;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    padding: 14px 32px;
+    border-radius: 9999px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    white-space: nowrap;
+  }
+
+  .spotify-btn-primary:hover {
+    background-color: #2DE26D;
+    transform: scale(1.04);
+  }
+
+  .spotify-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #7f7f7f;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    padding: 14px 32px;
+    border-radius: 9999px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  .spotify-btn-secondary:hover {
+    border-color: #ffffff;
+    transform: scale(1.04);
+  }
+
+  .intro_legalText__ZLBlG {
+    margin-block-start: 24px;
+    max-width: 500px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #a7a7a7;
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .intro_legalText__ZLBlG {
+      text-align: start;
+    }
+  }
+
+  .intro_legalText__ZLBlG a {
+    color: #a7a7a7;
+    text-decoration: underline;
+  }
+
+  .intro_legalText__ZLBlG a:hover {
+    color: #ffffff;
+  }
+
+  .spotify-hero-spacer {
+    height: clamp(80px, 15vh, 180px);
+  }
+
+  .descriptor_part3__Reii2 {
+    padding-block: 48px 180px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .descriptor_header__3q6Cz {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+    max-width: 1310px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1024px) {
+    .descriptor_header__3q6Cz {
+      padding: 0 60px;
+    }
+  }
+  @media (min-width: 1310px) {
+    .descriptor_header__3q6Cz {
+      padding: 0 100px;
+    }
+  }
+
+  .descriptor_headline2__Uei0_ {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    max-width: 65%;
+  }
+
+  .descriptor_headline3__5r4OY {
+    margin-block-start: 24px;
+    font-size: clamp(18px, 2vw, 28px);
+    font-weight: 300;
+    line-height: 1.35;
+    color: #a7a7a7;
+    max-width: 60%;
+  }
+
+  @media (max-width: 768px) {
+    .descriptor_headline2__Uei0_,
+    .descriptor_headline3__5r4OY {
+      max-width: 100%;
+    }
+  }
+
+  .ScrollingHero_heroBottomControls__Y0hAD {
+    position: sticky;
+    inset-inline: 0;
+    bottom: 0;
+    height: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .videoControls_scrollingHeroPlayPauseControlContainer__ToxEf {
+    position: absolute;
+    inset-inline-end: 24px;
+    bottom: 24px;
+    pointer-events: auto;
+  }
+
+  .videoControls_scrollingHeroPlayPauseControl__JYSMf {
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .videoControls_scrollingHeroPlayPauseControl__JYSMf:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.08);
   }
 
   /* Light reading page that follows */
@@ -434,43 +623,6 @@
     from { opacity: 0; transform: translateY(16px); }
   }
 
-
-  /* Intro motion: scroll-driven timeline where the left-justified copy and large mask reveal */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .intro { height: 240vh; }
-      .hero-copy, .hero-mask-wrap {
-        animation-timeline: --intro;
-        animation-fill-mode: both;
-        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .hero-copy {
-        animation-name: hero-copy-reveal;
-        animation-range: contain 4% contain 45%;
-      }
-      .hero-mask-wrap {
-        animation-name: hero-mask-reveal;
-        animation-range: contain 0% contain 45%;
-      }
-      .hero-mask-svg image {
-        animation: hero-img-drift linear both;
-        animation-timeline: --intro;
-        animation-range: contain 0% contain 100%;
-      }
-    }
-  }
-  @keyframes hero-copy-reveal {
-    from { opacity: 0; transform: translateX(-40px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes hero-mask-reveal {
-    from { opacity: 0.85; transform: scale(1.15) translateX(-12%); }
-    to   { opacity: 1; transform: scale(1) translateX(0); }
-  }
-  @keyframes hero-img-drift {
-    from { transform: scale(1.08) translateY(-3%); }
-    to   { transform: scale(1) translateY(3%); }
-  }
 
   /* Editorial sections */
   .sec { max-width: 1200px; margin: 0 auto; padding: clamp(96px, 14vh, 160px) 24px; border-top: 1px solid var(--line); }
@@ -705,55 +857,83 @@
   </div>
 </nav>
 
-<header class="intro">
-  <div class="intro-sticky">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <p class="kicker">WiseMind for Android</p>
-        <h1>A small companion for <em>hard moments.</em></h1>
-        <p class="now">Free help for anxiety and cravings, kept close on your phone: paced breathing, DBT skills, South African crisis helplines and Western Cape NA meetings. Works offline, no account.</p>
-        <div class="crisis-pill">
-          <span>Need someone right now? Call the Suicide Crisis Helpline on <a href="tel:0800567567">0800 567 567</a>, or <a href="tel:112">112</a> for emergencies.</span>
+<!-- Spotify ScrollingHero Byte-for-Byte Component -->
+<section class="ScrollingHero_container__Vajti" aria-label="Scrolling hero with video" data-testid="scrolling-hero">
+  <div class="ScrollingHero_content__QPAtm">
+    <section class="intro_intro__QBbF2" data-testid="intro-section" data-node="hero-copy">
+      <h1 class="intro_title__lpLfY" aria-label="The ultimate home for music artists fans live events videos">
+        <span class="intro_titleBase__6NNrW">The ultimate home for</span>
+        <div class="intro_keywordListContainer__m98aY" aria-hidden="true">
+          <ul class="intro_keywordList__xqIPA" id="hero-keyword-list">
+            <li class="intro_keyword__vl0FN" style="--keyword-chars:5">music</li>
+            <li class="intro_keyword__vl0FN" style="--keyword-chars:7">artists</li>
+            <li class="intro_keyword__vl0FN" style="--keyword-chars:4">fans</li>
+            <li class="intro_keyword__vl0FN" style="--keyword-chars:11">live events</li>
+            <li class="intro_keyword__vl0FN" style="--keyword-chars:6">videos</li>
+          </ul>
         </div>
-        <div class="hero-cta">
-          <a class="btn-primary" href="#get">Get WiseMind</a>
-          <a class="btn-outline" href="#tools">Explore grounding tools</a>
+      </h1>
+      <div class="intro_cta__ms5XI">
+        <div>
+          <a href="#plans" class="spotify-btn-primary" aria-label="Checkout for Premium Individual">
+            <span>Try 1 month for £0</span>
+          </a>
         </div>
-        <ol class="toc">
-          <li><a href="#why"><span>(1)</span><span>Why WiseMind</span></a></li>
-          <li><a href="#tools"><span>(2)</span><span>Grounding tools</span></a></li>
-          <li><a href="#meetings"><span>(3)</span><span>Meetings</span></a></li>
-          <li><a href="#get"><span>(4)</span><span>Coming soon</span></a></li>
-        </ol>
+        <div>
+          <a href="#plans" class="spotify-btn-secondary" aria-label="View all plans">
+            <span>View all plans</span>
+          </a>
+        </div>
       </div>
-      <div class="hero-mask-wrap">
-        <svg class="hero-mask-svg" viewBox="0 0 560 380" aria-label="WiseMind logo mask with calm ocean horizon">
-          <defs>
-            <clipPath id="wisemind-logo-clip">
-              <!-- Left circle: Emotional Mind -->
-              <circle cx="210" cy="190" r="145" />
-              <!-- Right circle: Reasonable Mind -->
-              <circle cx="350" cy="190" r="145" />
-            </clipPath>
-          </defs>
-          <!-- Dusk ocean image peeking through the two circles -->
-          <image
-            href="assets/img/intro-center.webp"
-            x="0"
-            y="0"
-            width="560"
-            height="380"
-            preserveAspectRatio="xMidYMid slice"
-            clip-path="url(#wisemind-logo-clip)"
-          />
-          <!-- Overlapping circle outlines matching WiseMind branding (teal & indigo) -->
-          <circle cx="210" cy="190" r="145" fill="none" stroke="#0F766E" stroke-width="3.5" opacity="0.95" />
-          <circle cx="350" cy="190" r="145" fill="none" stroke="#4F46E5" stroke-width="3.5" opacity="0.9" />
-        </svg>
+      <div class="intro_legalText__ZLBlG">
+        <p class="intro_legal_p">
+          Premium Individual only. £0 for 1 month, then £12.99 per month after. Offer only available if you haven’t tried Premium before. <a href="#">Terms apply.</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Descriptor section that appears below in the hero flow -->
+    <div class="spotify-hero-spacer" aria-hidden="true"></div>
+    <section class="descriptor_part3__Reii2" data-testid="descriptor-section">
+      <header class="descriptor_header__3q6Cz">
+        <h2 class="descriptor_headline2__Uei0_">
+          <span>As the world’s music hub, Spotify is where fans and artists come together.</span>
+        </h2>
+        <p class="descriptor_headline3__5r4OY">
+          <span>It’s the place to discover the perfect song for the moment. The place that brings music to your whole life.</span>
+        </p>
+      </header>
+    </section>
+
+    <!-- Bottom Play/Pause video control -->
+    <div class="ScrollingHero_heroBottomControls__Y0hAD">
+      <div class="videoControls_scrollingHeroPlayPauseControlContainer__ToxEf">
+        <button class="videoControls_scrollingHeroPlayPauseControl__JYSMf" id="hero-play-pause-btn" aria-label="Pause video">
+          <svg class="videoControls_controlIcon__RExSZ" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path id="play-pause-icon" d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7z"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
-</header>
+
+  <!-- Video Container with Mask -->
+  <div class="ScrollingHero_videoContainer__RMUh6" id="hero-video-container">
+    <div class="ScrollingHero_mask__YCnyA" id="scrolling-hero-mask" data-testid="scrolling-hero-mask"></div>
+    <div class="spotify-video-holder">
+      <video
+        id="hero-video"
+        preload="auto"
+        poster="https://wwwmarketing.scdn.co/static/images/premium/voyager/generic/hero-desktop-poster.jpg"
+        src="https://wwwmarketing.scdn.co/video/voyager/generic/HERO_16x9.mp4"
+        playsinline
+        muted
+        loop
+        autoplay
+      ></video>
+    </div>
+  </div>
+</section>
 
 <section class="read" id="read">
   <p class="lede">WiseMind is a free Android app, made in Cape Town, that keeps breathing exercises, DBT skills, helplines and local meetings together on your phone for when things get hard. There is no account, nothing is tracked, and it works offline.</p>
@@ -970,6 +1150,124 @@
   document.querySelectorAll('.menu-panel a').forEach(function (a) {
     a.addEventListener('click', function () { a.closest('details').open = false; });
   });
+
+  // Spotify ScrollingHero & ScrollTrigger recreation
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroContainer = document.querySelector('.ScrollingHero_container__Vajti');
+    const heroMask = document.getElementById('scrolling-hero-mask');
+    const videoContainer = document.getElementById('hero-video-container');
+    const nav = document.querySelector('.nav');
+
+    if (heroContainer && heroMask && videoContainer) {
+      const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
+
+      const initHeroMotion = () => {
+        const desktop = isDesktop();
+        const vw = window.visualViewport?.width || window.innerWidth;
+        const r = (vw - (vw >= 1310 ? 100 : 25)) / vw * 100;
+        const maskX = desktop ? `${r}%` : '50%';
+        const maskY = desktop ? '50%' : '0%';
+
+        if (desktop) {
+          heroMask.style.removeProperty('--mask-x');
+          heroMask.style.removeProperty('--mask-y');
+        } else {
+          heroMask.style.setProperty('--mask-x', maskX);
+          heroMask.style.setProperty('--mask-y', maskY);
+        }
+
+        if (window._heroTimeline) {
+          window._heroTimeline.scrollTrigger?.kill();
+          window._heroTimeline.kill();
+        }
+
+        window._heroTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroContainer,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.4
+          }
+        }).fromTo(heroMask, {
+          opacity: 1,
+          scale: 1,
+          '--mask-x': maskX,
+          '--mask-y': maskY
+        }, {
+          opacity: 0,
+          scale: 3,
+          '--mask-x': '50%',
+          '--mask-y': '50%',
+          ease: 'none'
+        });
+
+        if (window._heroTrigger) {
+          window._heroTrigger.kill();
+        }
+
+        window._heroTrigger = ScrollTrigger.create({
+          trigger: heroContainer,
+          start: 'bottom top',
+          onEnter: () => gsap.set(videoContainer, { display: 'none' }),
+          onLeaveBack: () => gsap.set(videoContainer, { display: 'block' })
+        });
+
+        // Theme the navbar to match page
+        if (window._navTrigger) {
+          window._navTrigger.kill();
+        }
+        window._navTrigger = ScrollTrigger.create({
+          trigger: heroContainer,
+          start: 'bottom 80px',
+          onEnter: () => nav?.classList.add('nav-light-theme'),
+          onLeaveBack: () => nav?.classList.remove('nav-light-theme')
+        });
+      };
+
+      initHeroMotion();
+      window.addEventListener('resize', initHeroMotion);
+    }
+
+    // Rotating keyword list animation (music, artists, fans, live events, videos)
+    const keywordList = document.getElementById('hero-keyword-list');
+    if (keywordList) {
+      const items = gsap.utils.toArray(keywordList.children);
+      if (items.length > 0) {
+        const tl = gsap.timeline({ repeat: -1, ease: 'power2.inOut' });
+        gsap.set(items, { yPercent: (i) => i === 0 ? 0 : 100, opacity: 1 });
+        items.forEach((item, r) => {
+          const next = items[r + 1];
+          if (next) {
+            tl.to(item, { yPercent: -100 }, '+=1.5')
+              .to(next, { yPercent: 0 }, '<');
+          } else {
+            tl.to(item, { yPercent: -100 }, '+=1.5')
+              .fromTo(items[0], { yPercent: 100 }, { yPercent: 0, immediateRender: false }, '<');
+          }
+        });
+      }
+    }
+
+    // Video Play/Pause button
+    const heroVideo = document.getElementById('hero-video');
+    const heroPlayPauseBtn = document.getElementById('hero-play-pause-btn');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+    if (heroVideo && heroPlayPauseBtn && playPauseIcon) {
+      heroPlayPauseBtn.addEventListener('click', () => {
+        if (heroVideo.paused) {
+          heroVideo.play();
+          heroPlayPauseBtn.setAttribute('aria-label', 'Pause video');
+          playPauseIcon.setAttribute('d', 'M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7z');
+        } else {
+          heroVideo.pause();
+          heroPlayPauseBtn.setAttribute('aria-label', 'Play video');
+          playPauseIcon.setAttribute('d', 'M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z');
+        }
+      });
+    }
+  }
 </script>
 
 </body>
