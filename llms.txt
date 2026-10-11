@@ -24,6 +24,10 @@ In an emergency in South Africa, call 112, or the SADAG Suicide Crisis Helpline 
 - Urge surfing comes from Alan Marlatt's work on relapse prevention.
 - Helpline numbers are as listed by SADAG (sadag.org), last checked 26 September 2026.
 
+## Who makes it
+
+WiseMind is made and published independently by Dean Norman, a software engineer in Cape Town.
+
 ## Contact
 
 adhdezpz@gmail.com
