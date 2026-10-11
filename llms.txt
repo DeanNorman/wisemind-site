@@ -18,6 +18,7 @@ In an emergency in South Africa, call 112, or the SADAG Suicide Crisis Helpline 
 - [WiseMind home](https://deannorman.github.io/wisemind-site/): what the app does, the tools, meetings, helplines and questions.
 - [Urge surfing](https://deannorman.github.io/wisemind-site/urge-surfing/): how to ride out a craving without acting on it, what to do after a slip, and South African helplines.
 - [The DBT STOP skill](https://deannorman.github.io/wisemind-site/dbt-stop-skill/): stop, take a step back, observe, proceed mindfully, with an example, a practice log and South African helplines.
+- [NA and AA meetings in Cape Town](https://deannorman.github.io/wisemind-site/meetings-cape-town/): how to find a free meeting on the official NA and AA lists, what happens at a first meeting, open and closed meetings, online meetings, help for visitors, and verified fellowship contacts.
 - [Privacy](https://deannorman.github.io/wisemind-site/privacy.html): the app collects nothing; the website counts visits with Google Analytics.
 
 ## Sources
