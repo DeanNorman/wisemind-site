@@ -1,6 +1,6 @@
-# WiseMind
+# WiseMind Companion
 
-> WiseMind is a free Android app, made in Cape Town, South Africa, for grounding and recovery. It keeps breathing exercises, DBT skills, South African helplines and Western Cape NA meetings together on your phone. The app needs no account, stores nothing about you, never connects to the internet on its own, and works offline. It is not a medical service. It is coming soon to Google Play.
+> WiseMind Companion (WiseMind for short) is a free Android app, made in Cape Town, South Africa, for grounding and recovery. It keeps breathing exercises, DBT skills, South African helplines and Western Cape NA meetings together on your phone. The app needs no account, stores nothing about you, never connects to the internet on its own, and works offline. It is not a medical service. It is coming soon to Google Play.
 
 In an emergency in South Africa, call 112, or the SADAG Suicide Crisis Helpline on 0800 567 567 (24 hours).
 
@@ -27,7 +27,7 @@ In an emergency in South Africa, call 112, or the SADAG Suicide Crisis Helpline 
 
 ## Who makes it
 
-WiseMind is made and published independently by Dean Norman, a software engineer in Cape Town.
+WiseMind Companion is made and published independently by Dean Norman, a software engineer in Cape Town.
 
 ## Contact
 
